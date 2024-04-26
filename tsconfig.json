@@ -1,0 +1,23 @@
+{
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.config.json"
+    },
+    // Docs
+    // {
+    //   "path": "./packages/docs/tsconfig.app.json"
+    // },
+    // Lib
+    {
+      "path": "./packages/lib/tsconfig.app.json"
+    },
+    {
+      "path": "./packages/lib/tsconfig.vitest.json"
+    },
+    // Playground
+    {
+      "path": "./packages/playground/tsconfig.app.json"
+    }
+  ]
+}
