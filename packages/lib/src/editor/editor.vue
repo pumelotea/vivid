@@ -23,6 +23,10 @@ const props = defineProps({
     type: Boolean,
     default: true
   },
+  bubbleMenu: {
+    type: Boolean,
+    default: true
+  },
   modelValue: {
     type: String,
     default: ''
@@ -151,7 +155,7 @@ function tab(e) {
         style="height: 100%"
     >
       <bubble-menu
-          v-if="editor"
+          v-if="editor && bubbleMenu"
           :editor="editor"
           :tippy-options="tippyOptions"
       >
