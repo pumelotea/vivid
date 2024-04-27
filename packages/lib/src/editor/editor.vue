@@ -15,9 +15,14 @@ import VividFooter from "./components/VividFooter.vue";
 
 import {isDark, theme} from "../core/utils";
 import ExtList from './default.js'
+
 const vars = useThemeVars()
 
 const props = defineProps({
+  page: {
+    type: Boolean,
+    default: true
+  },
   modelValue: {
     type: String,
     default: ''
@@ -27,10 +32,17 @@ const props = defineProps({
     required: false,
     default: ''
   },
+  tippyOptions:{
+    type: Object,
+    required:false,
+    default: ()=>{
+      return { duration: 100, maxWidth:600,placement:'top-start' }
+    }
+  },
   extensions: {
     type: Array,
     required: false,
-    default: ()=> {
+    default: () => {
       return ExtList
     }
   }
@@ -91,7 +103,7 @@ onMounted(() => {
   editor.value.storage.fullscreen = fullscreen
 })
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', 'change'])
 
 watch(() => props.modelValue, (value) => {
   // HTML
@@ -109,6 +121,7 @@ watch(() => props.modelValue, (value) => {
 
 onMounted(() => {
   emit('update:modelValue', editor.value.getHTML())
+  emit('change', editor.value.getHTML())
   updateEditorWordCount()
 })
 
@@ -140,21 +153,33 @@ function tab(e) {
       <bubble-menu
           v-if="editor"
           :editor="editor"
-          :tippy-options="{ duration: 100, maxWidth:600,placement:'top-start' }"
+          :tippy-options="tippyOptions"
       >
-        <vivid-bubble-menu :editor="editor"/>
+        <slot name="bubble-menu" :data="{editor, extensions: props.extensions}">
+          <vivid-bubble-menu :editor="editor"/>
+        </slot>
       </bubble-menu>
       <div
           v-if="editor"
           class="editor"
-          :class="{'fullscreen':fullscreen,'focus':isFocused && !fullscreen}"
+          :class="{'fullscreen':fullscreen,'focus':isFocused && !fullscreen, 'online': page}"
           spellcheck="false"
       >
-        <vivid-menu
-            class="editor-header"
-            :editor="editor"
-        />
+        <slot name="menu" :data="{editor, extensions: props.extensions}">
+          <vivid-menu
+              class="editor-header"
+              :editor="editor"
+          />
+        </slot>
+        <div class="editor-page" v-if="page">
+          <editor-content
+              class="editor-body-page markdown-body"
+              :class="{'dark': isDark, 'light': !isDark}"
+              :editor="editor"
+          />
+        </div>
         <editor-content
+            v-else
             class="editor-body markdown-body"
             :class="{'dark': isDark, 'light': !isDark}"
             :editor="editor"
@@ -210,20 +235,52 @@ function tab(e) {
   box-sizing: border-box;
 }
 
-.editor-body {
+.editor-page{
   box-sizing: border-box;
   flex: 1 1 auto;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
+  padding: 40px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background: v-bind(vars.baseColor);
+}
+
+.editor-body {
+  box-sizing: border-box;
+  -webkit-overflow-scrolling: touch;
+  flex: 1 1 auto;
+  overflow: auto;
   padding: 10px;
 }
 
+.editor-body-page {
+  box-sizing: border-box;
+  -webkit-overflow-scrolling: touch;
+  padding: 40px;
+  height: fit-content;
+  min-height: 297mm;
+  border-radius: 3px;
+  box-shadow: v-bind(vars.boxShadow3);
+  overflow: hidden;
+  max-width: 210mm;
+  width: 100%;
+}
+
 .editor-body::v-deep(.is-editor-empty) {
-//background: #00bd63 !important; height: 100%;
+  height: 100%;
 }
 
 .editor-body::v-deep(.tiptap) {
   height: 100%;
+}
+.editor-body-page::v-deep(.is-editor-empty) {
+  height: 100%;
+}
+.editor-body-page::v-deep(.tiptap) {
+  height: 100%;
+  background: red;
 }
 
 ::v-deep(.tippy-box) {
@@ -232,5 +289,10 @@ function tab(e) {
 
 ::v-deep(.tippy-arrow ) {
   color: transparent;
+}
+
+.editor.online{
+  align-items: center;
+  overflow: hidden;
 }
 </style>

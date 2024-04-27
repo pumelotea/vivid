@@ -42,7 +42,7 @@ export default defineConfig({
 				'animate.css',
 				'katex',
 				'lowlight',
-				'remixicon'
+				'remixicon/fonts/remixicon.css',
 			],
 			output: {
 				banner: `

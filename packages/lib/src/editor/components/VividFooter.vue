@@ -21,20 +21,18 @@ const vars = useThemeVars()
 
 <style scoped>
 .editor-footer {
-  height: 20px;
+  width: 100%;
   border-top: 1px solid rgba(204, 204, 204, 0.3);
   display: flex;
   justify-content: flex-end;
   padding: 5px 10px;
+  box-sizing: border-box;
   background-color: v-bind(vars.baseColor);
+  gap: 10px;
 }
 
 .footer-item {
   font-size: 12px;
 	color: v-bind(vars.textColor1);
-}
-
-.footer-item + .footer-item {
-  margin-left: 10px;
 }
 </style>
