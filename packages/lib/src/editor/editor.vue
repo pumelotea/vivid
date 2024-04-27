@@ -177,14 +177,14 @@ function tab(e) {
         </slot>
         <div class="editor-page" v-if="page">
           <editor-content
-              class="editor-body-page markdown-body"
+              class="editor-body editor-body-page markdown-body"
               :class="{'dark': isDark, 'light': !isDark}"
               :editor="editor"
           />
         </div>
         <editor-content
             v-else
-            class="editor-body markdown-body"
+            class="editor-body editor-body-flow markdown-body"
             :class="{'dark': isDark, 'light': !isDark}"
             :editor="editor"
         />
@@ -252,6 +252,10 @@ function tab(e) {
 }
 
 .editor-body {
+
+}
+
+.editor-body-flow{
   box-sizing: border-box;
   -webkit-overflow-scrolling: touch;
   flex: 1 1 auto;
