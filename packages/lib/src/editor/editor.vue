@@ -271,7 +271,6 @@ function tab(e) {
 .editor-body::v-deep(.is-editor-empty) {
   height: 100%;
 }
-
 .editor-body::v-deep(.tiptap) {
   height: 100%;
 }
@@ -280,17 +279,14 @@ function tab(e) {
 }
 .editor-body-page::v-deep(.tiptap) {
   height: 100%;
-  background: red;
+  min-height: inherit;
 }
-
 ::v-deep(.tippy-box) {
   background-color: transparent;
 }
-
 ::v-deep(.tippy-arrow ) {
   color: transparent;
 }
-
 .editor.online{
   align-items: center;
   overflow: hidden;

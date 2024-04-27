@@ -1,6 +1,6 @@
 <template>
 	<div class="editor-wrap">
-    <n-config-provider :theme="theme">
+    <n-config-provider :theme="theme" style="height: 100%">
       <VividEditor></VividEditor>
     </n-config-provider>
 	</div>

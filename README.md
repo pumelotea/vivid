@@ -8,24 +8,3 @@
 5. 内容样式可以修改
 6. ai支持
 7. 协作支持
-
-## 设计
-prefix = vid-xxxx
-
-- core
-  - components
-    - VividBubbleMenu.vue
-    - VividMenu.vue
-  - utils
-  - extension
-    - image
-    - math
-    - task
-    - video
-    - indent
-    - index.js
-  - index.vue
-- style
-  - github-markdown.css
-- co
-- ai
