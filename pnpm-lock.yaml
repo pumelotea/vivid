@@ -65,6 +65,9 @@ importers:
       '@codecoderun/vivid':
         specifier: workspace:*
         version: link:../lib
+      remixicon:
+        specifier: ^3.7.0
+        version: 3.7.0
     devDependencies:
       vitepress:
         specifier: 1.0.0-rc.25
@@ -198,9 +201,6 @@ importers:
       '@tiptap/vue-3':
         specifier: ^2.1.12
         version: 2.2.4(@tiptap/core@2.2.4(@tiptap/pm@2.2.4))(@tiptap/pm@2.2.4)(vue@3.4.21(typescript@5.4.2))
-      remixicon:
-        specifier: ^3.7.0
-        version: 3.7.0
     devDependencies:
       '@vueuse/core':
         specifier: ^8.0.1
@@ -220,6 +220,9 @@ importers:
       naive-ui:
         specifier: ^2.35.0
         version: 2.38.1(vue@3.4.21(typescript@5.4.2))
+      remixicon:
+        specifier: ^3.7.0
+        version: 3.7.0
       vfonts:
         specifier: ^0.0.3
         version: 0.0.3
@@ -241,6 +244,9 @@ importers:
       '@codecoderun/vivid':
         specifier: workspace:*
         version: link:../lib
+      naive-ui:
+        specifier: ^2.35.0
+        version: 2.38.1(vue@3.4.21(typescript@5.4.2))
       vue:
         specifier: ^3.3.8
         version: 3.4.21(typescript@5.4.2)

@@ -20,7 +20,8 @@
     "lint": "eslint '.vitepress/**/*.{ts,vue}'"
   },
   "dependencies": {
-    "@codecoderun/vivid": "workspace:*"
+    "@codecoderun/vivid": "workspace:*",
+    "remixicon": "^3.7.0"
   },
   "devDependencies": {
     "vitepress": "1.0.0-rc.25"

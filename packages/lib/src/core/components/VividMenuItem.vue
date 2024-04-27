@@ -47,6 +47,8 @@ const iconUrl = ref('')
   margin-left: 2px;
   margin-right: 2px;
 	font-size: 18px;
+  display: flex;
+  align-items: center;
 }
 .menu-item+.menu-item{
   margin-left: 5px;

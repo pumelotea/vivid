@@ -1,6 +1,6 @@
 module.exports = {
-  title: 'Vivid UI', //TODO: CHANGE_ME
-  description: 'Vivid是一个组件集合',
+  title: 'VividEditor',
+  description: '一个基于tiptap和naviue的现代编辑器',
   themeConfig: {
     editLink: {
       //TODO: CHANGE_ME

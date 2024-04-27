@@ -1,9 +1,11 @@
 // import plugin from 'portal-vue'
 import DefaultTheme from 'vitepress/theme'
-import { NaiveTipTap } from '@codecoderun/vivid'
+import { VividEditor } from '@codecoderun/vivid'
+import "remixicon/fonts/remixicon.css"
+import "@codecoderun/vivid/dist/style.css"
 export default {
   ...DefaultTheme,
   enhanceApp({ app }) {
-    // app.use(NaiveTipTap)
+    app.use(VividEditor)
   },
 }

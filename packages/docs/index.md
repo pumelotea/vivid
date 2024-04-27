@@ -15,3 +15,7 @@ features:
   details: Add new packages with one command, supported by hygen.
 footer: MIT Licensed | Copyright © 2020-present Thorsten Lünborg
 ---
+
+<div style="height: 800px;z-index:9999;width: 100%">
+<vivid-editor :page="false"/>
+</div>
