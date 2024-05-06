@@ -10,3 +10,7 @@ packages/*/types
 *.tsbuildinfo
 
 TODO.md
+/.idea/.gitignore
+/.idea/modules.xml
+/.idea/vcs.xml
+/.idea/vivid.iml
