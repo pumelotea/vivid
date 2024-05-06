@@ -8,7 +8,7 @@
 
 <style scoped>
 .editor-wrap{
-	height: 800px;
+	height: 100vh;
 	padding: 30px;
 	box-sizing: border-box;
 }
@@ -16,7 +16,8 @@
 <script setup>
 import { NConfigProvider } from 'naive-ui'
 import { darkTheme, useOsTheme } from 'naive-ui'
-import { ref, watch } from 'vue'
+import {nextTick, ref, watch} from 'vue'
+import { useHocuspocus, useDefaultExtension,getRandomColor } from '@codecoderun/vivid'
 
 
 const osTheme = useOsTheme()
@@ -39,5 +40,36 @@ watch(osTheme, val => {
 })
 
 isDarkTheme.value = osTheme.value === 'dark'
+
+
+const ved = ref()
+const extList = useDefaultExtension()
+function onBeforeCreate(){
+	let isFirst = true
+	const ho = useHocuspocus({
+		url                   : 'wss://ws.codecode.run/',
+		name                  : 'clqnia8cy000tl801q7p4yjqk',
+		token                 : 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNscDJrZmE4dTAwMDBweDB4aXlpam1rYmkiLCJ1c2VybmFtZSI6InJvb3QiLCJwYXNzd29yZCI6IiQyYSQxMCRpZHVLLlhUVE5jTmlzdEtjRXVPWXZPRUtWbTNQazdFSW8vbXNoQnNSVTh3V0d1cHNnTFcwVyIsInNhbHQiOm51bGwsIm5hbWUiOiIiLCJuaWNrbmFtZSI6IuacseWzsCIsImF2YXRhciI6Ii9hdmF0YXIvS054QzBqbHQ2TGk1UDhZWjB6dHMucG5nIiwiaXNFbmFibGUiOnRydWUsInBob25lTnVtYmVyIjoiMTM0NTYyNzUyNTIiLCJjcmVhdGVkQXQiOiIyMDIzLTExLTE3VDExOjU3OjIyLjIwNFoiLCJjcmVhdGVkQnkiOm51bGwsInVwZGF0ZWRBdCI6IjIwMjMtMTItMDZUMTM6MTk6NTAuNjI1WiIsInVwZGF0ZWRCeSI6ImNscDJrZmE4dTAwMDBweDB4aXlpam1rYmkiLCJkZWxldGVkIjpudWxsLCJkZWxldGVkQnkiOm51bGwsImlhdCI6MTcxNDIyMjM5OSwiZXhwIjoxNzE0Mzk1MTk5fQ.YmXJTwvspXnJboSpJdKCsGJu_4hrQ0U0OaRJrwhhd-I',
+		onAuthenticationFailed: () => {
+			alert('无权限')
+		},
+		onSynced: () => {
+			nextTick(() => {
+				if (isFirst) {
+					ved.value.getInstance().commands.focus('start')
+					isFirst = false
+				}
+			})
+		},
+		onAwarenessUpdate: (data) => {
+			console.log(data)
+		}
+	},{
+		name  : '外星人',
+		color : getRandomColor(),
+		avatar: ''
+	})
+	extList.push(...ho)
+}
 
 </script>

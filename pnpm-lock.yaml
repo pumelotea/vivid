@@ -75,6 +75,9 @@ importers:
 
   packages/lib:
     dependencies:
+      '@hocuspocus/provider':
+        specifier: ^2.8.1
+        version: 2.12.2(y-protocols@1.0.6(yjs@13.6.14))(yjs@13.6.14)
       '@tiptap/core':
         specifier: ^2.1.12
         version: 2.2.4(@tiptap/pm@2.2.4)
@@ -546,6 +549,15 @@ packages:
     resolution: {integrity: sha512-Ys+3g2TaW7gADOJzPt83SJtCDhMjndcDMFVQ/Tj9iA1BfJzFKD9mAUXT3OenpuPHbI6P/myECxRJrofUsDx/5g==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
 
+  '@hocuspocus/common@2.12.2':
+    resolution: {integrity: sha512-7Qqja1ER6CnAlThSkmO0srCoj8/OjvHS1DWRq44B3zfqVz5HbDKPKS/ON3+R+956SVAw8Mh0cPdApPEQWeNGHg==}
+
+  '@hocuspocus/provider@2.12.2':
+    resolution: {integrity: sha512-REltj4lbf+Nq30G7b1lFS9gfIv5RdbFZqd6VZ5kXAvDQNGzyiaEh8bbdn6q0O7tMyU+hoR6Y2UKBd9alXb4/gQ==}
+    peerDependencies:
+      y-protocols: ^1.0.6
+      yjs: ^13.6.8
+
   '@humanwhocodes/config-array@0.11.14':
     resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}
     engines: {node: '>=10.10.0'}
@@ -585,6 +597,9 @@ packages:
 
   '@juggle/resize-observer@3.4.0':
     resolution: {integrity: sha512-dfLbk+PwWvFzSxwk3n5ySL0hfBog779o8h68wK/7/APo/7cgyWp5jcXockbxdk5kFRkbeXWm4Fbi9FrdN381sA==}
+
+  '@lifeomic/attempt@3.1.0':
+    resolution: {integrity: sha512-QZqem4QuAnAyzfz+Gj5/+SLxqwCAw2qmt7732ZXodr6VDWGeYLG6w1i/vYLa55JQM9wRuBKLmXmiZ2P0LtE5rw==}
 
   '@linusborg/eslint-config@0.4.0':
     resolution: {integrity: sha512-9F9CIPyaNu+CRQCLJgZ1VdbrQbqYqlYadlfA+LKuNzW5eHeGcEhtGepl8AP1A7h7a+StAlDzp46czIPmuUAGqw==}
@@ -3141,6 +3156,22 @@ snapshots:
 
   '@eslint/js@8.57.0': {}
 
+  '@hocuspocus/common@2.12.2':
+    dependencies:
+      lib0: 0.2.91
+
+  '@hocuspocus/provider@2.12.2(y-protocols@1.0.6(yjs@13.6.14))(yjs@13.6.14)':
+    dependencies:
+      '@hocuspocus/common': 2.12.2
+      '@lifeomic/attempt': 3.1.0
+      lib0: 0.2.91
+      ws: 8.16.0
+      y-protocols: 1.0.6(yjs@13.6.14)
+      yjs: 13.6.14
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
+
   '@humanwhocodes/config-array@0.11.14':
     dependencies:
       '@humanwhocodes/object-schema': 2.0.2
@@ -3184,6 +3215,8 @@ snapshots:
       '@jridgewell/sourcemap-codec': 1.4.15
 
   '@juggle/resize-observer@3.4.0': {}
+
+  '@lifeomic/attempt@3.1.0': {}
 
   '@linusborg/eslint-config@0.4.0(eslint@8.57.0)(prettier@3.2.5)(typescript@5.4.2)':
     dependencies:

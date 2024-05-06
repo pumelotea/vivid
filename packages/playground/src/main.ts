@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 // @ts-ignore
-import { VividEditor } from '@codecoderun/vivid'
+import { VividEditor,useBold } from '@codecoderun/vivid'
 // import { VividEditor } from '../../lib/dist/index.mjs'
 // import '../../lib/dist/style.css'
 import App from './App.vue'
