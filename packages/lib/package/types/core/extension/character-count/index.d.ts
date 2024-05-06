@@ -1,1 +1,0 @@
-export function useCharacterCount(options: any): import("@tiptap/core").Extension<import("@tiptap/extension-character-count").CharacterCountOptions, import("@tiptap/extension-character-count").CharacterCountStorage>;

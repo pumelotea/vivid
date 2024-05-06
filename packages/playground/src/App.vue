@@ -16,7 +16,7 @@
 <script setup>
 import { NConfigProvider } from 'naive-ui'
 import { darkTheme, useOsTheme } from 'naive-ui'
-import {nextTick, ref, watch} from 'vue'
+import { nextTick, ref, watch } from 'vue'
 import { useHocuspocus, useDefaultExtension,getRandomColor } from '@codecoderun/vivid'
 
 
