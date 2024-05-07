@@ -101,7 +101,6 @@ function initEditor(){
 }
 
 onMounted(()=>{
-	console.log('onMounted', internalExt)
 	initEditor()
 })
 

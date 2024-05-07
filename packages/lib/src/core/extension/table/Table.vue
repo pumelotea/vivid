@@ -17,7 +17,9 @@ const useExtension = inject('useExtension')
 if (!useExtension){
 	throw new Error('Table component must under VividEditor menu slot')
 }
-useExtension(useTable(props.options))
+useTable(props.options).map(e=>{
+	useExtension(e)
+})
 
 function insertTable(r, c) {
   editorInstance.value.chain().focus().insertTable({rows: r, cols: c, withHeaderRow: true}).run()
