@@ -1,6 +1,6 @@
-import editor from './editor.vue'
+import Editor from './Editor.vue'
 function install(app) {
-  app.component('VividEditor', editor)
+  app.component('VividEditor', Editor)
 }
-editor.install = install
-export default editor
+Editor.install = install
+export default Editor
