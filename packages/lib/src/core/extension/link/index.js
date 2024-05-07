@@ -1,11 +1,7 @@
-import Link from "@tiptap/extension-link";
+import {useLink} from './link.js'
+import LinkExt from './Link.vue'
 
-export function useLink(options){
-	if (!options){
-		options = {
-			protocols: [ 'ftp', 'mailto', 'http', 'https' ],
-			autolink : false
-		}
-	}
-	return Link.configure(options)
+export {
+  LinkExt,
+  useLink
 }

@@ -1,7 +1,7 @@
 <script setup>
 import 'remixicon/fonts/remixicon.css'
 import '../style/index.css'
-import {onBeforeUnmount, onMounted, ref, watch} from 'vue'
+import {onBeforeUnmount, onMounted, provide, ref, shallowRef, toRaw, unref, watch} from 'vue'
 import {useThemeVars} from 'naive-ui'
 import {useEditor, EditorContent, BubbleMenu} from '@tiptap/vue-3'
 import {useDebounceFn} from '@vueuse/core'
@@ -14,14 +14,13 @@ import VividBubbleMenu from './components/VividBubbleMenu.vue'
 import VividFooter from "./components/VividFooter.vue";
 
 import {isDark, theme} from "../core/utils";
-import ExtList from './default.js'
-
+import {Editor} from "@tiptap/vue-3";
 const vars = useThemeVars()
 
 const props = defineProps({
   page: {
     type: Boolean,
-    default: false
+    default: true
   },
   bubbleMenu: {
     type: Boolean,
@@ -42,78 +41,70 @@ const props = defineProps({
     default: ()=>{
       return { duration: 100, maxWidth:600,placement:'top-start' }
     }
-  },
-  extensions: {
-    type: Array,
-    required: false,
-    default: () => {
-      return ExtList
-    }
-  },
-	onBeforeCreate: {
-		type: Function,
-		required: false,
-	}
+  }
 })
 
-props.onBeforeCreate && props.onBeforeCreate()
 
+const internalExt = []
+const editor = shallowRef()
 const words = ref(0)
 const characters = ref(0)
 const fullscreen = ref(false)
 const editorBox = ref(null)
 const editorBoxParent = ref(null)
-watch(fullscreen, () => {
-  if (fullscreen.value === true) {
-    if (props.to) {
-      editorBoxParent.value = editorBox.value.parentNode
-      document.getElementById(props.to).append(editorBox.value)
-    }
-  } else {
-    if (props.to) {
-      editorBoxParent.value.append(editorBox.value)
-    }
-  }
-})
+const isFocused = ref(false)
+
+const emit = defineEmits(['update:modelValue', 'change'])
+
+provide('useExtension',useExtension)
+provide('editorInstance',editor)
 
 const updateEditorWordCount = useDebounceFn(() => {
   words.value = editor.value.storage.characterCount.words()
   characters.value = editor.value.storage.characterCount.characters()
 }, 300)
 
-const isFocused = ref(false)
+function useExtension(ext){
+	if (internalExt.filter(e=>e === ext).length){
+		return
+	}
+  internalExt.push(ext)
+}
 
-let editor
-editor = useEditor({
-  content: props.modelValue,
-  extensions: [
-    ...props.extensions
-  ],
-  onUpdate: ({editor}) => {
-    // HTML
-    emit('update:modelValue', editor.getHTML())
+function initEditor(){
+  const opt = {
+    content: props.modelValue,
+    extensions: internalExt,
+    onUpdate: ({editor}) => {
+      // HTML
+      emit('update:modelValue', editor.getHTML())
 
-    // JSON
-    // this.$emit('update:modelValue', this.editor.getJSON())
+      // JSON
+      // this.$emit('update:modelValue', this.editor.getJSON())
 
-    updateEditorWordCount()
-  },
-  onFocus: () => {
-    isFocused.value = true
-  },
-  onBlur: () => {
-    isFocused.value = false
-  },
-  onSelectionUpdate: ({editor}) => {
+      updateEditorWordCount()
+    },
+    onFocus: () => {
+      isFocused.value = true
+    },
+    onBlur: () => {
+      isFocused.value = false
+    },
+    onSelectionUpdate: ({editor}) => {
+    }
   }
-
-})
-
-onMounted(() => {
+  editor.value = new Editor(opt)
   editor.value.storage.fullscreen = fullscreen
+  emit('update:modelValue', editor.value.getHTML())
+  emit('change', editor.value.getHTML())
+  updateEditorWordCount()
+}
+
+onMounted(()=>{
+	console.log('onMounted', internalExt)
+	initEditor()
 })
 
-const emit = defineEmits(['update:modelValue', 'change'])
 
 watch(() => props.modelValue, (value) => {
   // HTML
@@ -129,14 +120,21 @@ watch(() => props.modelValue, (value) => {
   editor.value.commands.setContent(value, false)
 })
 
-onMounted(() => {
-  emit('update:modelValue', editor.value.getHTML())
-  emit('change', editor.value.getHTML())
-  updateEditorWordCount()
+watch(fullscreen, () => {
+  if (fullscreen.value === true) {
+    if (props.to) {
+      editorBoxParent.value = editorBox.value.parentNode
+      document.getElementById(props.to).append(editorBox.value)
+    }
+  } else {
+    if (props.to) {
+      editorBoxParent.value.append(editorBox.value)
+    }
+  }
 })
 
 onBeforeUnmount(() => {
-  editor.value.destroy()
+  editor.value?.destroy()
 })
 
 function tab(e) {
@@ -168,22 +166,23 @@ defineExpose({
         :date-locale="dateZhCN"
         style="height: 100%"
     >
+
       <bubble-menu
           v-if="editor && bubbleMenu"
           :editor="editor"
           :tippy-options="tippyOptions"
       >
-        <slot name="bubble-menu" :data="{editor, extensions: props.extensions}">
+        <slot name="bubble-menu">
           <vivid-bubble-menu :editor="editor"/>
         </slot>
       </bubble-menu>
+
       <div
-          v-if="editor"
           class="editor"
           :class="{'fullscreen':fullscreen,'focus':isFocused && !fullscreen, 'online': page}"
           spellcheck="false"
       >
-        <slot name="menu" :data="{editor, extensions: props.extensions}">
+        <slot name="menu">
           <vivid-menu
               class="editor-header"
               :editor="editor"

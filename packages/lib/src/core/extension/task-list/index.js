@@ -1,10 +1,9 @@
-import TaskList from "@tiptap/extension-task-list";
-import {useTaskItem} from "./task-item.js";
+import { useTaskList} from "./task-list.js";
+import { useTaskItem} from "./task-item.js";
+import TaskListExt from './TaskList.vue'
 
-export function useTaskList(){
-	return [TaskList.configure({
-		HTMLAttributes: {
-			class: 'contains-task-list'
-		}
-	}),useTaskItem()]
+export {
+  useTaskList,
+  useTaskItem,
+  TaskListExt
 }

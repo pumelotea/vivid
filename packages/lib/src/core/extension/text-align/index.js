@@ -1,5 +1,5 @@
 import TextAlign from "@tiptap/extension-text-align";
-
+import TextAlignExt from './TextAlign.vue'
 
 export function useTextAlign(options){
 	if (!options){
@@ -8,4 +8,8 @@ export function useTextAlign(options){
 		}
 	}
 	return TextAlign.configure(options)
+}
+
+export {
+	TextAlignExt
 }

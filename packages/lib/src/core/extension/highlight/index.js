@@ -1,30 +1,8 @@
-import Highlight from "@tiptap/extension-highlight";
-import {mergeAttributes} from "@tiptap/core";
+import HighlightExt from './Highlight.vue'
+import {useHighlight} from './highlight.js'
 
-export function useHighlight(options){
-	return Highlight.configure(options).extend({
-		renderHTML ({ HTMLAttributes }) {
-			const attrs = mergeAttributes(this.options.HTMLAttributes, HTMLAttributes)
-			if (attrs.color) {
-				attrs.style = `background-color: ${attrs.color}`
-			}
-			return [ 'mark', attrs, 0 ]
-		},
-		addAttributes () {
-			return {
-				...this.parent?.(),
-				// 添加新的属性
-				color: {
-					default  : null,
-					parseHTML: (element) => {
-						return element.getAttribute('color')
-					},
-					renderHTML: (attributes) => ({
-						'data-color': attributes.color,
-						style       : `background-color: ${attributes.color}`
-					})
-				}
-			}
-		}
-	})
+
+export {
+	useHighlight,
+	HighlightExt
 }
