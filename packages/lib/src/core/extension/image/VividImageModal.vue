@@ -7,6 +7,13 @@ const showModal = ref(false)
 
 const tabName = ref('网络图片')
 
+const props = defineProps({
+	handleUpload: {
+		type: Function,
+		required: false,
+	}
+})
+
 function changeTab (name) {
 	tabName.value = name
 	if (name === '本地图片') {
@@ -47,19 +54,36 @@ watch(href, () => {
 })
 
 const percent = ref(0)
-function handleUpload () {
-	API.imagesUpload(readyFile.value, (e) => {
-		if (e.loaded === e.total) {
-			percent.value = 100
-		}
-		percent.value = e.loaded / e.total * 100
-	}).then(res => {
-		if (res.code === 0) {
-			url.value = API.imageId2Url(res.payload.path)
-			href.value = url.value
-			readySave.value = true
-		}
-	})
+
+function updateProgress(n){
+	percent.value = n
+}
+
+async function handleUpload () {
+	if (props.handleUpload){
+		percent.value = 0
+		const path = await props.handleUpload(readyFile.value, updateProgress)
+		url.value = path
+		href.value = url.value
+		readySave.value = true
+	}else{
+		percent.value = 100
+		url.value = URL.createObjectURL(readyFile.value)
+    href.value = url.value
+    readySave.value = true
+	}
+	// API.imagesUpload(readyFile.value, (e) => {
+	// 	if (e.loaded === e.total) {
+	// 		percent.value = 100
+	// 	}
+	// 	percent.value = e.loaded / e.total * 100
+	// }).then(res => {
+	// 	if (res.code === 0) {
+	// 		url.value = API.imageId2Url(res.payload.path)
+	// 		href.value = url.value
+	// 		readySave.value = true
+	// 	}
+	// })
 }
 
 function onCancel () {

@@ -1,83 +1,95 @@
 <script setup>
 import { computed, nextTick, onBeforeUnmount, ref } from 'vue'
-import VividImage from './VividImage.vue'
-import Player from 'xgplayer/dist/core_player'
-import play from 'xgplayer/dist/controls/play'
-import fullscreen from 'xgplayer/dist/controls/fullscreen'
-import progress from 'xgplayer/dist/controls/progress'
-import volume from 'xgplayer/dist/controls/volume'
-import pip from 'xgplayer/dist/controls/pip'
-import flex from 'xgplayer/dist/controls/flex'
+import Player, { I18N } from 'xgplayer'
+import ZH from 'xgplayer/es/lang/zh-cn'
+import play from 'xgplayer/es/plugins/play'
+import fullscreen from 'xgplayer/es/plugins/fullscreen'
+import progress from 'xgplayer/es/plugins/progress'
+import volume from 'xgplayer/es/plugins/volume'
+import pip from 'xgplayer/es/plugins/pip'
+import 'xgplayer/dist/index.min.css'
 import { useThemeVars } from 'naive-ui'
+import VividImage from './VividImage.vue'
+// 启用中文
+I18N.use(ZH)
 const vars = useThemeVars()
 const props = defineProps({
-  type: {
-    type   : String,
-    default: 'image' // image 或  video  或  audio
-  }
+	type: {
+		type   : String,
+		default: 'image' // image 或  video  或  audio
+	}
 })
 
 const fileRef = ref(null)
 
 function selectFile () {
-  setTimeout(() => {
-    fileRef.value.dispatchEvent(new MouseEvent('click'))
-  }, 400)
+	setTimeout(() => {
+		fileRef.value.dispatchEvent(new MouseEvent('click'))
+	}, 400)
 }
 
 const accept = computed(() => {
-  switch (props.type) {
-  case 'image':
-    return 'image/*'
-  case 'video':
-    return 'video/*'
-  case 'audio':
-    return 'audio/*'
-  }
+	switch (props.type) {
+		case 'image':
+			return 'image/*'
+		case 'video':
+			return 'video/*'
+		case 'audio':
+			return 'audio/*'
+	}
 })
 
 const fileValue = ref(null)
-
+const fileBlob = ref(null)
+const emit = defineEmits([ 'change' ])
 function handleSelect (event) {
-  fileValue.value = URL.createObjectURL(event.target.files[0])
-  if (props.type === 'video') {
-    nextTick(() => {
-      initPlayer()
-    })
-  }
+	fileValue.value = URL.createObjectURL(event.target.files[0])
+	fileBlob.value = event.target.files[0]
+	if (props.type === 'video') {
+		nextTick(() => {
+			initPlayer()
+		})
+	}
+	nextTick(() => {
+		emit('change', fileBlob.value)
+	})
 }
 
 function handleDel () {
-  fileValue.value = null
+	fileValue.value = null
+	fileBlob.value = null
+	nextTick(() => {
+		emit('change', fileBlob.value)
+	})
 }
 
 const playerBox = ref(null)
-let editor = null
+let player = null
 function initPlayer () {
-  editor = new Player({
-    el            : playerBox.value,
-    url           : fileValue.value,
-    fluid         : true,
-    controlPlugins: [
-      play,
-      fullscreen,
-      progress,
-      volume,
-      pip,
-      flex
-    ],
-    playbackRate       : [ 0.5, 0.75, 1, 1.5, 2 ],
-    defaultPlaybackRate: 1.5,
-    videoInit          : true,
-    pip                : true // 打开画中画功能
-  })
+	player = new Player({
+		lang   : 'zh',
+		el     : playerBox.value,
+		url    : fileValue.value,
+		fluid  : true,
+		plugins: [
+			play,
+			fullscreen,
+			progress,
+			volume,
+			pip
+		],
+		playbackRate       : [ 0.5, 0.75, 1, 1.5, 2 ],
+		defaultPlaybackRate: 1.5,
+		videoInit          : true,
+		pip                : true // 打开画中画功能
+	})
 }
 onBeforeUnmount(() => {
-  editor && editor.destroy(true)
+	player && player.destroy(true)
 })
 
 function getFile () {
-  return fileValue.value
+	return fileBlob.value
 }
 defineExpose({ getFile })
 
@@ -85,43 +97,43 @@ defineExpose({ getFile })
 
 <template>
   <div class="hb-su-wrap">
-    <div
-      v-if="fileValue === null"
-      class="hb-su-upload"
-      @click="selectFile"
-    >
-      <i class="ri-add-line add-icon" />
-      <input
-        ref="fileRef"
-        type="file"
-        hidden
-        :accept="accept"
-        @change="handleSelect"
-      >
-    </div>
-    <div
-      v-if="fileValue"
-      class="hb-su-preview"
-    >
-      <div
-        class="hb-su-close"
-        @click="handleDel"
-      >
-        <i class="ri-close-line" />
-      </div>
-      <vivid-image
-        v-if="props.type === 'image'"
-        :src="fileValue"
-        :width="370"
-        :height="200"
-        is-preview
-      />
-      <div
-        v-if="props.type === 'video'"
-        ref="playerBox"
-        style="width: 370px;height: 200px;"
-      />
-    </div>
+	<div
+	  v-if="fileValue === null"
+	  class="hb-su-upload"
+	  @click="selectFile"
+	>
+	  <i class="ri-add-line add-icon" />
+	  <input
+		ref="fileRef"
+		type="file"
+		hidden
+		:accept="accept"
+		@change="handleSelect"
+	  >
+	</div>
+	<div
+	  v-if="fileValue"
+	  class="hb-su-preview"
+	>
+	  <div
+		class="hb-su-close"
+		@click="handleDel"
+	  >
+		<i class="ri-close-line" />
+	  </div>
+	  <vivid-image
+		v-if="props.type === 'image'"
+		:src="fileValue"
+		:width="370"
+		:height="200"
+		is-preview
+	  />
+	  <div
+		v-if="props.type === 'video'"
+		ref="playerBox"
+		style="width: 370px;height: 200px;"
+	  />
+	</div>
   </div>
 </template>
 

@@ -74,7 +74,7 @@
 	"devDependencies": {
 		"vue": "^3.0.4",
 		"remixicon": "^3.7.0",
-		"xgplayer": "^2.32.2",
+		"xgplayer": "^3.0.10",
 		"naive-ui": "^2.35.0",
 		"lowlight": "^2.8.0",
 		"highlight.js": "^11.8.0",

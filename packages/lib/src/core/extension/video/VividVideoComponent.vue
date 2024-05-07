@@ -5,36 +5,25 @@ import VividMenuItem from '../../components/VividMenuItem.vue'
 import VividVideoModal from './VividVideoModal.vue'
 import { NPopover } from 'naive-ui'
 
-import Player from 'xgplayer/dist/core_player'
-import play from 'xgplayer/dist/controls/play'
-import fullscreen from 'xgplayer/dist/controls/fullscreen'
-import progress from 'xgplayer/dist/controls/progress'
-import volume from 'xgplayer/dist/controls/volume'
-import pip from 'xgplayer/dist/controls/pip'
-import flex from 'xgplayer/dist/controls/flex'
+import Player, { I18N } from 'xgplayer'
+import ZH from 'xgplayer/es/lang/zh-cn'
+import 'xgplayer/dist/index.min.css'
 import { onBeforeUnmount, onMounted, ref } from 'vue'
-
+// 启用中文
+I18N.use(ZH)
 const box = ref(null)
 const props = defineProps(nodeViewProps)
 
 let player = null
 function init () {
   player = new Player({
-    el            : box.value,
+    lang        : 'zh',
+    el          : box.value,
     // url           : 'https://media.w3.org/2010/05/sintel/trailer.mp4',
-    url           : props.node.attrs.src,
-    controlPlugins: [
-      play,
-      fullscreen,
-      progress,
-      volume,
-      pip,
-      flex
-    ],
-    playbackRate       : [ 0.5, 0.75, 1, 1.5, 2 ],
-    defaultPlaybackRate: 1.5,
-    videoInit          : true,
-    pip                : true // 打开画中画功能
+    url         : props.node.attrs.src,
+    playbackRate: [ 0.5, 0.75, 1, 1.5, 2 ],
+    videoInit   : true,
+    pip         : true // 打开画中画功能
   })
 }
 
@@ -44,8 +33,8 @@ onBeforeUnmount(() => {
   player && player.destroy(true)
 })
 
-function onchange (width, height) {
-  props.updateAttributes({ width, height })
+function onchange (width, height, reached) {
+  props.updateAttributes({ width, height, 'data-full-width': reached })
 }
 
 const HTV = ref(null)

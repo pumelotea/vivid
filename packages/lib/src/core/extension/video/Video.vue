@@ -8,6 +8,11 @@ const props = defineProps({
   options: {
     type: Object,
     required: false,
+  },
+  handleUpload: {
+    type: Function,
+    required: false,
+    default: null,
   }
 })
 
@@ -42,6 +47,7 @@ function insertVideo(url) {
           :is-active="() => editorInstance.isActive('hb-video')"
       />
       <vivid-video-modal
+          :handle-upload="handleUpload"
           ref="HTV"
           @ok="insertVideo"
       />

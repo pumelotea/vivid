@@ -3,7 +3,7 @@ import 'remixicon/fonts/remixicon.css'
 import '../style/index.css'
 import {onBeforeUnmount, onMounted, provide, ref, shallowRef, toRaw, unref, watch} from 'vue'
 import {useThemeVars} from 'naive-ui'
-import {useEditor, EditorContent, BubbleMenu} from '@tiptap/vue-3'
+import {EditorContent, BubbleMenu} from '@tiptap/vue-3'
 import {useDebounceFn} from '@vueuse/core'
 import {
   NConfigProvider, zhCN, dateZhCN
