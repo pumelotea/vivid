@@ -80,7 +80,6 @@ function removeExtension(extName){
 }
 
 function initEditor(){
-  console.log(internalExt)
   const opt = {
     content: props.modelValue,
     extensions: internalExt,
