@@ -45,7 +45,7 @@ const props = defineProps({
 })
 
 
-const internalExt = []
+let internalExt = []
 const editor = shallowRef()
 const words = ref(0)
 const characters = ref(0)
@@ -57,6 +57,7 @@ const isFocused = ref(false)
 const emit = defineEmits(['update:modelValue', 'change'])
 
 provide('useExtension',useExtension)
+provide('removeExtension',removeExtension)
 provide('editorInstance',editor)
 
 const updateEditorWordCount = useDebounceFn(() => {
@@ -71,7 +72,15 @@ function useExtension(ext){
   internalExt.push(ext)
 }
 
+function removeExtension(extName){
+  const index = internalExt.findIndex(e=>e.name === extName)
+  if (index > -1){
+    internalExt.splice(index, 1)
+  }
+}
+
 function initEditor(){
+  console.log(internalExt)
   const opt = {
     content: props.modelValue,
     extensions: internalExt,

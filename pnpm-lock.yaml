@@ -71,7 +71,7 @@ importers:
     devDependencies:
       vitepress:
         specifier: 1.0.0-rc.25
-        version: 1.0.0-rc.25(@algolia/client-search@4.22.1)(@types/node@20.8.10)(async-validator@4.2.5)(postcss@8.4.35)(search-insights@2.13.0)(typescript@5.4.2)
+        version: 1.0.0-rc.25(@algolia/client-search@4.22.1)(@types/node@20.8.10)(async-validator@4.2.5)(axios@1.6.8)(postcss@8.4.35)(search-insights@2.13.0)(typescript@5.4.2)
 
   packages/lib:
     dependencies:
@@ -204,6 +204,9 @@ importers:
       '@tiptap/vue-3':
         specifier: ^2.1.12
         version: 2.2.4(@tiptap/core@2.2.4(@tiptap/pm@2.2.4))(@tiptap/pm@2.2.4)(vue@3.4.21(typescript@5.4.2))
+      axios:
+        specifier: ^1.6.8
+        version: 1.6.8
     devDependencies:
       '@vueuse/core':
         specifier: ^8.0.1
@@ -1253,6 +1256,9 @@ packages:
     peerDependencies:
       postcss: ^8.1.0
 
+  axios@1.6.8:
+    resolution: {integrity: sha512-v/ZHtJDU39mDpyBoFVkETcd/uNdxrWRrg3bKpOKzXFA6Bvqopts6ALSMU3y6ijYxbw2B+wPrIv46egTzJXCLGQ==}
+
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
 
@@ -1658,6 +1664,15 @@ packages:
 
   focus-trap@7.5.4:
     resolution: {integrity: sha512-N7kHdlgsO/v+iD/dMoJKtsSqs5Dz/dXZVebRgJw23LDk+jMi/974zyiOYDziY2JPp8xivq9BmUGwIJMiuSBi7w==}
+
+  follow-redirects@1.15.6:
+    resolution: {integrity: sha512-wWN62YITEaOpSK584EZXJafH1AGpO8RVgElfkuXbTOrPX4fIfOyEpW/CsiNd8JdYrAoOvafRTOEnvsO++qCqFA==}
+    engines: {node: '>=4.0'}
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
 
   foreground-child@3.1.1:
     resolution: {integrity: sha512-TMKDUnIte6bfb5nWv7V/caI169OHgvwjb7V4WkeUvbQQdjr5rWKqHFiKWb/fcOwB+CzBT+qbWjvj+DVwRskpIg==}
@@ -2293,6 +2308,9 @@ packages:
 
   proto-list@1.2.4:
     resolution: {integrity: sha512-vtK/94akxsTMhe0/cbfpR+syPuszcuwhqVjJq26CuNDgFGj682oRBXOP5MJpv2r7JtE8MsiepGIqvvOTBwn2vA==}
+
+  proxy-from-env@1.1.0:
+    resolution: {integrity: sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==}
 
   psl@1.9.0:
     resolution: {integrity: sha512-E/ZsdU4HLs/68gYzgGTkMicWTLPdAftJLfJFlLUAAKZGkStNU72sZjT66SnMDVOfOWY/YAoiD7Jxa9iHvngcag==}
@@ -3692,13 +3710,14 @@ snapshots:
     optionalDependencies:
       vue: 3.4.21(typescript@5.4.2)
 
-  '@vueuse/integrations@10.9.0(async-validator@4.2.5)(focus-trap@7.5.4)(vue@3.4.21(typescript@5.4.2))':
+  '@vueuse/integrations@10.9.0(async-validator@4.2.5)(axios@1.6.8)(focus-trap@7.5.4)(vue@3.4.21(typescript@5.4.2))':
     dependencies:
       '@vueuse/core': 10.9.0(vue@3.4.21(typescript@5.4.2))
       '@vueuse/shared': 10.9.0(vue@3.4.21(typescript@5.4.2))
       vue-demi: 0.14.7(vue@3.4.21(typescript@5.4.2))
     optionalDependencies:
       async-validator: 4.2.5
+      axios: 1.6.8
       focus-trap: 7.5.4
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -3811,6 +3830,14 @@ snapshots:
       picocolors: 1.0.0
       postcss: 8.4.35
       postcss-value-parser: 4.2.0
+
+  axios@1.6.8:
+    dependencies:
+      follow-redirects: 1.15.6
+      form-data: 4.0.0
+      proxy-from-env: 1.1.0
+    transitivePeerDependencies:
+      - debug
 
   balanced-match@1.0.2: {}
 
@@ -4262,6 +4289,8 @@ snapshots:
   focus-trap@7.5.4:
     dependencies:
       tabbable: 6.2.0
+
+  follow-redirects@1.15.6: {}
 
   foreground-child@3.1.1:
     dependencies:
@@ -4932,6 +4961,8 @@ snapshots:
 
   proto-list@1.2.4: {}
 
+  proxy-from-env@1.1.0: {}
+
   psl@1.9.0: {}
 
   punycode.js@2.3.1: {}
@@ -5252,7 +5283,7 @@ snapshots:
       '@types/node': 20.8.10
       fsevents: 2.3.3
 
-  vitepress@1.0.0-rc.25(@algolia/client-search@4.22.1)(@types/node@20.8.10)(async-validator@4.2.5)(postcss@8.4.35)(search-insights@2.13.0)(typescript@5.4.2):
+  vitepress@1.0.0-rc.25(@algolia/client-search@4.22.1)(@types/node@20.8.10)(async-validator@4.2.5)(axios@1.6.8)(postcss@8.4.35)(search-insights@2.13.0)(typescript@5.4.2):
     dependencies:
       '@docsearch/css': 3.6.0
       '@docsearch/js': 3.6.0(@algolia/client-search@4.22.1)(search-insights@2.13.0)
@@ -5260,7 +5291,7 @@ snapshots:
       '@vitejs/plugin-vue': 4.3.1(vite@4.5.2(@types/node@20.8.10))(vue@3.4.21(typescript@5.4.2))
       '@vue/devtools-api': 6.6.1
       '@vueuse/core': 10.9.0(vue@3.4.21(typescript@5.4.2))
-      '@vueuse/integrations': 10.9.0(async-validator@4.2.5)(focus-trap@7.5.4)(vue@3.4.21(typescript@5.4.2))
+      '@vueuse/integrations': 10.9.0(async-validator@4.2.5)(axios@1.6.8)(focus-trap@7.5.4)(vue@3.4.21(typescript@5.4.2))
       focus-trap: 7.5.4
       mark.js: 8.11.1
       minisearch: 6.3.0

@@ -1,7 +1,12 @@
 import TaskItem from '@tiptap/extension-task-item'
 import { mergeAttributes } from '@tiptap/core'
 
-export function useTaskItem(){
+export function useTaskItem(options){
+	if (!options){
+		options = {
+			nested: true
+		}
+	}
 	return TaskItem.extend({
 		addAttributes () {
 			return {
@@ -129,5 +134,5 @@ export function useTaskItem(){
 				}
 			}
 		}
-	})
+	}).configure(options)
 }

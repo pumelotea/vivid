@@ -5,6 +5,10 @@ import TableCell from "@tiptap/extension-table-cell";
 import {mergeAttributes} from "@tiptap/core";
 
 export function useTable(options){
+	if (!options){
+		options = { resizable: true }
+	}
+
 	const extensions = []
 	extensions.push(Table.configure(options))
 	extensions.push(TableRow)

@@ -8,6 +8,9 @@ const props = defineProps({
 	options: {
 		type: Object,
 		required: false,
+    default: ()=>{
+      return { multicolor: true }
+    }
 	}
 })
 

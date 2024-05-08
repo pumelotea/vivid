@@ -77,12 +77,14 @@ import {
 	FullscreenExt,
 	UndoExt,
 	RedoExt,
+    AiExt,
 } from '../../core/extension'
 
 
 </script>
 <template>
 	<div class="bubble-menu-bar">
+    <ai-ext/>
 		<bold-ext/>
 		<italic-ext/>
 		<strike-ext/>
