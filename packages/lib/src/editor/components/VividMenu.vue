@@ -76,6 +76,7 @@ import {
   UndoExt,
   RedoExt,
   AiExt,
+    FocusExt,
   HocuspocusExt,
 } from '../../core/extension'
 import {useThemeVars} from 'naive-ui'
@@ -120,6 +121,7 @@ const opt = {
     <placeholder-ext/>
     <character-count-ext/>
     <text-style-ext/>
+    <focus-ext/>
 
     <undo-ext/>
     <redo-ext/>
@@ -144,7 +146,6 @@ const opt = {
     <link-ext/>
     <divider-ext/>
     <table-ext/>
-    <divider-ext/>
     <math-ext/>
     <code-ext/>
     <code-block-ext/>
@@ -156,7 +157,7 @@ const opt = {
     <task-list-ext/>
     <divider-ext/>
     <fullscreen-ext/>
-    <hocuspocus-ext :options="opt"/>
+<!--    <hocuspocus-ext :options="opt"/>-->
   </div>
 </template>
 

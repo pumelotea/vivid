@@ -11,3 +11,8 @@ https://codecode.run/#/share/clvw118ag0076qf01qjbh652o
 5. 内容样式可以修改
 6. ai支持
 7. 协作支持
+
+## fix
+1. 表格初始化后光标不在表格内，焦点问题
+2. 表格宽度
+3. 

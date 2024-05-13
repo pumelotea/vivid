@@ -1,7 +1,7 @@
 import TaskItem from '@tiptap/extension-task-item'
 import { mergeAttributes } from '@tiptap/core'
 
-export function useTaskItem(options){
+export function useTaskItem(options = null){
 	if (!options){
 		options = {
 			nested: true

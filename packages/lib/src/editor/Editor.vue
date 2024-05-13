@@ -39,7 +39,7 @@ const props = defineProps({
     type: Object,
     required:false,
     default: ()=>{
-      return { duration: 100, maxWidth:600,placement:'top-start' }
+      return { duration: 0, maxWidth:600,placement:'top-start' }
     }
   }
 })
@@ -173,7 +173,6 @@ defineExpose({
         :date-locale="dateZhCN"
         style="height: 100%"
     >
-
       <bubble-menu
           v-if="editor && bubbleMenu"
           :editor="editor"
@@ -286,7 +285,7 @@ defineExpose({
 .editor-body-page {
   box-sizing: border-box;
   -webkit-overflow-scrolling: touch;
-  padding: 40px;
+  padding: 40px 0;
   height: fit-content;
   min-height: 297mm;
   border-radius: 3px;
@@ -308,6 +307,8 @@ defineExpose({
 .editor-body-page::v-deep(.tiptap) {
   height: 100%;
   min-height: inherit;
+  padding-top: 40px;
+  padding-bottom: 40px;
 }
 ::v-deep(.tippy-box) {
   background-color: transparent;
@@ -321,6 +322,19 @@ defineExpose({
 }
 </style>
 <style>
+
+
+.tiptap > * {
+  margin-left: 50px !important;
+  margin-right: 50px !important;
+}
+.tiptap > .vivid-table {
+  margin-left: 35px !important;
+  margin-top: -30px !important;
+  margin-bottom: 10px !important;
+}
+
+
 /* Give a remote user a caret */
 .collaboration-cursor__caret {
   position: relative;

@@ -28,7 +28,7 @@ const iconUrl = ref('')
     class="menu-item"
     :class="{ 'is-active': isActive ? isActive(): null }"
     :title="title"
-    @click="action"
+    @click.stop="action"
   >
 		<i :class="`ri-${icon}`"></i>
   </button>
