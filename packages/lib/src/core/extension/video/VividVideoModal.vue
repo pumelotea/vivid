@@ -52,6 +52,11 @@ watch(href, () => {
 })
 
 const percent = ref(0)
+
+function updateProgress(n){
+  percent.value = n
+}
+
 async function handleUpload () {
   if (props.handleUpload){
     percent.value = 0
@@ -65,18 +70,6 @@ async function handleUpload () {
     href.value = url.value
     readySave.value = true
   }
-	// API.videoUpload(readyFile.value, (e) => {
-	// 	if (e.loaded === e.total) {
-	// 		percent.value = 100
-	// 	}
-	// 	percent.value = e.loaded / e.total * 100
-	// }).then(res => {
-	// 	if (res.code === 0) {
-	// 		url.value = API.imageId2Url(res.payload.path)
-	// 		href.value = url.value
-	// 		readySave.value = true
-	// 	}
-	// })
 }
 
 function onCancel () {

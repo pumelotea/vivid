@@ -116,7 +116,6 @@ onMounted(() => {
     imgWidth = HbImg.value.naturalWidth
     calcImg()
   } else {
-    HbImg.value.src = 'images/no-img.png'
     nextTick(() => {
       image.onload = () => {
         HbImg.value.src = props.src
@@ -125,7 +124,6 @@ onMounted(() => {
         calcImg()
       }
       image.onerror = () => {
-        HbImg.value.src = 'images/no-img.png'
         imgHeight = HbImg.value.offsetHeight
         imgWidth = HbImg.value.offsetWidth
         calcImg()
