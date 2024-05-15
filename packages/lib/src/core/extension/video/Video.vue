@@ -26,12 +26,13 @@ useExtension(useVideo())
 const HTV = ref(null)
 
 function handleOpenVideo() {
-  HTV.value.open()
+  // HTV.value.open()
+  editorInstance.value.chain().focus().setVideo({src: 'https://sf1-cdn-tos.huoshanstatic.com/obj/media-fe/xgplayer_doc_video/mp4/xgplayer-demo-360p.mp4'}).run()
 }
 
 function insertVideo(url) {
   if (url) {
-    editorInstance.value.chain().focus().setHbVideo({src: url}).run()
+    editorInstance.value.chain().focus().setVideo({src: url}).run()
   }
 }
 
@@ -44,7 +45,7 @@ function insertVideo(url) {
           icon="video-line"
           title="插入视频"
           :action="handleOpenVideo"
-          :is-active="() => editorInstance.isActive('hb-video')"
+          :is-active="() => editorInstance.isActive('video')"
       />
       <vivid-video-modal
           :handle-upload="handleUpload"

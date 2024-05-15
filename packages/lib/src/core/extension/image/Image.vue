@@ -26,8 +26,8 @@ useExtension(useImage())
 const HTI = ref(null)
 
 function handleOpenImage() {
-	// HTI.value.open()
-  editorInstance.value.chain().focus().setImage({src: 'https://img.angus.codecode.run/file/access/image/BrWMM6dlkmVUnRjjAJYs.jpg?rh=1400&rw=2100'}).run()
+	HTI.value.open()
+  // editorInstance.value.chain().focus().setImage({src: 'https://lf-cdn-tos.bytescm.com/obj/static/xitu_extension/static/gold.981a5510.svg'}).run()
 }
 
 function insertImage(url) {
@@ -44,7 +44,7 @@ function insertImage(url) {
 				icon="image-line"
 				title="插入图片"
 				:action="handleOpenImage"
-				:is-active="() => editorInstance.isActive('hb-image')"
+				:is-active="() => editorInstance.isActive('image')"
 			/>
 			<vivid-image-modal
 				:handle-upload="handleUpload"

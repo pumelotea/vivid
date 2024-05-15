@@ -5,12 +5,13 @@ import VividMenuItem from '../../components/VividMenuItem.vue'
 import VividVideoModal from './VividVideoModal.vue'
 import { NPopover } from 'naive-ui'
 
-import Player, { I18N } from 'xgplayer'
-import ZH from 'xgplayer/es/lang/zh-cn'
-import 'xgplayer/dist/index.min.css'
+
+
 import { onBeforeUnmount, onMounted, ref } from 'vue'
-// 启用中文
-I18N.use(ZH)
+
+
+
+
 const box = ref(null)
 const props = defineProps(nodeViewProps)
 

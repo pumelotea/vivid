@@ -13,4 +13,5 @@ https://codecode.run/#/share/clvw118ag0076qf01qjbh652o
 7. 协作支持
 
 ## fix
-1、 图片 等比缩放、超出宽度如何自动变成100%
+1、铺满如何处理
+2、
