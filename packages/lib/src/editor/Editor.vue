@@ -6,7 +6,11 @@ import {useThemeVars} from 'naive-ui'
 import {EditorContent, BubbleMenu} from '@tiptap/vue-3'
 import {useDebounceFn} from '@vueuse/core'
 import {
-  NConfigProvider, zhCN, dateZhCN
+  NConfigProvider,
+  zhCN,
+  dateZhCN,
+  NMessageProvider,
+  NDialogProvider,
 } from 'naive-ui'
 
 import VividMenu from './components/VividMenu.vue'
@@ -173,6 +177,8 @@ defineExpose({
         :date-locale="dateZhCN"
         style="height: 100%"
     >
+      <n-message-provider>
+        <n-dialog-provider>
       <bubble-menu
           v-if="editor && bubbleMenu"
           :editor="editor"
@@ -209,6 +215,8 @@ defineExpose({
         />
         <vivid-footer :words="words" :characters="characters"/>
       </div>
+        </n-dialog-provider>
+      </n-message-provider>
     </n-config-provider>
   </div>
 

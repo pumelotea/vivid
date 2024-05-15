@@ -81,6 +81,7 @@ import {
 } from '../../core/extension'
 import {useThemeVars} from 'naive-ui'
 import {inject, nextTick, ref} from "vue";
+import OpenAI from "openai";
 
 const editorInstance = inject('editorInstance')
 const emit = defineEmits(['update:user'])
@@ -107,6 +108,35 @@ const opt = {
   }
 }
 
+async function AICompletions(text) {
+  const openai = new OpenAI({
+    apiKey: 'T9erAeInUDfkSVJixprmUj9Nn8JSBT9Z',
+    dangerouslyAllowBrowser: true,
+    baseURL: 'https://api.deepinfra.com/v1/openai',
+  });
+  const stream = await openai.chat.completions.create({
+    model: 'meta-llama/Meta-Llama-3-8B-Instruct',
+    messages: [
+      {
+        role: 'user',
+        content: ` I will give you text content, you will rewrite it and
+translate the text into 'Chinese' language.
+Keep the meaning the same. Do not alter the original structure
+and formatting outlined in any way. Only give me the output and
+nothing else.
+Now, using the concepts above, translate the following text:
+
+  ${text}`,
+      },
+    ],
+    temperature: 0.7,
+    max_tokens: 256,
+    top_p: 0.9,
+    stream: true,
+  });
+  return stream;
+}
+
 </script>
 <template>
   <div class="menu-bar">
@@ -127,7 +157,7 @@ const opt = {
     <redo-ext/>
     <format-clear-ext/>
     <divider-ext/>
-    <ai-ext/>
+    <ai-ext :options="{completions:AICompletions}"/>
     <bold-ext/>
     <italic-ext/>
     <strike-ext/>

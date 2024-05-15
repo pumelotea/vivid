@@ -25,6 +25,7 @@
 	},
 	"dependencies": {
 		"@hocuspocus/provider": "^2.8.1",
+		"@iconify/vue": "^4.1.2",
 		"@jamescoyle/vue-icon": "^0.1.2",
 		"@mdi/js": "^7.4.47",
 		"@tiptap/core": "^2.1.12",
@@ -71,6 +72,7 @@
 		"@tiptap/pm": "^2.1.12",
 		"@tiptap/vue-3": "^2.1.12",
 		"axios": "^1.6.8",
+		"openai": "^4.47.1",
 		"prosemirror-keymap": "^1.2.2",
 		"prosemirror-model": "^1.21.0",
 		"prosemirror-state": "^1.4.3",
