@@ -24,6 +24,14 @@ function toggleKeepRatio(){
   }
 }
 
+function toggleControls(){
+  if (editorInstance.value.isActive('video', { controls: true })){
+    editorInstance.value.chain().focus().updateVideo({ controls: false }).run()
+  }else{
+    editorInstance.value.chain().focus().updateVideo({ controls: true }).run()
+  }
+}
+
 
 </script>
 
@@ -77,6 +85,12 @@ function toggleKeepRatio(){
         title="锁定比例"
         :action="toggleKeepRatio"
         :isActive="() => editorInstance.isActive('video', { keepRatio: true })"
+    />
+    <vivid-menu-item
+        icon="equalizer-2-line"
+        title="显示控件"
+        :action="toggleControls"
+        :isActive="() => editorInstance.isActive('video', { controls: true })"
     />
     <vivid-menu-item
         icon="delete-bin-line"

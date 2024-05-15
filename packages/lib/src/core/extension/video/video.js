@@ -33,6 +33,9 @@ export function useVideo() {
 				keepRatio: {
 					default: true,
 				},
+        controls:{
+          default: false,
+        },
         title: {
           default: null
         },
