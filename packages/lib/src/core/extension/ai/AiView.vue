@@ -1,157 +1,157 @@
 <template>
   <NodeViewWrapper as="article" class="ai-modal">
-    <div>
-      <div class="ai-mask" @click="handleMaskClick"></div>
-      <div class="ai-modal-wrapper">
-        <div class="ai-modal-main-container">
-          <div class="ai_modal_main_inner_container">
-            <div
-                class="ai_modal_writing_tips_wrapper"
-                v-if="status === 'loading'"
-            >
+      <div>
+        <div class="ai-mask" @click="handleMaskClick"></div>
+        <div class="ai-modal-wrapper">
+          <div class="ai-modal-main-container">
+            <div class="ai_modal_main_inner_container">
               <div
-                  class="ai_modal_writing_tips_loading_wrapper"
-                  style="width: 24px"
+                  class="ai_modal_writing_tips_wrapper"
+                  v-if="status === 'loading'"
               >
                 <div
-                    class="ai_modal_basic_icon"
-                    style="width: 24px; height: 24px"
+                    class="ai_modal_writing_tips_loading_wrapper"
+                    style="width: 24px"
                 >
-                  <img
-                      src="https://docs.gtimg.com/docs-design-resources/icon/desktop/png@3x/ai-assistant_fill_motion_loop_24@3x-00b564ad53.png"
-                      width="24"
-                      height="24"
-                      draggable="false"
-                  />
-                </div>
-              </div>
-              <div class="ai_modal_writing_tips_header">智能助手创作中...</div>
-              <div class="ai_modal_writing_tips_button_wrapper">
-                <n-button size="small" secondary @click="handleStop"
-                >停止
-                </n-button
-                >
-              </div>
-            </div>
-            <div class="ai_modal_input_area_wrapper" v-if="status === 'idle'">
-              <div class="ai_modal_input_area_left_icon">
-                <div
-                    class="ai_modal_basic_icon"
-                    style="width: 24px; height: 24px"
-                >
-                  <img
-                      src="https://docs.gtimg.com/docs-design-resources/icon/desktop/png@3x/ai-assistant_fill_motion_once_24@3x-23803ec719.png"
-                      width="24"
-                      height="24"
-                      draggable="false"
-                  />
-                </div>
-              </div>
-              <div
-                  class="ai_modal_input_area"
-                  contenteditable="true"
-                  ref="inputRef"
-                  spellcheck="false"
-                  placeholder="让智能助手帮我..."
-              />
-              <div class="ai_modal_input_area_right_icon">
-                <div
-                    class="dui-trigger dui-tooltip dui-tooltip-wrapper"
-                    data-dui-1-3-5="dui-trigger dui-tooltip dui-tooltip-wrapper"
-                >
-                  <div>
-                    <div
-                        class="ai_modal_input_submit_button ai_modal_input_submit_button_active"
-                    ></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div v-if="status === 'generating' || status === 'completed'">
-              <div class="ai_modal_edit_board_header">
-                <div>生成结果</div>
-                <div>
-                  <Icon
-                      @click="handleDelete"
-                      style="width: 22px; height: 22px"
-                      icon="mdi:close"
-                  />
-                </div>
-              </div>
-              <div class="ai_modal_message_board">
-                {{ result }}
-              </div>
-              <div class="ai_modal_edit_board_footer">
-                <div class="ai_model_edit_board_buttons">
-                  <div class="ai_model_edit_board_left_buttons">
-                    <n-space>
-                      <n-button type="info" @click="handleReplace"
-                      >替换原文
-                      </n-button
-                      >
-                      <n-button secondary @click="insetBottom"
-                      >插入到下方
-                      </n-button
-                      >
-                      <n-button-group>
-                        <n-button @click="copy('ss')">
-                          <n-icon size="18">
-                            <Icon icon="mdi:content-copy"/>
-                          </n-icon>
-                        </n-button>
-                        <n-button>
-                          <n-icon size="18">
-                            <Icon icon="mdi:refresh"/>
-                          </n-icon>
-                        </n-button>
-                        <n-button @click="handleDelete">
-                          <n-icon size="18">
-                            <Icon icon="mdi:delete"/>
-                          </n-icon>
-                        </n-button>
-                      </n-button-group>
-                    </n-space>
-                  </div>
                   <div
-                      class="ai_model_edit_board_right_button ai_model_edit_board_right_button_with_func"
+                      class="ai_modal_basic_icon"
+                      style="width: 24px; height: 24px"
                   >
+                    <img
+                        src="https://docs.gtimg.com/docs-design-resources/icon/desktop/png@3x/ai-assistant_fill_motion_loop_24@3x-00b564ad53.png"
+                        width="24"
+                        height="24"
+                        draggable="false"
+                    />
+                  </div>
+                </div>
+                <div class="ai_modal_writing_tips_header">智能助手创作中...</div>
+                <div class="ai_modal_writing_tips_button_wrapper">
+                  <n-button size="small" secondary @click="handleStop"
+                  >停止
+                  </n-button
+                  >
+                </div>
+              </div>
+              <div class="ai_modal_input_area_wrapper" v-if="status === 'idle'">
+                <div class="ai_modal_input_area_left_icon">
+                  <div
+                      class="ai_modal_basic_icon"
+                      style="width: 24px; height: 24px"
+                  >
+                    <img
+                        src="https://docs.gtimg.com/docs-design-resources/icon/desktop/png@3x/ai-assistant_fill_motion_once_24@3x-23803ec719.png"
+                        width="24"
+                        height="24"
+                        draggable="false"
+                    />
+                  </div>
+                </div>
+                <div
+                    class="ai_modal_input_area"
+                    contenteditable="true"
+                    ref="inputRef"
+                    spellcheck="false"
+                    placeholder="让智能助手帮我..."
+                />
+                <div class="ai_modal_input_area_right_icon">
+                  <div
+                      class="dui-trigger dui-tooltip dui-tooltip-wrapper"
+                      data-dui-1-3-5="dui-trigger dui-tooltip dui-tooltip-wrapper"
+                  >
+                    <div>
+                      <div
+                          class="ai_modal_input_submit_button ai_modal_input_submit_button_active"
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div v-if="status === 'generating' || status === 'completed'">
+                <div class="ai_modal_edit_board_header">
+                  <div>生成结果</div>
+                  <div>
+                    <Icon
+                        @click="handleDelete"
+                        style="width: 22px; height: 22px"
+                        icon="mdi:close"
+                    />
+                  </div>
+                </div>
+                <div class="ai_modal_message_board">
+                  {{ result }}
+                </div>
+                <div class="ai_modal_edit_board_footer">
+                  <div class="ai_model_edit_board_buttons">
+                    <div class="ai_model_edit_board_left_buttons">
+                      <n-space>
+                        <n-button type="info" @click="handleReplace"
+                        >替换原文
+                        </n-button
+                        >
+                        <n-button secondary @click="insetBottom"
+                        >插入到下方
+                        </n-button
+                        >
+                        <n-button-group>
+                          <n-button @click="copy('ss')">
+                            <n-icon size="18">
+                              <Icon icon="mdi:content-copy"/>
+                            </n-icon>
+                          </n-button>
+                          <n-button>
+                            <n-icon size="18">
+                              <Icon icon="mdi:refresh"/>
+                            </n-icon>
+                          </n-button>
+                          <n-button @click="handleDelete">
+                            <n-icon size="18">
+                              <Icon icon="mdi:delete"/>
+                            </n-icon>
+                          </n-button>
+                        </n-button-group>
+                      </n-space>
+                    </div>
                     <div
-                        class="ai_modal_basic_icon"
-                        style="width: 24px; height: 24px"
+                        class="ai_model_edit_board_right_button ai_model_edit_board_right_button_with_func"
                     >
-                      <img
-                          src="https://docs.gtimg.com/docs-design-resources/icon/desktop/svg/ai-assistant_fill_24-93d29aa4ff.svg"
-                          width="24"
-                          height="24"
-                          draggable="false"
-                      />
+                      <div
+                          class="ai_modal_basic_icon"
+                          style="width: 24px; height: 24px"
+                      >
+                        <img
+                            src="https://docs.gtimg.com/docs-design-resources/icon/desktop/svg/ai-assistant_fill_24-93d29aa4ff.svg"
+                            width="24"
+                            height="24"
+                            draggable="false"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="ai_modal_popup_menu" v-if="status === 'idle'">
-          <div
-              id="ai-modal-lazy-menu-container"
-              class="ai_modal_basic_lazy_list_container"
-              style="max-height: 297.2px"
-          >
-            <n-dropdown
-                placement="bottom-start"
-                trigger="manual"
-                :options="options"
-                :render-icon="renderDropdownIcon"
-                :show="showDropdown"
-                @select="handleSelect"
+          <div class="ai_modal_popup_menu" v-if="status === 'idle'">
+            <div
+                id="ai-modal-lazy-menu-container"
+                class="ai_modal_basic_lazy_list_container"
+                style="max-height: 297.2px"
             >
-              <div></div>
-            </n-dropdown>
+              <n-dropdown
+                  placement="bottom-start"
+                  trigger="manual"
+                  :options="options"
+                  :render-icon="renderDropdownIcon"
+                  :show="showDropdown"
+                  @select="handleSelect"
+              >
+                <div></div>
+              </n-dropdown>
+            </div>
           </div>
         </div>
       </div>
-    </div>
   </NodeViewWrapper>
 </template>
 
@@ -331,7 +331,7 @@ function handleDelete() {
 
 .ai-modal-wrapper {
   z-index: 1001;
-  position: absolute;
+  position: fixed;
   min-height: 44px;
   min-width: 280px;
 }
