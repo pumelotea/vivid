@@ -36,7 +36,7 @@ function updateAttr({width, height, transform}) {
 }
 
 const videoAttrs = computed(() => {
-  const {src, alt, width: w, height: h, keepRatio, controls} = props.node.attrs;
+  const {src, alt, width: w, height: h, keepRatio, controls, loop,muted} = props.node.attrs;
 
   const width = isNumber(w) ? w + 'px' : w;
   const height = keepRatio ? null : isNumber(h) ? h + 'px' : h;
@@ -45,6 +45,8 @@ const videoAttrs = computed(() => {
     src: src || undefined,
     alt: alt || undefined,
     controls: controls || false,
+    loop: loop || false,
+    muted: muted || false,
     style: {
       width: width || undefined,
       height: height || undefined,
@@ -134,7 +136,13 @@ onMounted(() => {
           :style="`max-width: ${maxWidth};max-height: ${maxHeight};min-width: ${minWidth};min-height: ${minHeight};width:${resizeState.width}px;height:${resizeState.height}px`"
           ref="targetRef"
       >
-        <video :src="props.node.attrs.src" autoplay :style="videoAttrs.style" :controls="videoAttrs.controls"></video>
+        <video :src="props.node.attrs.src" autoplay
+               :style="videoAttrs.style"
+               :controls="videoAttrs.controls"
+               :loop="videoAttrs.loop"
+               :muted="videoAttrs.muted"
+        >
+        </video>
       </div>
       <Moveable
           v-if="init"

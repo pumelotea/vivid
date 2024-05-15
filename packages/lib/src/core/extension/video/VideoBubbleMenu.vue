@@ -32,6 +32,23 @@ function toggleControls(){
   }
 }
 
+function toggleLoop(){
+  if (editorInstance.value.isActive('video', { loop: true })){
+    editorInstance.value.chain().focus().updateVideo({ loop: false }).run()
+  }else{
+    editorInstance.value.chain().focus().updateVideo({ loop: true }).run()
+  }
+}
+
+
+function toggleMuted(){
+  if (editorInstance.value.isActive('video', { muted: true })){
+    editorInstance.value.chain().focus().updateVideo({ muted: false }).run()
+  }else{
+    editorInstance.value.chain().focus().updateVideo({ muted: true }).run()
+  }
+}
+
 
 </script>
 
@@ -91,6 +108,18 @@ function toggleControls(){
         title="显示控件"
         :action="toggleControls"
         :isActive="() => editorInstance.isActive('video', { controls: true })"
+    />
+    <vivid-menu-item
+        icon="repeat-2-line"
+        title="循环播放"
+        :action="toggleLoop"
+        :isActive="() => editorInstance.isActive('video', { loop: true })"
+    />
+    <vivid-menu-item
+        icon="volume-mute-line"
+        title="静音"
+        :action="toggleMuted"
+        :isActive="() => editorInstance.isActive('video', { muted: true })"
     />
     <vivid-menu-item
         icon="delete-bin-line"

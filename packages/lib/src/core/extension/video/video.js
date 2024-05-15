@@ -36,6 +36,12 @@ export function useVideo() {
         controls:{
           default: false,
         },
+        loop:{
+          default: false,
+        },
+        muted:{
+          default: false,
+        },
         title: {
           default: null
         },
