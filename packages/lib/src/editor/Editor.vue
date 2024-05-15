@@ -24,7 +24,7 @@ const vars = useThemeVars()
 const props = defineProps({
   page: {
     type: Boolean,
-    default: true
+    default: false
   },
   bubbleMenu: {
     type: Boolean,
@@ -287,7 +287,7 @@ defineExpose({
   -webkit-overflow-scrolling: touch;
   flex: 1 1 auto;
   overflow: auto;
-  padding: 10px;
+  padding: 40px 0;
 }
 
 .editor-body-page {

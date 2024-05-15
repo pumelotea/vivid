@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {NodeViewContent, nodeViewProps, NodeViewWrapper} from '@tiptap/vue-3'
 import * as pm from 'prosemirror-tables'
-import {computed, nextTick, onBeforeUnmount, onMounted, onUpdated, ref, toRaw} from "vue";
+import {computed, nextTick, onBeforeUnmount, onMounted, onUpdated, ref, toRaw, unref} from "vue";
 import {NPopover, NButton, NSpace, NIcon} from 'naive-ui'
 import ControlButton from "./ControlButton.vue";
 import {CellSelection} from "prosemirror-tables";
@@ -277,9 +277,7 @@ const observer = useMutationObserver(ViVidTable, (mutations) => {
   attributes: true,
 })
 
-onBeforeUnmount(() => {
-  observer.stop()
-})
+
 
 const showToolPop = computed(() => {
   const selection = props.editor.state.selection
@@ -291,7 +289,12 @@ const showToolPop = computed(() => {
   return false
 })
 
-
+const resizeOb: ResizeObserver = new ResizeObserver(() => updateFunc(false));
+unref(resizeOb).observe(props.editor.view.dom);
+onBeforeUnmount(() => {
+  observer.stop()
+  unref(resizeOb).disconnect();
+})
 </script>
 
 <template>
