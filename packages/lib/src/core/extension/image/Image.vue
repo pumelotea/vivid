@@ -26,12 +26,13 @@ useExtension(useImage())
 const HTI = ref(null)
 
 function handleOpenImage() {
-	HTI.value.open()
+	// HTI.value.open()
+  editorInstance.value.chain().focus().setImage({src: 'https://img.angus.codecode.run/file/access/image/BrWMM6dlkmVUnRjjAJYs.jpg?rh=1400&rw=2100'}).run()
 }
 
 function insertImage(url) {
 	if (url) {
-		editorInstance.value.chain().focus().setHbImage({src: url}).run()
+		editorInstance.value.chain().focus().setImage({src: url}).run()
 	}
 }
 </script>

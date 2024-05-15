@@ -1,34 +1,19 @@
-import {
-  mergeAttributes,
-  Node,
-  nodeInputRule
-} from '@tiptap/core'
 import {VueNodeViewRenderer} from "@tiptap/vue-3";
-import VividImageComponent from "./VividImageComponent.vue";
-
-const inputRegex = /(?:^|\s)(!\[(.+|:?)]\((\S+)(?:(?:\s+)["'](\S+)["'])?\))$/
+import { Image as TiptapImage } from '@tiptap/extension-image';
+import ImageView from "./ImageView.vue";
 
 export function useImage(){
-	const node = Node.create({
-		name: 'hb-image',
-
+	return TiptapImage.extend({
 		addOptions () {
 			return {
+				...this.parent?.(),
 				inline        : true,
 				HTMLAttributes: {}
 			}
 		},
-
-		inline () {
-			return this.options.inline
+		addNodeView() {
+			return VueNodeViewRenderer(ImageView);
 		},
-
-		group () {
-			return this.options.inline ? 'inline' : 'block'
-		},
-
-		draggable: false,
-
 		addAttributes () {
 			return {
 				src: {
@@ -37,57 +22,44 @@ export function useImage(){
 				alt: {
 					default: null
 				},
+				keepRatio: {
+					default: true,
+				},
 				title: {
 					default: null
 				},
 				width: {
-					default: 400
+					default: '100%',
 				},
 				height: {
-					default: 300
-				}
+					default: null,
+				},
+				display: {
+					default: 'inline',
+					renderHTML: ({ display }) => {
+						if (!display) {
+							return {};
+						}
+						return {
+							'data-display': display,
+						};
+					},
+					parseHTML: (element) => {
+						const display = element.getAttribute('data-display');
+						return display || 'inline';
+					},
+				},
 			}
-		},
-
-		parseHTML () {
-			return [
-				{
-					tag: 'img[src]'
-				}
-			]
-		},
-
-		renderHTML ({ HTMLAttributes }) {
-			return [ 'img', mergeAttributes(this.options.HTMLAttributes, HTMLAttributes) ]
 		},
 
 		addCommands () {
 			return {
-				setHbImage: options => ({ commands }) => {
-					return commands.insertContent({
-						type : this.name,
-						attrs: options
-					})
-				}
+				...this.parent?.(),
+				updateImage: (options) =>
+					({ commands }) => {
+						return commands.updateAttributes(this.name, options);
+					}
 			}
 		},
-
-		addInputRules () {
-			return [
-				nodeInputRule({
-					find         : inputRegex,
-					type         : this.type,
-					getAttributes: match => {
-						const [ ,, alt, src, title ] = match
-						return { src, alt, title }
-					}
-				})
-			]
-		}
-	})
-	return node.extend({
-		addNodeView () {
-			return VueNodeViewRenderer(VividImageComponent)
-		}
 	})
 }

@@ -5,7 +5,7 @@ const vars = useThemeVars()
 const props = defineProps({
   icon: {
     type    : String,
-    required: true
+    required: false
   },
   title: {
     type    : String,
@@ -30,7 +30,9 @@ const iconUrl = ref('')
     :title="title"
     @click.stop="action"
   >
-		<i :class="`ri-${icon}`"></i>
+    <slot>
+      <i :class="`ri-${icon}`"></i>
+    </slot>
   </button>
 </template>
 

@@ -82,12 +82,13 @@ import {
 import {computed, inject, nextTick, onMounted, ref, watch} from "vue";
 import {CellSelection} from "prosemirror-tables";
 import {TextSelection} from "@tiptap/pm/state";
+import ImageBubbleMenu from "../../core/extension/image/ImageBubbleMenu.vue";
 
 const editorInstance = inject('editorInstance')
 
 const nodeType = computed(() => {
   const selection = editorInstance.value.state.selection
-  const isImage = selection.node?.type.name === 'hb-image';
+  const isImage = selection.node?.type.name === 'image';
   const isVideo = selection.node?.type.name === 'hb-video';
   const isCell = selection instanceof CellSelection;
   const isTable = selection.node?.type.name === 'table' || isCell; // 选中表格或者单元格
@@ -124,6 +125,9 @@ watch(nodeType, ()=>{
       <highlight-ext/>
       <divider-ext/>
       <text-align-ext/>
+    </template>
+    <template v-if="nodeType === 'image'">
+      <image-bubble-menu/>
     </template>
 	</div>
 </template>
