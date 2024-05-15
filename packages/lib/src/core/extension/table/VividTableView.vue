@@ -278,7 +278,6 @@ const observer = useMutationObserver(ViVidTable, (mutations) => {
 })
 
 
-
 const showToolPop = computed(() => {
   const selection = props.editor.state.selection
   const isCell = selection instanceof CellSelection;
