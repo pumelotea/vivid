@@ -179,6 +179,7 @@ onMounted(() => {
   vertical-align: baseline;
   clear: both;
   max-width: 100%;
+  z-index: 1;
 }
 
 .move-box {

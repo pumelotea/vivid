@@ -26,8 +26,8 @@ useExtension(useVideo())
 const HTV = ref(null)
 
 function handleOpenVideo() {
-  // HTV.value.open()
-  editorInstance.value.chain().focus().setVideo({src: 'https://sf1-cdn-tos.huoshanstatic.com/obj/media-fe/xgplayer_doc_video/mp4/xgplayer-demo-360p.mp4'}).run()
+  HTV.value.open()
+  // editorInstance.value.chain().focus().setVideo({src: 'https://sf1-cdn-tos.huoshanstatic.com/obj/media-fe/xgplayer_doc_video/mp4/xgplayer-demo-360p.mp4'}).run()
 }
 
 function insertVideo(url) {
