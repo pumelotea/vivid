@@ -52,7 +52,7 @@
           <task-list-ext/>
           <divider-ext/>
           <fullscreen-ext/>
-          <!--            <hocuspocus-ext :options="opt"/>-->
+<!--          <hocuspocus-ext :options="opt"/>-->
         </div>
       </template>
       <template v-slot:bubble-menu="{nodeType}">
@@ -88,7 +88,7 @@
 </style>
 <script setup>
 import {useThemeVars} from 'naive-ui'
-import { nextTick} from 'vue'
+import {nextTick} from 'vue'
 import {VividEditor} from '@codecoderun/vivid'
 import {
   BoldExt,
@@ -137,6 +137,7 @@ import {
   ImageBubbleMenu,
   VideoBubbleMenu,
 } from '@codecoderun/vivid'
+
 const vars = useThemeVars()
 
 

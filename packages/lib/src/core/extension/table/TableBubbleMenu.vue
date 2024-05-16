@@ -76,7 +76,6 @@ const state = computed(()=>{
 .table-bubble-menu{
   padding: 5px;
   border-radius: 5px;
-  background: white;
   overflow: hidden;
 }
 </style>

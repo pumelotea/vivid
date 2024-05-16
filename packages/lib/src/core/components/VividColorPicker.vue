@@ -65,6 +65,9 @@ function change (e) {
  ::v-deep(.n-color-picker) {
    width: 18px;
    height: 18px;
+   border: 2px solid white;
+   border-radius: 50%;
+   overflow: hidden;
  }
 
  ::v-deep(.n-color-picker-trigger){

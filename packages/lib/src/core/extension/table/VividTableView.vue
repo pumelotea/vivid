@@ -2,14 +2,15 @@
 import {NodeViewContent, nodeViewProps, NodeViewWrapper} from '@tiptap/vue-3'
 import * as pm from 'prosemirror-tables'
 import {computed, nextTick, onBeforeUnmount, onMounted, onUpdated, ref, toRaw, unref} from "vue";
-import {NPopover, NButton, NSpace, NIcon} from 'naive-ui'
+import {NPopover, NButton, useThemeVars} from 'naive-ui'
 import ControlButton from "./ControlButton.vue";
 import {CellSelection} from "prosemirror-tables";
 import {useMutationObserver} from "@vueuse/core";
 import {NodeSelection} from "prosemirror-state";
 import TableBubbleMenu from "./TableBubbleMenu.vue";
-import {TextSelection} from "@tiptap/pm/state";
 
+const vars = useThemeVars()
+console.log(vars.value)
 const props = defineProps(nodeViewProps)
 
 
@@ -300,7 +301,7 @@ onBeforeUnmount(() => {
   <node-view-wrapper class="vivid-table" @click="resetSelected()" ref="ViVidTable" :class="{ 'deleteCell' :isHover}">
     <div class="table-box" :class="{'table-over-left-shadow': isOverflowingLeft, 'table-over-right-shadow': isOverflowingRight}">
       <div class="table-bubble-container">
-        <n-popover :show-arrow="false" trigger="manual" raw :show="showToolPop" style="border-radius: 5px">
+        <n-popover content-class="table-popover-color" :show-arrow="false" trigger="manual" raw :show="showToolPop || true" style="border-radius: 5px">
           <template #trigger>
             <div></div>
           </template>
@@ -418,7 +419,6 @@ onBeforeUnmount(() => {
   left: 0;
   right: 0;
   top: 25px;
-  background: #F4F5F5;
   width: fit-content;
   opacity: 0;
   z-index: 10;
@@ -430,13 +430,12 @@ onBeforeUnmount(() => {
   left: 0;
   bottom: 0;
   top: 40px;
-  background: #F4F5F5;
   height: fit-content;
   opacity: 0;
 }
 
 .bar-button-h {
-  background: #F4F5F5;
+  background: v-bind(vars.tabColor);
   border-width: 1px 0 1px 1px;
   border-style: solid;
   border-color: rgba(119, 110, 110, 0.2);
@@ -445,7 +444,7 @@ onBeforeUnmount(() => {
 }
 
 .bar-button-v {
-  background: #F4F5F5;
+  background: v-bind(vars.tabColor);
   border-width: 1px 1px 0 1px;
   border-style: solid;
   border-color: rgba(119, 110, 110, 0.2);
@@ -464,7 +463,6 @@ onBeforeUnmount(() => {
   width: 15px;
   height: 15px;
   overflow: hidden;
-  background: #F4F5F5;
   opacity: 0;
 }
 
@@ -472,6 +470,7 @@ onBeforeUnmount(() => {
 .bar-button-all {
   width: 100%;
   height: 100%;
+  background: v-bind(vars.tabColor);
 }
 
 
@@ -508,7 +507,7 @@ onBeforeUnmount(() => {
 }
 
 .table-all-cell-selected {
-  background: rgba(113, 191, 255, 0.7);
+  background: v-bind(vars.infoColorSuppl) !important;
 }
 
 .table-over-left-shadow {
@@ -548,13 +547,19 @@ onBeforeUnmount(() => {
   top: 0px;
 }
 
+.table-popover-color{
+  border-radius: 3px;
+  background: var(--n-color);
+}
+
 </style>
 <style>
 
 
 .editor-body th.selectedCell,
 .editor-body td.selectedCell {
-  background: #DBECF8;
+  background: v-bind(vars.infoColorSuppl);
+  opacity: 0.2;
 }
 
 .editor-body .deleteCell th.selectedCell,
