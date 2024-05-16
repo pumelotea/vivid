@@ -1,10 +1,9 @@
 module.exports = {
   title: 'VividEditor',
-  description: '一个基于tiptap和naviue的现代编辑器',
+  description: '一个基于tiptap的现代编辑器',
   themeConfig: {
     editLink: {
-      //TODO: CHANGE_ME
-      pattern: 'https://github.com/linusborg/vue-lib-monorepo-template/edit/main/docs/:path',
+      pattern: 'https://github.com/pumelotea/vivid',
       text: 'Edit this page on GitHub'
     },
     lastUpdated: 'Last Updated',

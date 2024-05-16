@@ -264,7 +264,7 @@ defineExpose({
 .editor-background.fullscreen {
   position: fixed;
   inset: 0;
-  z-index: 1;
+  z-index: 100;
   margin: 0;
   padding: 0;
   background: v-bind(vars.cardColor);
