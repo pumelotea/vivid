@@ -10,7 +10,6 @@ import {NodeSelection} from "prosemirror-state";
 import TableBubbleMenu from "./TableBubbleMenu.vue";
 
 const vars = useThemeVars()
-console.log(vars.value)
 const props = defineProps(nodeViewProps)
 
 
