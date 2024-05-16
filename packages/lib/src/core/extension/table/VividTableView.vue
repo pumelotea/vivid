@@ -564,10 +564,10 @@ onBeforeUnmount(() => {
 
 .editor-body .deleteCell th.selectedCell,
 .editor-body .deleteCell td.selectedCell {
-  background-color: rgba(255, 122, 139, 0.2);
+  background-color: rgba(255, 122, 139, 0.7);
 }
 
 .editor-body .deleteCell .table-all-cell-selected {
-  background-color: rgba(255, 122, 139, 0.3);
+  background-color: rgba(255, 122, 139, 0.7) !important;
 }
 </style>
