@@ -1,7 +1,7 @@
 <script setup>
 import 'remixicon/fonts/remixicon.css'
 import '../style/index.css'
-import {onBeforeUnmount, onMounted, provide, ref, shallowRef, toRaw, unref, watch} from 'vue'
+import {computed, onBeforeUnmount, onMounted, provide, ref, shallowRef, watch} from 'vue'
 import {useThemeVars} from 'naive-ui'
 import {EditorContent, BubbleMenu} from '@tiptap/vue-3'
 import {useDebounceFn} from '@vueuse/core'
@@ -19,6 +19,8 @@ import VividFooter from "./components/VividFooter.vue";
 
 import {isDark, theme} from "../core/utils";
 import {Editor} from "@tiptap/vue-3";
+import {CellSelection} from "prosemirror-tables";
+import {TextSelection} from "@tiptap/pm/state";
 const vars = useThemeVars()
 
 const props = defineProps({
@@ -154,6 +156,33 @@ function tab(e) {
   }
 }
 
+const hideBubble = ref(false)
+const nodeType = computed(() => {
+  if (!editor.value){
+    return undefined
+  }
+  const selection = editor.value.state.selection
+  const isImage = selection.node?.type.name === 'image';
+  const isVideo = selection.node?.type.name === 'video';
+  const isMagic = selection.node?.type.name === 'magic';
+  const isCell = selection instanceof CellSelection;
+  const isTable = selection.node?.type.name === 'table' || isCell; // 选中表格或者单元格
+  const isText = selection instanceof TextSelection;
+  if (isImage) return 'image';
+  if (isVideo) return 'video';
+  if (isTable) return 'table';
+  if (isText) return 'text';
+  if (isMagic) return 'magic';
+  return undefined;
+});
+watch(nodeType, ()=>{
+  if (nodeType.value === 'table' || nodeType.value === 'magic'){
+    hideBubble.value = true
+  }else{
+    hideBubble.value = false
+  }
+})
+
 function getInstance(){
 	return editor.value
 }
@@ -181,14 +210,14 @@ defineExpose({
         <n-dialog-provider>
       <bubble-menu
           v-if="editor && bubbleMenu"
+          v-show="!hideBubble"
           :editor="editor"
           :tippy-options="tippyOptions"
       >
-        <slot name="bubble-menu">
-          <vivid-bubble-menu :editor="editor"/>
+        <slot name="bubble-menu" :nodeType="nodeType">
+          <vivid-bubble-menu :node-type="nodeType"/>
         </slot>
       </bubble-menu>
-
       <div
           class="editor"
           :class="{'fullscreen':fullscreen,'focus':isFocused && !fullscreen, 'online': page}"
@@ -213,7 +242,9 @@ defineExpose({
             :class="{'dark': isDark, 'light': !isDark}"
             :editor="editor"
         />
-        <vivid-footer :words="words" :characters="characters"/>
+        <slot name="footer" :data="{words, characters}">
+          <vivid-footer :words="words" :characters="characters"/>
+        </slot>
       </div>
         </n-dialog-provider>
       </n-message-provider>
