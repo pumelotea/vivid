@@ -1,6 +1,6 @@
 <template>
   <NodeViewWrapper as="article" class="ai-modal">
-      <div>
+      <div class="ai-help">
         <div class="ai-mask" @click="handleMaskClick"></div>
         <div class="ai-modal-wrapper">
           <div class="ai-modal-main-container">
@@ -166,9 +166,10 @@ import {
   NIcon,
   useMessage,
   useDialog,
+  useThemeVars,
 } from 'naive-ui';
 import {Icon} from '@iconify/vue';
-
+const vars = useThemeVars()
 const props = defineProps({
   ...nodeViewProps,
 });
@@ -318,6 +319,10 @@ function handleDelete() {
 }
 </script>
 <style scoped>
+.ai-help img{
+  background: transparent;
+}
+
 .ai-modal {
   position: relative;
 }
@@ -337,13 +342,14 @@ function handleDelete() {
 }
 
 .ai-modal-main-container {
+  --bgcolor: v-bind(vars.cardColor);
   width: 100%;
   min-height: 24px;
   border-radius: 4px;
   border: 1px solid transparent;
   box-sizing: border-box;
   overflow: hidden;
-  background: linear-gradient(0deg, #fff, #fff) content-box,
+  background: linear-gradient(0deg, var(--bgcolor), var(--bgcolor)) content-box,
   linear-gradient(81.99deg, #e215ed 0%, #0e80b9 73.05%, #d192ff 100%) border-box;
   box-shadow: 0 5px 12px 4px rgba(0, 0, 0, 0.08);
 }
@@ -376,7 +382,7 @@ function handleDelete() {
 
 .ai_modal_input_area:empty:before {
   content: attr(placeholder);
-  color: rgba(0, 0, 0, 0.24);
+  opacity: 0.8;
   pointer-events: none;
 }
 
@@ -423,9 +429,6 @@ function handleDelete() {
   margin-top: 8px;
   border-radius: 4px;
   width: 232px;
-  background: var(--bg-lv4-default);
-  box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.04),
-  0px 4px 6px 2px rgba(0, 0, 0, 0.04), 0px 6px 32px 2px rgba(0, 0, 0, 0.16);
 }
 
 .ai_modal_writing_tips_wrapper {
