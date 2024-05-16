@@ -301,7 +301,7 @@ onBeforeUnmount(() => {
   <node-view-wrapper class="vivid-table" @click="resetSelected()" ref="ViVidTable" :class="{ 'deleteCell' :isHover}">
     <div class="table-box" :class="{'table-over-left-shadow': isOverflowingLeft, 'table-over-right-shadow': isOverflowingRight}">
       <div class="table-bubble-container">
-        <n-popover content-class="table-popover-color" :show-arrow="false" trigger="manual" raw :show="showToolPop || true" style="border-radius: 5px">
+        <n-popover content-class="table-popover-color" :show-arrow="false" trigger="manual" raw :show="showToolPop" style="border-radius: 5px">
           <template #trigger>
             <div></div>
           </template>
