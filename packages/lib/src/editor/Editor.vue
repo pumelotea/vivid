@@ -6,9 +6,6 @@ import {useThemeVars} from 'naive-ui'
 import {EditorContent, BubbleMenu} from '@tiptap/vue-3'
 import {useDebounceFn} from '@vueuse/core'
 import {
-  NConfigProvider,
-  zhCN,
-  dateZhCN,
   NMessageProvider,
   NDialogProvider,
 } from 'naive-ui'
@@ -17,7 +14,7 @@ import VividMenu from './components/VividMenu.vue'
 import VividBubbleMenu from './components/VividBubbleMenu.vue'
 import VividFooter from "./components/VividFooter.vue";
 
-import {isDark, theme} from "../core/utils";
+import {isDark} from "../core/utils";
 import {Editor} from "@tiptap/vue-3";
 import {CellSelection} from "prosemirror-tables";
 import {TextSelection} from "@tiptap/pm/state";
@@ -200,12 +197,6 @@ defineExpose({
       :class="{'fullscreen':fullscreen}"
       @keydown="tab"
   >
-    <n-config-provider
-        :theme="theme"
-        :locale="zhCN"
-        :date-locale="dateZhCN"
-        style="height: 100%"
-    >
       <n-message-provider>
         <n-dialog-provider>
       <bubble-menu
@@ -248,7 +239,6 @@ defineExpose({
       </div>
         </n-dialog-provider>
       </n-message-provider>
-    </n-config-provider>
   </div>
 
 </template>
