@@ -79,6 +79,8 @@ import {
 	FullscreenExt,
 	UndoExt,
 	RedoExt,
+	LineHeightExt,
+	useLineHeight,
 } from './core/extension'
 
 export {
@@ -161,5 +163,7 @@ export {
 	FullscreenExt,
 	UndoExt,
 	RedoExt,
+	LineHeightExt,
+	useLineHeight,
 	VividEditor
 }

@@ -11,3 +11,5 @@ https://codecode.run/#/share/clvw118ag0076qf01qjbh652o
 5. 内容样式可以修改
 6. ai支持
 7. 协作支持
+8. SlashCommand 
+9. 行高

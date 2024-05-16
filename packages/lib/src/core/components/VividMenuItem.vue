@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { useThemeVars } from 'naive-ui'
+import { useThemeVars, NTooltip } from 'naive-ui'
 const vars = useThemeVars()
 const props = defineProps({
   icon: {
@@ -24,16 +24,22 @@ const props = defineProps({
 const iconUrl = ref('')
 </script>
 <template>
-  <button
-    class="menu-item"
-    :class="{ 'is-active': isActive ? isActive(): null }"
-    :title="title"
-    @click.stop="action"
-  >
-    <slot>
-      <i :class="`ri-${icon}`"></i>
-    </slot>
-  </button>
+  <div>
+    <n-tooltip trigger="hover">
+      <template #trigger>
+        <button
+            class="menu-item"
+            :class="{ 'is-active': isActive ? isActive(): null }"
+            @click="action"
+        >
+          <slot>
+            <i :class="`ri-${icon}`"></i>
+          </slot>
+        </button>
+      </template>
+      {{title}}
+    </n-tooltip>
+  </div>
 </template>
 
 <style scoped>

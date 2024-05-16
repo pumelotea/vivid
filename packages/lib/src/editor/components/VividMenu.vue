@@ -76,7 +76,8 @@ import {
   UndoExt,
   RedoExt,
   AiExt,
-    FocusExt,
+  FocusExt,
+    LineHeightExt,
   HocuspocusExt,
 } from '../../core/extension'
 import {useThemeVars} from 'naive-ui'
@@ -91,7 +92,7 @@ let isFirst = true
 const opt = {
   url                   : 'wss://ws.codecode.run',
   name                  : 'clvx2hl2s0077qf01xc449cqp',
-  token                 : 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNscDJrZmE4dTAwMDBweDB4aXlpam1rYmkiLCJ1c2VybmFtZSI6InJvb3QiLCJwYXNzd29yZCI6IiQyYSQxMCRpZHVLLlhUVE5jTmlzdEtjRXVPWXZPRUtWbTNQazdFSW8vbXNoQnNSVTh3V0d1cHNnTFcwVyIsInNhbHQiOm51bGwsIm5hbWUiOiIiLCJuaWNrbmFtZSI6IuacseWzsCIsImF2YXRhciI6Ii9hdmF0YXIvS054QzBqbHQ2TGk1UDhZWjB6dHMucG5nIiwiaXNFbmFibGUiOnRydWUsInBob25lTnVtYmVyIjoiMTM0NTYyNzUyNTIiLCJjcmVhdGVkQXQiOiIyMDIzLTExLTE3VDExOjU3OjIyLjIwNFoiLCJjcmVhdGVkQnkiOm51bGwsInVwZGF0ZWRBdCI6IjIwMjMtMTItMDZUMTM6MTk6NTAuNjI1WiIsInVwZGF0ZWRCeSI6ImNscDJrZmE4dTAwMDBweDB4aXlpam1rYmkiLCJkZWxldGVkIjpudWxsLCJkZWxldGVkQnkiOm51bGwsImlhdCI6MTcxNTA0MDM3OSwiZXhwIjoxNzE1MjEzMTc5fQ.lG6wpWdynO1ui0cfv2wtV_DZkqC_gPafrXoNxsImUyI',
+  token                 : 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNscDJrZmE4dTAwMDBweDB4aXlpam1rYmkiLCJ1c2VybmFtZSI6InJvb3QiLCJwYXNzd29yZCI6IiQyYSQxMCRpZHVLLlhUVE5jTmlzdEtjRXVPWXZPRUtWbTNQazdFSW8vbXNoQnNSVTh3V0d1cHNnTFcwVyIsInNhbHQiOm51bGwsIm5hbWUiOiIiLCJuaWNrbmFtZSI6IuacseWzsCIsImF2YXRhciI6Ii9hdmF0YXIvS054QzBqbHQ2TGk1UDhZWjB6dHMucG5nIiwiaXNFbmFibGUiOnRydWUsInBob25lTnVtYmVyIjoiMTM0NTYyNzUyNTIiLCJjcmVhdGVkQXQiOiIyMDIzLTExLTE3VDExOjU3OjIyLjIwNFoiLCJjcmVhdGVkQnkiOm51bGwsInVwZGF0ZWRBdCI6IjIwMjMtMTItMDZUMTM6MTk6NTAuNjI1WiIsInVwZGF0ZWRCeSI6ImNscDJrZmE4dTAwMDBweDB4aXlpam1rYmkiLCJkZWxldGVkIjpudWxsLCJkZWxldGVkQnkiOm51bGwsImlhdCI6MTcxNTc4MDY1MiwiZXhwIjoxNzE1OTUzNDUyfQ.A9E7eJoyWHFtShZWW0wP2wTCgJWau3_ns_VmiULA1Fc',
   onAuthenticationFailed: () => {
     console.log('鉴权失败哎')
   },
@@ -168,6 +169,8 @@ Now, using the concepts above, translate the following text:
     <heading-ext/>
     <divider-ext/>
     <text-align-ext/>
+    <line-height-ext/>
+    <divider-ext/>
     <subscript-ext/>
     <superscript-ext/>
     <divider-ext/>
