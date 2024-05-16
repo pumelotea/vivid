@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup >
 import History from "@tiptap/extension-history";
 import {inject} from "vue";
 

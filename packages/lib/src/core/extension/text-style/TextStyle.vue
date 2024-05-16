@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup >
 import TextStyle from "@tiptap/extension-text-style";
 import {inject} from "vue";
 

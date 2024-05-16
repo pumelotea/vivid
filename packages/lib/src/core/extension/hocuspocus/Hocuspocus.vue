@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup >
 import {inject} from "vue";
 import {useHocuspocus ,getRandomColor} from "./hocuspocus.js";
 

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup >
 import VividMenuItem from "../../components/VividMenuItem.vue"
 import HorizontalRule from "@tiptap/extension-horizontal-rule";
 import {inject} from "vue";

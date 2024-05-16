@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup >
 import VividMenuItem from "../../components/VividMenuItem.vue"
 import OrderedList from "@tiptap/extension-ordered-list";
 import {inject} from "vue";

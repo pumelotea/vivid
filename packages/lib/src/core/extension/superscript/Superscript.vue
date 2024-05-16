@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup >
 import VividMenuItem from "../../components/VividMenuItem.vue"
 import Superscript from "@tiptap/extension-superscript";
 import {inject} from "vue";

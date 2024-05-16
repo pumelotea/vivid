@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup >
 import VividMenuItem from "../../components/VividMenuItem.vue"
 import VividColorPicker from '../../components/VividColorPicker.vue'
 import Color from "@tiptap/extension-color";

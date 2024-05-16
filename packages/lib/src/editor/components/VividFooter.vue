@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup >
 import {useThemeVars} from "naive-ui";
 
 defineProps({

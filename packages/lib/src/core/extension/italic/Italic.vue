@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup >
 import VividMenuItem from "../../components/VividMenuItem.vue"
 import Italic from "@tiptap/extension-italic";
 import {inject} from "vue";

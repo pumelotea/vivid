@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup >
 import {NodeViewContent, nodeViewProps, NodeViewWrapper} from '@tiptap/vue-3'
 import * as pm from 'prosemirror-tables'
 import {computed, nextTick, onBeforeUnmount, onMounted, onUpdated, ref, toRaw, unref} from "vue";
@@ -197,7 +197,7 @@ function deleteTable() {
   props.editor.commands.deleteTableAtPos(pos, pos + node.nodeSize)
 }
 
-const selectColumn = (col: number) => {
+const selectColumn = (col) => {
   const tablePos = props.getPos()
   const {width, height, map} = pm.TableMap.get(props.node);
   const first = tablePos + map[col] + 1;
@@ -220,7 +220,7 @@ const selectTable = () => {
   props.editor.chain().setNodeSelection(props.getPos()).run();
 }
 
-const selectRow = (row: number) => {
+const selectRow = (row) => {
   const map = pm.TableMap.get(props.node);
   const matrix = chunkArray(map.map, map.width)
   const rowArray = matrix[row]
@@ -288,7 +288,7 @@ const showToolPop = computed(() => {
   return false
 })
 
-const resizeOb: ResizeObserver = new ResizeObserver(() => updateFunc(false));
+const resizeOb = new ResizeObserver(() => updateFunc(false));
 unref(resizeOb).observe(props.editor.view.dom);
 onBeforeUnmount(() => {
   observer.stop()

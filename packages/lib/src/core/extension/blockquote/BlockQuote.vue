@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import VividMenuItem from "../../components/VividMenuItem.vue"
 import BlockQuote from "@tiptap/extension-blockquote";
 import {inject} from "vue";

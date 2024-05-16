@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup >
 import Gapcursor from "@tiptap/extension-gapcursor";
 import {inject} from "vue";
 

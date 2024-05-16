@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup >
 import {isNumber, nodeViewProps, NodeViewWrapper} from '@tiptap/vue-3'
 import Moveable from 'vue3-moveable';
 import {computed, onBeforeUnmount, onMounted, ref, unref, watch} from "vue"

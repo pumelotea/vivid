@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup >
 import HardBreak from "@tiptap/extension-hard-break";
 import {inject} from "vue";
 

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup >
 import VividMenuItem from "../../components/VividMenuItem.vue"
 import TextAlign from "@tiptap/extension-text-align";
 import {inject} from "vue";

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup >
 import CharacterCount from "@tiptap/extension-character-count";
 import {inject} from "vue";
 

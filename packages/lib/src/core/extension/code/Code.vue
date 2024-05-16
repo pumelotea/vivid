@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup >
 import VividMenuItem from "../../components/VividMenuItem.vue"
 import Code from "@tiptap/extension-code";
 import {inject} from "vue";

@@ -155,7 +155,7 @@
   </NodeViewWrapper>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import {computed, ref, onMounted, h} from 'vue';
 import {nodeViewProps, NodeViewWrapper} from '@tiptap/vue-3';
 import {
@@ -173,14 +173,14 @@ const vars = useThemeVars()
 const props = defineProps({
   ...nodeViewProps,
 });
-const status = ref<string>('idle');
+const status = ref('idle');
 const result = ref('');
-const messageList = ref<string[]>([]);
+const messageList = ref([]);
 const showDropdown = ref(true);
 const message = useMessage();
 const dialog = useDialog();
 const inputRef = ref();
-const options: any = [
+const options = [
   {
     label: 'AI续写',
     icon: 'mdi:magic',
@@ -272,7 +272,7 @@ function handleMaskClick() {
   }
 }
 
-async function handleSelect(key: string) {
+async function handleSelect(key) {
   status.value = 'loading';
   const selectionText = props.node.attrs.selectionText;
   const stream = await props.extension.options.completions(selectionText);
@@ -308,7 +308,7 @@ function insetBottom() {
   props.editor.commands.insertContent(result.value);
 }
 
-function copy(text: string) {
+function copy(text) {
   navigator.clipboard.writeText(text).then(() => {
     message.success('复制成功');
   });

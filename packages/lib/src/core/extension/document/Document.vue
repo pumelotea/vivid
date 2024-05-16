@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup >
 import Document from "@tiptap/extension-document";
 import {inject} from "vue";
 

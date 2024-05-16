@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup >
 import Focus from "@tiptap/extension-focus";
 import {inject} from "vue";
 

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup >
 import VividMenuItem from "../../components/VividMenuItem.vue"
 import Paragraph from "@tiptap/extension-paragraph";
 import {inject} from "vue";
