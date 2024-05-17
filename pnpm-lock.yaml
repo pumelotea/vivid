@@ -301,6 +301,9 @@ importers:
       naive-ui:
         specifier: ^2.35.0
         version: 2.38.1(vue@3.4.21(typescript@5.4.2))
+      openai:
+        specifier: ^4.47.1
+        version: 4.47.1
       vue:
         specifier: ^3.3.8
         version: 3.4.21(typescript@5.4.2)

@@ -10,8 +10,9 @@
   },
   "dependencies": {
     "@codecoderun/vivid": "workspace:*",
-    "vue": "^3.3.8",
-    "naive-ui": "^2.35.0"
+    "naive-ui": "^2.35.0",
+    "openai": "^4.47.1",
+    "vue": "^3.3.8"
   },
   "devDependencies": {
     "@vue/compiler-sfc": "^3.3.8",

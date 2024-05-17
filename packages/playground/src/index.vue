@@ -137,6 +137,7 @@ import {
   ImageBubbleMenu,
   VideoBubbleMenu,
 } from '@codecoderun/vivid'
+import OpenAI from "openai";
 
 const vars = useThemeVars()
 
@@ -147,7 +148,7 @@ let isFirst = true
 const opt = {
   url: 'wss://ws.codecode.run',
   name: 'clvx2hl2s0077qf01xc449cqp',
-  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNscDJrZmE4dTAwMDBweDB4aXlpam1rYmkiLCJ1c2VybmFtZSI6InJvb3QiLCJwYXNzd29yZCI6IiQyYSQxMCRpZHVLLlhUVE5jTmlzdEtjRXVPWXZPRUtWbTNQazdFSW8vbXNoQnNSVTh3V0d1cHNnTFcwVyIsInNhbHQiOm51bGwsIm5hbWUiOiIiLCJuaWNrbmFtZSI6IuacseWzsCIsImF2YXRhciI6Ii9hdmF0YXIvS054QzBqbHQ2TGk1UDhZWjB6dHMucG5nIiwiaXNFbmFibGUiOnRydWUsInBob25lTnVtYmVyIjoiMTM0NTYyNzUyNTIiLCJjcmVhdGVkQXQiOiIyMDIzLTExLTE3VDExOjU3OjIyLjIwNFoiLCJjcmVhdGVkQnkiOm51bGwsInVwZGF0ZWRBdCI6IjIwMjMtMTItMDZUMTM6MTk6NTAuNjI1WiIsInVwZGF0ZWRCeSI6ImNscDJrZmE4dTAwMDBweDB4aXlpam1rYmkiLCJkZWxldGVkIjpudWxsLCJkZWxldGVkQnkiOm51bGwsImlhdCI6MTcxNTc4MDY1MiwiZXhwIjoxNzE1OTUzNDUyfQ.A9E7eJoyWHFtShZWW0wP2wTCgJWau3_ns_VmiULA1Fc',
+  token: '123123',
   onAuthenticationFailed: () => {
     console.log('鉴权失败哎')
   },
@@ -166,12 +167,12 @@ const opt = {
 
 async function AICompletions(text) {
   const openai = new OpenAI({
-    apiKey: 'T9erAeInUDfkSVJixprmUj9Nn8JSBT9Z',
+    apiKey: 'sk-69357a9b1fb4426a9673e617931824f0',
     dangerouslyAllowBrowser: true,
-    baseURL: 'https://api.deepinfra.com/v1/openai',
+    baseURL: 'https://api.deepseek.com',
   });
   const stream = await openai.chat.completions.create({
-    model: 'meta-llama/Meta-Llama-3-8B-Instruct',
+    model: 'deepseek-chat',
     messages: [
       {
         role: 'user',
