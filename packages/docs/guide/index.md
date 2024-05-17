@@ -200,9 +200,10 @@ declare type handleUpload = (file:File, updateProgress: (percent: number) => voi
 
 
 ## 多人协作（开发中）
+已经提供tiptap官方的websocket扩展，但是demo演示环境未准备好。
 
 ## AI助手（开发中）
-
+已经提供AI助手扩展组件，但是不完善。
 
 ## 开发自定义扩展
 
