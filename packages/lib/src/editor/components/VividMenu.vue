@@ -40,6 +40,7 @@ import {
 	RedoExt,
 	FocusExt,
 	LineHeightExt,
+    MathExt,
 } from '../../core/extension'
 import { useThemeVars } from 'naive-ui'
 
@@ -79,6 +80,7 @@ const vars = useThemeVars()
 		<subscript-ext />
 		<superscript-ext />
 		<divider-ext />
+    <math-ext/>
 		<image-ext />
 		<video-ext />
 		<link-ext />
