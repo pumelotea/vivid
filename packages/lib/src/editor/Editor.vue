@@ -19,7 +19,6 @@ import VividMenu from './components/VividMenu.vue'
 import VividBubbleMenu from './components/VividBubbleMenu.vue'
 import VividFooter from './components/VividFooter.vue'
 
-import { isDark } from '../core/utils'
 import { Editor } from '@tiptap/vue-3'
 import { CellSelection } from 'prosemirror-tables'
 import { TextSelection } from '@tiptap/pm/state'
@@ -30,6 +29,10 @@ const props = defineProps({
 		type: Boolean,
 		default: false,
 	},
+  dark: {
+    type: Boolean,
+    default: false,
+  },
 	bubbleMenu: {
 		type: Boolean,
 		default: true,
@@ -158,6 +161,7 @@ function tab(e) {
 	}
 }
 
+
 const hideBubble = ref(false)
 const nodeType = computed(() => {
 	if (!editor.value) {
@@ -228,14 +232,14 @@ defineExpose({
 					<div class="editor-page" v-if="page">
 						<editor-content
 							class="editor-body editor-body-page markdown-body"
-							:class="{ dark: isDark, light: !isDark }"
+							:class="{ dark: props.dark, light: !props.dark }"
 							:editor="editor"
 						/>
 					</div>
 					<editor-content
 						v-else
 						class="editor-body editor-body-flow markdown-body"
-						:class="{ dark: isDark, light: !isDark }"
+						:class="{ dark: props.dark, light: !props.dark }"
 						:editor="editor"
 					/>
 					<slot name="footer" :data="{ words, characters }">

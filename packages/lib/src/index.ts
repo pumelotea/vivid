@@ -1,5 +1,5 @@
 import VividEditor from './editor/index'
-import { isDark, isDarkTheme, theme } from './core/utils/index'
+import VividMenuItem from './core/components/VividMenuItem.vue'
 import {
 	useBold,
 	BoldExt,
@@ -175,7 +175,5 @@ export {
 	VideoBubbleMenu,
 	TableBubbleMenu,
 	VividEditor,
-	isDark,
-	isDarkTheme,
-	theme,
+	VividMenuItem,
 }

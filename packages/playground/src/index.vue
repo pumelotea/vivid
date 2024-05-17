@@ -1,6 +1,6 @@
 <template>
   <div class="editor-wrap">
-    <vivid-editor>
+    <vivid-editor :dark="dark">
       <template #menu>
         <div class="menu-bar">
           <document-ext/>
@@ -36,8 +36,8 @@
           <subscript-ext/>
           <superscript-ext/>
           <divider-ext/>
-          <image-ext/>
-          <video-ext/>
+          <image-ext :handleUpload="handleUpload"/>
+          <video-ext :handleUpload="handleUpload"/>
           <link-ext/>
           <divider-ext/>
           <table-ext/>
@@ -140,7 +140,11 @@ import {
 import OpenAI from "openai";
 
 const vars = useThemeVars()
-
+const props = defineProps({
+  dark: {
+    default: false,
+  }
+})
 
 const emit = defineEmits(['update:user'])
 
@@ -192,6 +196,11 @@ Now, using the concepts above, translate the following text:
     stream: true,
   });
   return stream;
+}
+
+async function handleUpload(file,per){
+  per(100)
+  return 'www.baidu.com'
 }
 
 </script>
