@@ -15,7 +15,6 @@ import {
 	HighlightExt,
 	HistoryExt,
 	LinkExt,
-	MathExt,
 	ImageExt,
 	ItalicExt,
 	IndentExt,
@@ -85,7 +84,6 @@ const vars = useThemeVars()
 		<link-ext />
 		<divider-ext />
 		<table-ext />
-		<math-ext />
 		<code-ext />
 		<code-block-ext />
 		<block-quote-ext />
