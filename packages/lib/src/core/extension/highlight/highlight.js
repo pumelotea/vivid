@@ -3,6 +3,12 @@ import { mergeAttributes } from '@tiptap/core'
 
 export function useHighlight(options) {
 	return Highlight.configure(options).extend({
+		addOptions(){
+			return {
+				...this.parent?.(),
+				...options
+			}
+		},
 		renderHTML: function ({ HTMLAttributes }) {
 			const attrs = mergeAttributes(this.options.HTMLAttributes, HTMLAttributes)
 			if (attrs.color) {
@@ -15,9 +21,9 @@ export function useHighlight(options) {
 				...this.parent?.(),
 				// 添加新的属性
 				color: {
-					default: null,
+					default: 'none',
 					parseHTML: (element) => {
-						return element.getAttribute('color')
+						return element.getAttribute('data-color')
 					},
 					renderHTML: (attributes) => ({
 						'data-color': attributes.color,

@@ -10,7 +10,7 @@ hero:
   actions:
     - theme: brand
       text: 快速开始
-      link: /api/index.html
+      link: /start/index.html
     - theme: alt
       text: 配置
       link: /guide/index.html
@@ -20,7 +20,7 @@ hero:
 import {ref, watch} from "vue";
 import {useMutationObserver} from "@vueuse/core";
 import {isDarkTheme,theme, isDark} from "@codecoderun/vivid";
-const text = ref('');
+const text = ref("");
 import { zhCN, dateZhCN ,NConfigProvider,NCard,NInput} from "naive-ui";
 const dom = document.querySelector('html');
 
@@ -35,6 +35,7 @@ const observer = useMutationObserver(dom, (mutations) => {
 });
 
 updateTheme()
+
 
 </script>
 
