@@ -485,9 +485,13 @@ onBeforeUnmount(() => {
 	position: relative;
 	box-sizing: border-box;
 	margin-bottom: 0;
-	overflow-x: scroll;
+	overflow-x: auto;
 	max-width: 100%;
 	width: fit-content;
+}
+
+.table-wrapper::-webkit-scrollbar{
+  display: none;
 }
 
 .table-wrapper table {
