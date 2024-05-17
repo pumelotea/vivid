@@ -1,5 +1,5 @@
 <script setup>
-import {useThemeVars} from 'naive-ui'
+import { useThemeVars } from 'naive-ui'
 const vars = useThemeVars()
 import {
 	BoldExt,
@@ -11,33 +11,33 @@ import {
 	TextAlignExt,
 	DividerExt,
 } from '../../core/extension'
-import ImageBubbleMenu from "../../core/extension/image/ImageBubbleMenu.vue";
-import VideoBubbleMenu from "../../core/extension/video/VideoBubbleMenu.vue";
+import ImageBubbleMenu from '../../core/extension/image/ImageBubbleMenu.vue'
+import VideoBubbleMenu from '../../core/extension/video/VideoBubbleMenu.vue'
 
 defineProps({
-  nodeType: {
-    default: undefined
-  }
+	nodeType: {
+		default: undefined,
+	},
 })
 </script>
 <template>
 	<div class="bubble-menu-bar" v-show="nodeType">
-    <template v-if="nodeType === 'text'">
-      <bold-ext/>
-      <italic-ext/>
-      <strike-ext/>
-      <underline-ext/>
-      <color-ext/>
-      <highlight-ext/>
-      <divider-ext/>
-      <text-align-ext/>
-    </template>
-    <template v-if="nodeType === 'image'">
-      <image-bubble-menu/>
-    </template>
-    <template v-if="nodeType === 'video'">
-      <video-bubble-menu/>
-    </template>
+		<template v-if="nodeType === 'text'">
+			<bold-ext />
+			<italic-ext />
+			<strike-ext />
+			<underline-ext />
+			<color-ext />
+			<highlight-ext />
+			<divider-ext />
+			<text-align-ext />
+		</template>
+		<template v-if="nodeType === 'image'">
+			<image-bubble-menu />
+		</template>
+		<template v-if="nodeType === 'video'">
+			<video-bubble-menu />
+		</template>
 	</div>
 </template>
 

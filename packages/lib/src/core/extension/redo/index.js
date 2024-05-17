@@ -1,5 +1,3 @@
 import RedoExt from './Redo.vue'
 
-export {
-	RedoExt
-}
+export { RedoExt }

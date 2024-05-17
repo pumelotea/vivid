@@ -1,7 +1,4 @@
-import {useLink} from './link.js'
+import { useLink } from './link.js'
 import LinkExt from './Link.vue'
 
-export {
-  LinkExt,
-  useLink
-}
+export { LinkExt, useLink }

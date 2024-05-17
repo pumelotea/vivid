@@ -1,32 +1,32 @@
-import {VueNodeViewRenderer} from "@tiptap/vue-3";
-import { Image as TiptapImage } from '@tiptap/extension-image';
-import ImageView from "./ImageView.vue";
+import { VueNodeViewRenderer } from '@tiptap/vue-3'
+import { Image as TiptapImage } from '@tiptap/extension-image'
+import ImageView from './ImageView.vue'
 
-export function useImage(){
+export function useImage() {
 	return TiptapImage.extend({
-		addOptions () {
+		addOptions() {
 			return {
 				...this.parent?.(),
-				inline        : true,
-				HTMLAttributes: {}
+				inline: true,
+				HTMLAttributes: {},
 			}
 		},
 		addNodeView() {
-			return VueNodeViewRenderer(ImageView);
+			return VueNodeViewRenderer(ImageView)
 		},
-		addAttributes () {
+		addAttributes() {
 			return {
 				src: {
-					default: null
+					default: null,
 				},
 				alt: {
-					default: null
+					default: null,
 				},
 				keepRatio: {
 					default: true,
 				},
 				title: {
-					default: null
+					default: null,
 				},
 				width: {
 					default: '100%',
@@ -38,27 +38,28 @@ export function useImage(){
 					default: 'inline',
 					renderHTML: ({ display }) => {
 						if (!display) {
-							return {};
+							return {}
 						}
 						return {
 							'data-display': display,
-						};
+						}
 					},
 					parseHTML: (element) => {
-						const display = element.getAttribute('data-display');
-						return display || 'inline';
+						const display = element.getAttribute('data-display')
+						return display || 'inline'
 					},
 				},
 			}
 		},
 
-		addCommands () {
+		addCommands() {
 			return {
 				...this.parent?.(),
-				updateImage: (options) =>
+				updateImage:
+					(options) =>
 					({ commands }) => {
-						return commands.updateAttributes(this.name, options);
-					}
+						return commands.updateAttributes(this.name, options)
+					},
 			}
 		},
 	})

@@ -1,10 +1,8 @@
-import Code from "@tiptap/extension-code";
-import CodeExt from "./Code.vue";
+import Code from '@tiptap/extension-code'
+import CodeExt from './Code.vue'
 
-export function useCode(options){
+export function useCode(options) {
 	return Code.configure(options)
 }
 
-export {
-	CodeExt
-}
+export { CodeExt }

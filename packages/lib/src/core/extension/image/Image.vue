@@ -1,8 +1,8 @@
-<script setup >
-import VividMenuItem from "../../components/VividMenuItem.vue"
-import {inject, ref} from "vue";
-import {useImage} from "./image.js";
-import VividImageModal from "./VividImageModal.vue";
+<script setup>
+import VividMenuItem from '../../components/VividMenuItem.vue'
+import { inject, ref } from 'vue'
+import { useImage } from './image.js'
+import VividImageModal from './VividImageModal.vue'
 
 const props = defineProps({
 	options: {
@@ -13,7 +13,7 @@ const props = defineProps({
 		type: Function,
 		required: false,
 		default: null,
-	}
+	},
 })
 
 const editorInstance = inject('editorInstance')
@@ -27,12 +27,12 @@ const HTI = ref(null)
 
 function handleOpenImage() {
 	HTI.value.open()
-  // editorInstance.value.chain().focus().setImage({src: 'https://lf-cdn-tos.bytescm.com/obj/static/xitu_extension/static/gold.981a5510.svg'}).run()
+	// editorInstance.value.chain().focus().setImage({src: 'https://lf-cdn-tos.bytescm.com/obj/static/xitu_extension/static/gold.981a5510.svg'}).run()
 }
 
 function insertImage(url) {
 	if (url) {
-		editorInstance.value.chain().focus().setImage({src: url}).run()
+		editorInstance.value.chain().focus().setImage({ src: url }).run()
 	}
 }
 </script>
@@ -55,6 +55,4 @@ function insertImage(url) {
 	</div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

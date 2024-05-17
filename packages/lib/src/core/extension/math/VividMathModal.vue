@@ -7,49 +7,37 @@ const HTMC = ref(null)
 
 const showModal = ref(false)
 
-function open (val = '') {
-  showModal.value = true
-  nextTick(() => {
-    HTMC.value.setTex(val)
-  })
+function open(val = '') {
+	showModal.value = true
+	nextTick(() => {
+		HTMC.value.setTex(val)
+	})
 }
 
-const emit = defineEmits([ 'ok' ])
+const emit = defineEmits(['ok'])
 
-function onOk () {
-  showModal.value = false
-  emit('ok', HTMC.value.getTex())
+function onOk() {
+	showModal.value = false
+	emit('ok', HTMC.value.getTex())
 }
 
-function onCancel () {
-  showModal.value = false
+function onCancel() {
+	showModal.value = false
 }
 
 defineExpose({ open })
-
 </script>
 <template>
-  <n-modal
-    v-model:show="showModal"
-    preset="card"
-    style="width: 500px"
-  >
-    <template #header>
-      <div>插入公式</div>
-    </template>
-    <vivid-math-content ref="HTMC" />
-    <template #footer>
-      <n-space justify="end">
-        <n-button @click="onCancel">
-          取消
-        </n-button>
-        <n-button
-          type="info"
-          @click="onOk"
-        >
-          确定
-        </n-button>
-      </n-space>
-    </template>
-  </n-modal>
+	<n-modal v-model:show="showModal" preset="card" style="width: 500px">
+		<template #header>
+			<div>插入公式</div>
+		</template>
+		<vivid-math-content ref="HTMC" />
+		<template #footer>
+			<n-space justify="end">
+				<n-button @click="onCancel"> 取消 </n-button>
+				<n-button type="info" @click="onOk"> 确定 </n-button>
+			</n-space>
+		</template>
+	</n-modal>
 </template>

@@ -65,6 +65,12 @@ importers:
       '@codecoderun/vivid':
         specifier: workspace:*
         version: link:../lib
+      '@vueuse/core':
+        specifier: ^8.0.1
+        version: 8.9.4(vue@3.4.21(typescript@5.4.2))
+      naive-ui:
+        specifier: ^2.35.0
+        version: 2.38.1(vue@3.4.21(typescript@5.4.2))
       remixicon:
         specifier: ^3.7.0
         version: 3.7.0
@@ -72,6 +78,9 @@ importers:
       vitepress:
         specifier: 1.0.0-rc.25
         version: 1.0.0-rc.25(@algolia/client-search@4.22.1)(@types/node@20.8.10)(async-validator@4.2.5)(axios@1.6.8)(postcss@8.4.35)(sass@1.77.1)(search-insights@2.13.0)(typescript@5.4.2)
+      vue:
+        specifier: ^3.2.40
+        version: 3.4.21(typescript@5.4.2)
 
   packages/lib:
     dependencies:

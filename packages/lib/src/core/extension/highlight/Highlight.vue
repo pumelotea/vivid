@@ -1,17 +1,17 @@
-<script setup >
-import VividMenuItem from "../../components/VividMenuItem.vue"
-import {inject, ref} from "vue";
-import VividColorPicker from "../../components/VividColorPicker.vue";
-import {useHighlight} from "./highlight.js";
+<script setup>
+import VividMenuItem from '../../components/VividMenuItem.vue'
+import { inject, ref } from 'vue'
+import VividColorPicker from '../../components/VividColorPicker.vue'
+import { useHighlight } from './highlight.js'
 
 const props = defineProps({
 	options: {
 		type: Object,
 		required: false,
-    default: ()=>{
-      return { multicolor: true }
-    }
-	}
+		default: () => {
+			return { multicolor: true }
+		},
+	},
 })
 
 const editorInstance = inject('editorInstance')
@@ -20,18 +20,25 @@ if (!useExtension) {
 	throw new Error('Highlight component must under VividEditor menu slot')
 }
 
-
 useExtension(useHighlight(props.options))
 
 const colorHighlight = ref('#fec300')
 
 function setHighlightColor() {
-	editorInstance.value.chain().focus().toggleHighlight({color: colorHighlight.value}).run()
+	editorInstance.value
+		.chain()
+		.focus()
+		.toggleHighlight({ color: colorHighlight.value })
+		.run()
 }
 
 function updateHeightColor(e) {
 	colorHighlight.value = e
-	editorInstance.value.chain().focus().setHighlight({color: colorHighlight.value}).run()
+	editorInstance.value
+		.chain()
+		.focus()
+		.setHighlight({ color: colorHighlight.value })
+		.run()
 }
 </script>
 
@@ -55,7 +62,7 @@ function updateHeightColor(e) {
 </template>
 
 <style scoped>
-.color-box{
+.color-box {
 	display: flex;
 }
 </style>

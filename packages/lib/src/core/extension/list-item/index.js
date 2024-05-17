@@ -1,10 +1,8 @@
-import ListItem from "@tiptap/extension-list-item";
-import ListItemExt from "./ListItem.vue";
+import ListItem from '@tiptap/extension-list-item'
+import ListItemExt from './ListItem.vue'
 
-export function useListItem(options){
+export function useListItem(options) {
 	return ListItem.configure(options)
 }
 
-export {
-	ListItemExt
-}
+export { ListItemExt }

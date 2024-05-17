@@ -1,5 +1,6 @@
 // import plugin from 'portal-vue'
 import DefaultTheme from 'vitepress/theme'
+import './css/index.css'
 import { VividEditor } from '@codecoderun/vivid'
 import "remixicon/fonts/remixicon.css"
 import "@codecoderun/vivid/dist/style.css"

@@ -1,11 +1,8 @@
-import HardBreak from "@tiptap/extension-hard-break";
-import HardBreakExt from "./HardBreak.vue";
+import HardBreak from '@tiptap/extension-hard-break'
+import HardBreakExt from './HardBreak.vue'
 
-export function useHardBreak(options){
+export function useHardBreak(options) {
 	return HardBreak.configure(options)
 }
 
-
-export {
-	HardBreakExt
-}
+export { HardBreakExt }

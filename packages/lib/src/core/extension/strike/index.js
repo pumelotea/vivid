@@ -1,10 +1,8 @@
-import Strike from "@tiptap/extension-strike";
-import StrikeExt from "./Strike.vue";
+import Strike from '@tiptap/extension-strike'
+import StrikeExt from './Strike.vue'
 
-export function useStrike(options){
+export function useStrike(options) {
 	return Strike.configure(options)
 }
 
-export {
-	StrikeExt
-}
+export { StrikeExt }

@@ -1,6 +1,6 @@
-import CodeBlockLowlight from "@tiptap/extension-code-block-lowlight";
-import {VueNodeViewRenderer} from "@tiptap/vue-3";
-import VividCodeBlockComponent from "./VividCodeBlockComponent.vue";
+import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
+import { VueNodeViewRenderer } from '@tiptap/vue-3'
+import VividCodeBlockComponent from './VividCodeBlockComponent.vue'
 
 // load all highlight.js languages
 import { lowlight } from 'lowlight/lib/core'
@@ -79,14 +79,13 @@ lowlight.registerLanguage('vbnet', vbnet)
 lowlight.registerLanguage('wasm', wasm)
 lowlight.registerLanguage('xml', xml)
 lowlight.registerLanguage('yaml', yaml)
-export function useCodeBlock(options){
-	if (!options){
-		 options= { lowlight }
+export function useCodeBlock(options) {
+	if (!options) {
+		options = { lowlight }
 	}
-	return CodeBlockLowlight
-		.extend({
-			addNodeView () {
-				return VueNodeViewRenderer(VividCodeBlockComponent)
-			}
-		}).configure(options)
+	return CodeBlockLowlight.extend({
+		addNodeView() {
+			return VueNodeViewRenderer(VividCodeBlockComponent)
+		},
+	}).configure(options)
 }

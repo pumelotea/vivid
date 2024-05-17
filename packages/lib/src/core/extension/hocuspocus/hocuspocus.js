@@ -1,9 +1,9 @@
-import {HocuspocusProvider} from "@hocuspocus/provider";
+import { HocuspocusProvider } from '@hocuspocus/provider'
 import { Collaboration } from '@tiptap/extension-collaboration'
 import CollaborationCursor from '@tiptap/extension-collaboration-cursor'
-import {onBeforeUnmount} from "vue";
+import { onBeforeUnmount } from 'vue'
 
-export function getRandomColor () {
+export function getRandomColor() {
 	const letters = 'BCDEF'.split('')
 	let color = '#'
 	for (let i = 0; i < 6; i++) {
@@ -12,8 +12,8 @@ export function getRandomColor () {
 	return color
 }
 
-export function useHocuspocus(options, user){
-// Set up the Hocuspocus WebSocket provider
+export function useHocuspocus(options, user) {
+	// Set up the Hocuspocus WebSocket provider
 	const provider = new HocuspocusProvider(options)
 	onBeforeUnmount(() => {
 		provider.disconnect()
@@ -21,11 +21,11 @@ export function useHocuspocus(options, user){
 	})
 	return [
 		Collaboration.configure({
-			document: provider.document
+			document: provider.document,
 		}),
 		CollaborationCursor.configure({
 			provider,
-			user
-		})
+			user,
+		}),
 	]
 }

@@ -1,10 +1,7 @@
 {
 	"name": "vivid",
 	"version": "0.1.0",
-	"description": "A monorepo template for developing Vue libraries",
-	"author": "Thorsten Lünborg <thorsten@linusb.org>",
 	"license": "MIT",
-	"private": true,
 	"type": "module",
 	"workspaces": [
 		"packages/*"

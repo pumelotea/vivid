@@ -1,19 +1,8 @@
 {
   "name": "docs",
   "version": "0.0.0",
-  "private": true,
-  "description": "Docs for this lib.",
-  "author": "Thorsten Luenborg <t.luneborg@googlemail.com>",
   "homepage": "",
   "license": "MIT",
-  "main": "index.ts",
-  "directories": {
-    "lib": "lib",
-    "test": "__tests__"
-  },
-  "files": [
-    "lib"
-  ],
   "scripts": {
     "dev": "vitepress dev .",
     "build": "vitepress build .",
@@ -21,9 +10,12 @@
   },
   "dependencies": {
     "@codecoderun/vivid": "workspace:*",
+    "@vueuse/core": "^8.0.1",
+    "naive-ui": "^2.35.0",
     "remixicon": "^3.7.0"
   },
   "devDependencies": {
-    "vitepress": "1.0.0-rc.25"
+    "vitepress": "1.0.0-rc.25",
+    "vue": "^3.2.40"
   }
 }

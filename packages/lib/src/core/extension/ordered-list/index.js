@@ -1,10 +1,8 @@
-import OrderedList from "@tiptap/extension-ordered-list";
-import OrderedListExt from "./OrderedList.vue";
+import OrderedList from '@tiptap/extension-ordered-list'
+import OrderedListExt from './OrderedList.vue'
 
-export function useOrderedList(options){
+export function useOrderedList(options) {
 	return OrderedList.configure(options)
 }
 
-export {
-	OrderedListExt
-}
+export { OrderedListExt }

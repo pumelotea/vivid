@@ -1,7 +1,4 @@
-import {useMath} from "./math.js";
+import { useMath } from './math.js'
 import MathExt from './Math.vue'
 
-export {
-  useMath,
-  MathExt
-}
+export { useMath, MathExt }
