@@ -2,19 +2,18 @@
 layout: home
 
 hero:
-  name: 开放平台
-  text: in嘉善
-  tagline: H5应用接入
+  name: VividEditor
+  tagline: 一个基于Tiptap和naiveui的现代富文本编辑器
   image:
     src: /logo.svg
     alt: VitePress
   actions:
     - theme: brand
       text: 快速开始
-      link: /quick/index.html
+      link: /api/index.html
     - theme: alt
-      text: 对接流程
-      link: /flow/index.html
+      text: 配置
+      link: /guide/index.html
 ---
 
 <script setup>
@@ -46,7 +45,7 @@ updateTheme()
     <div style="padding: 40px;max-width:1280px;height: 600px">
         <vivid-editor v-model="text"/>
     </div>
-    <div title="输出内容" style="padding: 40px;max-width:1280px;height: 600px;width: 100%"> 
+    <div title="输出内容" style="padding: 40px;max-width:1280px;width: 100%"> 
         <n-input
           v-model:value="text"
           type="textarea"

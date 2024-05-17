@@ -15,24 +15,12 @@ export default defineConfig({
       {text: 'Github', link: "https://github.com/pumelotea/vivid",},
     ],
     footer: {
-      message: "Powered by CodeCodeRun",
-      copyright: 'Copyright © 2023-present CodeCodeRun'
+      message: "Powered by CodeCode.Run",
+      copyright: 'Copyright © 2023-present CodeCode.Run'
     },
     docFooter: {
       prev: '上一节',
       next: '下一节'
     },
-    sidebar: [
-      {
-        text: '开放平台对接文档',
-        items: [
-          {text: '对接流程', link: '/flow/index.html'},
-          {text: '准备工作', link: '/quick/index.html'},
-          {text: 'JSSDK', link: '/jssdk/index.html'},
-          {text: '服务端接口', link: '/server-api/index.html'},
-          {text: 'Demo代码', link: '/demo/index.html'},
-        ]
-      }
-    ],
   },
 })
