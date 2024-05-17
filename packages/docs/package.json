@@ -9,7 +9,7 @@
     "lint": "eslint '.vitepress/**/*.{ts,vue}'"
   },
   "dependencies": {
-    "@codecoderun/vivid": "workspace:*",
+    "@codecoderun/vivid": "0.0.8",
     "@vueuse/core": "^8.0.1",
     "naive-ui": "^2.35.0",
     "remixicon": "^3.7.0"
