@@ -1,7 +1,6 @@
 # VividEditor
 
 旨在基于tiptap实现一个现代的编辑器
-https://codecode.run/#/share/clvw118ag0076qf01qjbh652o
 
 ## todo
 1. 工具条可以配置
