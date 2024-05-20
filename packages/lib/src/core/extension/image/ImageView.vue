@@ -16,7 +16,6 @@ const props = defineProps({
 	},
 })
 
-const init = ref(false)
 const Wrap = ref()
 const targetRef = ref()
 const maxWidth = ref('auto')
@@ -123,12 +122,6 @@ function selectImage() {
 	const { editor, getPos } = props
 	editor.commands.setNodeSelection(getPos())
 }
-
-onMounted(() => {
-	setTimeout(() => {
-		init.value = true
-	}, 200)
-})
 </script>
 
 <template>
@@ -148,8 +141,7 @@ onMounted(() => {
 				<img :src="imgAttrs.src" :alt="imgAttrs.alt" :style="imgAttrs.style" />
 			</div>
 			<Moveable
-				v-if="init"
-				v-show="selected || isResizing"
+				v-if="selected || isResizing"
 				:target="targetRef"
 				:resizable="resizable"
 				:rotatable="rotatable"

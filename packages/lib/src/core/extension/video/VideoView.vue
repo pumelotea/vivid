@@ -11,7 +11,6 @@ const props = defineProps({
 	},
 })
 
-const init = ref(false)
 const Wrap = ref()
 const videoRef = ref(null)
 const targetRef = ref()
@@ -133,11 +132,6 @@ function selectVideo() {
 	editor.commands.setNodeSelection(getPos())
 }
 
-onMounted(() => {
-	setTimeout(() => {
-		init.value = true
-	}, 200)
-})
 </script>
 
 <template>
@@ -164,8 +158,7 @@ onMounted(() => {
 				></video>
 			</div>
 			<Moveable
-				v-if="init"
-				v-show="selected || isResizing"
+				v-if="selected || isResizing"
 				:target="targetRef"
 				:resizable="resizable"
 				:rotatable="rotatable"
