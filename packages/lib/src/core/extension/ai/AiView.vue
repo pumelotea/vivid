@@ -96,11 +96,11 @@
 														<Icon icon="mdi:content-copy" />
 													</n-icon>
 												</n-button>
-												<n-button>
-													<n-icon size="18">
-														<Icon icon="mdi:refresh" />
-													</n-icon>
-												</n-button>
+<!--												<n-button>-->
+<!--													<n-icon size="18">-->
+<!--														<Icon icon="mdi:refresh" />-->
+<!--													</n-icon>-->
+<!--												</n-button>-->
 												<n-button @click="handleDelete">
 													<n-icon size="18">
 														<Icon icon="mdi:delete" />
@@ -181,7 +181,7 @@ const options = [
 	{
 		label: 'AI续写',
 		icon: 'mdi:magic',
-		key: 'jay gatsby',
+		key: 'xuxie',
 	},
 	{
 		label: 'AI润色',
@@ -191,7 +191,6 @@ const options = [
 			{
 				label: '更加详细',
 				icon: 'mdi:magic-staff',
-
 				key: 'xiangxi',
 			},
 			{
@@ -224,17 +223,17 @@ const options = [
 	{
 		label: 'AI翻译',
 		icon: 'mdi:translate',
-		key: 'nick carraway',
+		key: 'fanyi',
 		children: [
 			{
 				label: '英语',
 				icon: 'mdi:translate',
-				key: 'jordan baker',
+				key: 'english',
 			},
 			{
 				label: '中文',
 				icon: 'mdi:translate',
-				key: 'jordan baker',
+				key: 'chinese',
 			},
 		],
 	},
@@ -268,7 +267,7 @@ function handleMaskClick() {
 async function handleSelect(key) {
 	status.value = 'loading'
 	const selectionText = props.node.attrs.selectionText
-	const stream = await props.extension.options.completions(selectionText)
+	const stream = await props.extension.options.completions(selectionText, key)
 	status.value = 'generating'
 	for await (const chunk of stream) {
 		messageList.value.push(chunk.choices[0]?.delta?.content || '')
