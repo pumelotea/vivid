@@ -252,6 +252,9 @@ importers:
       prosemirror-view:
         specifier: ^1.33.6
         version: 1.33.6
+      tippy.js:
+        specifier: ^6.3.7
+        version: 6.3.7
       vue3-moveable:
         specifier: ^0.28.0
         version: 0.28.0

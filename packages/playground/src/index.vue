@@ -20,7 +20,6 @@
 					<redo-ext/>
 					<format-clear-ext/>
 					<divider-ext/>
-					<ai-ext :options="{completions:AICompletions}"/>
 					<bold-ext/>
 					<italic-ext/>
 					<strike-ext/>
