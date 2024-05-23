@@ -68,6 +68,9 @@ importers:
       '@vueuse/core':
         specifier: ^8.0.1
         version: 8.9.4(vue@3.4.21(typescript@5.4.2))
+      openai:
+        specifier: ^4.47.1
+        version: 4.47.1
     devDependencies:
       '@css-render/vue3-ssr':
         specifier: ^0.15.14
@@ -252,9 +255,6 @@ importers:
       prosemirror-view:
         specifier: ^1.33.6
         version: 1.33.6
-      tippy.js:
-        specifier: ^6.3.7
-        version: 6.3.7
       vue3-moveable:
         specifier: ^0.28.0
         version: 0.28.0

@@ -9,7 +9,8 @@
 	},
 	"dependencies": {
 		"@codecoderun/vivid": "workspace:*",
-		"@vueuse/core": "^8.0.1"
+		"@vueuse/core": "^8.0.1",
+		"openai": "^4.47.1"
 	},
 	"devDependencies": {
 		"@css-render/vue3-ssr": "^0.15.14",
