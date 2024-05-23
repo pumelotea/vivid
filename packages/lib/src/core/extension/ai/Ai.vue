@@ -199,6 +199,7 @@ function handleCancel(e) {
       <n-card title="AI助手" size="small">
         <div :class="{'box': status === 'generating'}">
           <n-input placeholder="生成内容"
+									 :bordered="status !== 'generating'"
                    show-count
                    :autosize="{
                   minRows: 3,
@@ -206,6 +207,7 @@ function handleCancel(e) {
                   }"
                    type="textarea" v-model:value="result"
                    :loading="status === 'generating'"
+                   :readonly="status === 'generating'"
                    style="height: fit-content;z-index: 9"></n-input>
         </div>
         <template #footer>
