@@ -40,8 +40,7 @@ onMounted(() => {
 })
 
 onBeforeUnmount(() => {
-  const {pluginKey, editor} = props
-  props.editor && props.editor.unregisterPlugin(pluginKey)
+  props.editor && props.editor.unregisterPlugin('slashCommand')
 })
 
 

@@ -84,7 +84,6 @@ watch(() => props.query, () => {
 })
 
 function onKeyDown(e) {
-  console.log(selectedIndex.value)
   if (e.key === 'Enter') {
     renderList.value[selectedIndex.value].action()
     return true
