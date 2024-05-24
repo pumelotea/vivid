@@ -87,6 +87,8 @@ import {
 	AiExt,
 	SlashCommandExt,
 	useLineHeight,
+	useTrailingNode,
+	TrailingNodeExt,
 } from './core/extension'
 
 export {
@@ -178,4 +180,6 @@ export {
 	VividEditor,
 	VividMenuItem,
 	SlashCommandExt,
+	useTrailingNode,
+	TrailingNodeExt,
 }

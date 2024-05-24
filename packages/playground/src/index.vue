@@ -18,6 +18,7 @@
 					<character-count-ext/>
 					<text-style-ext/>
 					<focus-ext/>
+          <trailing-node-ext/>
 
 					<undo-ext/>
 					<redo-ext/>
@@ -139,6 +140,7 @@ import {
 	HocuspocusExt,
 	ImageBubbleMenu,
 	VideoBubbleMenu,
+  TrailingNodeExt,
 } from '@codecoderun/vivid'
 import OpenAI from "openai";
 
