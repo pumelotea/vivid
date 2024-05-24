@@ -71,6 +71,12 @@ const items = ref([
     }
   },
   {
+    name: '代码',
+    cmd: '/code',
+    icon: 'brackets-line',
+    action: () => props.editor.chain().focus().deleteRange(props.range).toggleCode().run()
+  },
+  {
     name: '代码块',
     cmd: '/codeblock',
     icon: 'code-view',
@@ -107,7 +113,7 @@ function onKeyDown(e) {
       return true
     }
     if (selectedIndex.value > renderList.value.length - 1) {
-      selectedIndex.value = renderList.value.length - 1
+      selectedIndex.value = 0
       return true
     }
     return true
@@ -119,7 +125,7 @@ function onKeyDown(e) {
       return true
     }
     if (selectedIndex.value < 0) {
-      selectedIndex.value = 0
+      selectedIndex.value = renderList.value.length - 1
       return true
     }
     return true
