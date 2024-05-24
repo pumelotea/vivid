@@ -4,7 +4,6 @@ export function usePlaceholder(options) {
 	if (!options) {
 		options = {
 			placeholder: ({ node, pos }) => {
-				console.log(node.type?.name === 'heading')
 				if (node?.type?.name === 'heading') {
 					return `标题${node.attrs.level}`
 				}
