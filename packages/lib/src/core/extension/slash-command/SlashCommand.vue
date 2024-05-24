@@ -15,7 +15,7 @@ const props = defineProps({
 
 const queryValue = ref('')
 const range = ref(null)
-const keyDownEventFun = ref(null)
+const keyDownEventFun = ref<((e: any) => boolean)>((e: any)=>false)
 
 function onQuery(query: string) {
   queryValue.value = query

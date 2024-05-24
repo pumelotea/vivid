@@ -9,7 +9,7 @@ export interface SlashCommandPluginProps {
   element: HTMLElement
   onQuery: (query: string) => void
   updateRange: (r: any) => void
-  onKeyDown: (e: any) => boolean
+  onKeyDown: ((e: any) => boolean) | null
 }
 
 export const SlashCommandSuggestPlugin = (options: SlashCommandPluginProps) => {
@@ -76,8 +76,10 @@ export const SlashCommandSuggestPlugin = (options: SlashCommandPluginProps) => {
           if (!tippyInstance.state.isShown) {
             tippyInstance.show()
           }
-
-          return options.onKeyDown&&options.onKeyDown(props.event)
+          if (options.onKeyDown){
+            return options.onKeyDown(props.event)
+          }
+          return false
         },
         onExit: () => {
           options.onQuery('')
