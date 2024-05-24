@@ -2,13 +2,27 @@
 	outline: 0;
 }
 
-.ProseMirror p.is-editor-empty:first-child::before {
+.ProseMirror p.is-empty::before {
 	content: attr(data-placeholder);
 	float: left;
 	color: #adb5bd;
 	pointer-events: none;
 	height: 0;
 }
+
+.ProseMirror h1.is-empty::before,
+.ProseMirror h2.is-empty::before,
+.ProseMirror h3.is-empty::before,
+.ProseMirror h4.is-empty::before,
+.ProseMirror h5.is-empty::before,
+.ProseMirror h6.is-empty::before {
+	content: attr(data-placeholder);
+	float: left;
+	color: #adb5bd;
+	pointer-events: none;
+	height: 0;
+}
+
 
 .editor-body {
 	box-sizing: border-box;
