@@ -1,6 +1,6 @@
 <script setup>
 import VividMenuItem from '../../components/VividMenuItem.vue'
-import { inject, ref } from 'vue'
+import {inject, ref, watch} from 'vue'
 import VividMathModal from './VividMathModal.vue'
 import { useMath } from './math.js'
 
@@ -24,7 +24,12 @@ function handleOpenMath() {
 	const val = ''
 	HTM.value.open(val)
 }
-
+// 提供共享的上传方法
+watch(editorInstance,()=>{
+  editorInstance.value.storage['hb-math'] = {
+    openEditor: handleOpenMath
+  }
+})
 function setMath(val) {
 	editorInstance.value.chain().focus().setHbMath({ tex: val }).run()
 }

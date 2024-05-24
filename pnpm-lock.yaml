@@ -228,6 +228,9 @@ importers:
       '@tiptap/pm':
         specifier: ^2.1.12
         version: 2.2.4
+      '@tiptap/suggestion':
+        specifier: ^2.3.1
+        version: 2.4.0(@tiptap/core@2.2.4(@tiptap/pm@2.2.4))(@tiptap/pm@2.2.4)
       '@tiptap/vue-3':
         specifier: ^2.1.12
         version: 2.2.4(@tiptap/core@2.2.4(@tiptap/pm@2.2.4))(@tiptap/pm@2.2.4)(vue@3.4.21(typescript@5.4.2))
@@ -255,6 +258,9 @@ importers:
       prosemirror-view:
         specifier: ^1.33.6
         version: 1.33.6
+      tippy.js:
+        specifier: ^6.3.7
+        version: 6.3.7
       vue3-moveable:
         specifier: ^0.28.0
         version: 0.28.0
@@ -1217,6 +1223,12 @@ packages:
 
   '@tiptap/pm@2.2.4':
     resolution: {integrity: sha512-Po0klR165zgtinhVp1nwMubjyKx6gAY9kH3IzcniYLCkqhPgiqnAcCr61TBpp4hfK8YURBS4ihvCB1dyfCyY8A==}
+
+  '@tiptap/suggestion@2.4.0':
+    resolution: {integrity: sha512-6dCkjbL8vIzcLWtS6RCBx0jlYPKf2Beuyq5nNLrDDZZuyJow5qJAY0eGu6Xomp9z0WDK/BYOxT4hHNoGMDkoAg==}
+    peerDependencies:
+      '@tiptap/core': ^2.0.0
+      '@tiptap/pm': ^2.0.0
 
   '@tiptap/vue-3@2.2.4':
     resolution: {integrity: sha512-6Rue56OUmDl/OT07QcLsH1UvYGUmV8OFSDCrLrUyku/2lAYHwHz6+KhAB5paZt70nEGIw03G1KCT074negj6NQ==}
@@ -4397,6 +4409,11 @@ snapshots:
       prosemirror-trailing-node: 2.0.8(prosemirror-model@1.21.0)(prosemirror-state@1.4.3)(prosemirror-view@1.33.6)
       prosemirror-transform: 1.9.0
       prosemirror-view: 1.33.6
+
+  '@tiptap/suggestion@2.4.0(@tiptap/core@2.2.4(@tiptap/pm@2.2.4))(@tiptap/pm@2.2.4)':
+    dependencies:
+      '@tiptap/core': 2.2.4(@tiptap/pm@2.2.4)
+      '@tiptap/pm': 2.2.4
 
   '@tiptap/vue-3@2.2.4(@tiptap/core@2.2.4(@tiptap/pm@2.2.4))(@tiptap/pm@2.2.4)(vue@3.4.21(typescript@5.4.2))':
     dependencies:

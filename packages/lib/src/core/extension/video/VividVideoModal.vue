@@ -16,7 +16,7 @@ import { ref, watch } from 'vue'
 
 const showModal = ref(false)
 
-const tabName = ref('网络视频')
+const tabName = ref('本地视频')
 
 const props = defineProps({
 	handleUpload: {
@@ -45,7 +45,7 @@ function open(attrs) {
 	readyFile.value = null
 	readySave.value = false
 	showModal.value = true
-	tabName.value = '网络视频'
+	tabName.value = '本地视频'
 	href.value = attrs?.src || ''
 }
 

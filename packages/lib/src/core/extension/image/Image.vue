@@ -1,6 +1,6 @@
 <script setup>
 import VividMenuItem from '../../components/VividMenuItem.vue'
-import { inject, ref } from 'vue'
+import {inject, onMounted, ref, watch} from 'vue'
 import { useImage } from './image.js'
 import VividImageModal from './VividImageModal.vue'
 
@@ -30,11 +30,19 @@ function handleOpenImage() {
 	// editorInstance.value.chain().focus().setImage({src: 'https://lf-cdn-tos.bytescm.com/obj/static/xitu_extension/static/gold.981a5510.svg'}).run()
 }
 
+// 提供共享的上传方法
+watch(editorInstance,()=>{
+  editorInstance.value.storage.image = {
+    openUploader: handleOpenImage
+  }
+})
+
 function insertImage(url) {
 	if (url) {
 		editorInstance.value.chain().focus().setImage({ src: url }).run()
 	}
 }
+
 </script>
 
 <template>

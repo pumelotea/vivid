@@ -85,6 +85,7 @@ import {
 	VideoBubbleMenu,
 	TableBubbleMenu,
 	AiExt,
+	SlashCommandExt,
 	useLineHeight,
 } from './core/extension'
 
@@ -176,4 +177,5 @@ export {
 	TableBubbleMenu,
 	VividEditor,
 	VividMenuItem,
+	SlashCommandExt,
 }

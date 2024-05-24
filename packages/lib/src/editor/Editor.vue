@@ -18,10 +18,12 @@ import { NMessageProvider, NDialogProvider } from 'naive-ui'
 import VividMenu from './components/VividMenu.vue'
 import VividBubbleMenu from './components/VividBubbleMenu.vue'
 import VividFooter from './components/VividFooter.vue'
+import SlashCommand from '../core/extension/slash-command/SlashCommand.vue'
 
 import { Editor } from '@tiptap/vue-3'
 import { CellSelection } from 'prosemirror-tables'
 import { TextSelection } from '@tiptap/pm/state'
+import VividSlashCommand from "./components/VividSlashCommand.vue";
 const vars = useThemeVars()
 
 const props = defineProps({
@@ -207,6 +209,13 @@ defineExpose({
 	>
 		<n-message-provider>
 			<n-dialog-provider>
+				<slash-command :editor="editor" v-if="editor">
+          <template v-slot:default="{query, range, bindKeyDownEvent}">
+            <slot name="slash-command" :query="query" :range="range" :bindKeyDownEvent="bindKeyDownEvent">
+              <vivid-slash-command :editor="editor" :query="query" :range="range" :bindKeyDownEvent="bindKeyDownEvent"/>
+            </slot>
+          </template>
+        </slash-command>
 				<bubble-menu
 					v-if="editor && bubbleMenu"
 					v-show="!hideBubble"

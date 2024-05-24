@@ -1,6 +1,6 @@
 <script setup>
 import VividMenuItem from '../../components/VividMenuItem.vue'
-import { inject, ref } from 'vue'
+import {inject, ref, watch} from 'vue'
 import { useVideo } from './video.js'
 import VividVideoModal from './VividVideoModal.vue'
 
@@ -29,7 +29,12 @@ function handleOpenVideo() {
 	HTV.value.open()
 	// editorInstance.value.chain().focus().setVideo({src: 'https://sf1-cdn-tos.huoshanstatic.com/obj/media-fe/xgplayer_doc_video/mp4/xgplayer-demo-360p.mp4'}).run()
 }
-
+// 提供共享的上传方法
+watch(editorInstance,()=>{
+  editorInstance.value.storage.video = {
+    openUploader: handleOpenVideo
+  }
+})
 function insertVideo(url) {
 	if (url) {
 		editorInstance.value.chain().focus().setVideo({ src: url }).run()

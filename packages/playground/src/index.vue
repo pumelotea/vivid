@@ -1,6 +1,9 @@
 <template>
 	<div class="editor-wrap">
 		<vivid-editor :dark="dark">
+<!--      <template v-slot:slash-command="{query}">-->
+<!--        <n-button>{{query}}</n-button>-->
+<!--      </template>-->
 			<template #menu>
 				<div class="menu-bar">
 					<document-ext/>
@@ -87,7 +90,7 @@
 }
 </style>
 <script setup>
-import {useThemeVars} from 'naive-ui'
+import {useThemeVars, NButton} from 'naive-ui'
 import {nextTick} from 'vue'
 import {VividEditor} from '@codecoderun/vivid'
 import {
