@@ -35,6 +35,12 @@ const items = ref([
     }
   },
   {
+    name: '引用',
+    cmd: '/b',
+    icon: 'double-quotes-l',
+    action: () => props.editor.chain().focus().deleteRange(props.range).toggleBlockquote().run()
+  },
+  {
     name: '标题1',
     cmd: '/h1',
     icon: 'h-1',
@@ -85,7 +91,13 @@ watch(() => props.query, () => {
 
 function onKeyDown(e) {
   if (e.key === 'Enter') {
-    renderList.value[selectedIndex.value].action()
+    const cmd = renderList.value[selectedIndex.value]
+    if (cmd){
+      cmd.action()
+    }
+    if (renderList.value.length === 1){
+      renderList.value[0].action()
+    }
     return true
   }
   if (e.key === 'ArrowDown') {
