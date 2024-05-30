@@ -211,6 +211,12 @@ defineExpose({
 		<n-message-provider>
 			<n-dialog-provider>
         <drag-handle :editor="editor">
+          <template v-slot:drag-handle-slash="{activePos}">
+            <slot name="drag-handle-slash" :activePos="activePos"></slot>
+          </template>
+          <template v-slot:drag-handle-select="{activePos}">
+            <slot name="drag-handle-select" :activePos="activePos"></slot>
+          </template>
         </drag-handle>
 				<slash-command :editor="editor" v-if="editor">
           <template v-slot:default="{query, range, bindKeyDownEvent}">
