@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {NButton, NPopover, NElement} from 'naive-ui'
+import {NButton, NPopover, NElement, useThemeVars} from 'naive-ui'
 import {useDragHandle} from './drag-handle.js'
 import {inject, onMounted, ref, PropType, watch} from "vue"
 import {Editor} from '@tiptap/core'
@@ -9,9 +9,8 @@ const props = defineProps({
     type: Object as PropType<Editor>,
   }
 })
-
+const vars = useThemeVars()
 const root = ref()
-const dragHandleElement = ref()
 const showSlash = ref(false)
 const showPop = ref(false)
 
@@ -179,47 +178,47 @@ watch([showSlash, showPop],()=>{
 
 <template>
   <div class="drag-handle" ref="root">
-    <n-popover :z-index="99999" style="padding: 0" v-model:show="showSlash" trigger="click" placement="bottom-start"
-               :show-arrow="false">
-      <template #trigger>
-        <n-button size="tiny" block quaternary class="drag-button">
-          <i class="ri-add-fill scale-125"></i>
-        </n-button>
-      </template>
-      <slot name="drag-handle-slash" :activePos="activePos">
-        <n-element class="slash-command">
-          <div class="slash-item" v-for="(e, i) in items" @click="doAction(e)" :key="e.cmd">
-            <div class="slash-name">
-              <div class="slash-icon">
-                <i :class="`ri-${e.icon}`"></i>
-              </div>
-              <span>{{ e.name }}</span>
-            </div>
+      <n-popover :z-index="99999" style="padding: 0" v-model:show="showSlash" trigger="click" placement="bottom-start"
+                 :show-arrow="false">
+        <template #trigger>
+          <div class="drag-button">
+            <i class="ri-add-fill"></i>
           </div>
-        </n-element>
-      </slot>
-    </n-popover>
-    <n-popover :z-index="99999" style="padding: 0" v-model:show="showPop" trigger="click" placement="bottom-start"
-               :show-arrow="false">
-      <template #trigger>
-        <n-button ref="dragHandleElement" block size="tiny" quaternary class="drag-button">
-          <i class="ri-draggable scale-125"></i>
-        </n-button>
-      </template>
-      <slot name="drag-handle-select" :activePos="activePos">
-        <n-element class="slash-command">
-          <div class="slash-item" v-for="(e, i) in items2" @click="doAction(e)" :key="e.name">
-            <div class="slash-name">
-              <div class="slash-icon">
-                <i :class="`ri-${e.icon}`"></i>
+        </template>
+        <slot name="drag-handle-slash" :activePos="activePos">
+          <n-element class="slash-command">
+            <div class="slash-item" v-for="(e, i) in items" @click="doAction(e)" :key="e.cmd">
+              <div class="slash-name">
+                <div class="slash-icon">
+                  <i :class="`ri-${e.icon}`"></i>
+                </div>
+                <span>{{ e.name }}</span>
               </div>
-              <span>{{ e.name }}</span>
             </div>
+          </n-element>
+        </slot>
+      </n-popover>
+      <n-popover :z-index="99999" style="padding: 0" v-model:show="showPop" trigger="click" placement="bottom-start"
+                 :show-arrow="false">
+        <template #trigger>
+          <div class="drag-button">
+            <i class="ri-draggable"></i>
           </div>
-        </n-element>
-      </slot>
-    </n-popover>
-  </div>
+        </template>
+        <slot name="drag-handle-select" :activePos="activePos">
+          <n-element class="slash-command">
+            <div class="slash-item" v-for="(e, i) in items2" @click="doAction(e)" :key="e.name">
+              <div class="slash-name">
+                <div class="slash-icon">
+                  <i :class="`ri-${e.icon}`"></i>
+                </div>
+                <span>{{ e.name }}</span>
+              </div>
+            </div>
+          </n-element>
+        </slot>
+      </n-popover>
+    </div>
 </template>
 
 <style scoped>
@@ -273,10 +272,17 @@ watch([showSlash, showPop],()=>{
 .drag-button{
   width: 24px;
   height: 24px;
-  overflow: hidden;
+  border-radius: 5px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: v-bind(vars.textColor3);
 }
 
-.scale-125{
-  scale: 1.25;
+.drag-button:hover {
+  background: v-bind(vars.hoverColor);
+  border: 1px solid v-bind(vars.borderColor);
 }
+
 </style>
