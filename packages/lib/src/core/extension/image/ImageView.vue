@@ -153,7 +153,6 @@ function selectImage() {
 				@resizeEnd="onResizeEnd"
 			></Moveable>
 		</div>
-    {{selected}}
 	</node-view-wrapper>
 </template>
 
