@@ -391,6 +391,7 @@ onBeforeUnmount(() => {
 				:show="allSelected"
 				:show-arrow="false"
 				content-style="padding: 0;"
+        :z-index="99999"
 				style="
 					padding: 0;
 					width: 20px;

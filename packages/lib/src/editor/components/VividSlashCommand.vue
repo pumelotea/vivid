@@ -139,7 +139,9 @@ function onKeyDown(e) {
   <div class="slash-command" v-show="renderList.length > 0">
     <div class="slash-item" v-for="(e, i) in renderList" @click="e.action()" :key="e.cmd" :class="{'active':selectedIndex === i}">
       <div class="slash-name">
-        <i :class="`ri-${e.icon}`"></i>
+        <div class="slash-icon">
+          <i :class="`ri-${e.icon}`"></i>
+        </div>
         <span>{{ e.name }}</span>
       </div>
       <div class="slash-command-value">
@@ -167,7 +169,7 @@ function onKeyDown(e) {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 10px;
+  padding: 6px 10px;
   transition: all 0.5s;
 }
 
@@ -190,10 +192,20 @@ function onKeyDown(e) {
 .slash-command-value {
   font-size: 10px;
   color: v-bind(vars.textColor1);
-  border: 1px solid v-bind(vars.textColor3);
+  border: 1px solid v-bind(vars.borderColor);
   border-radius: 4px;
   opacity: 0.4;
   padding: 2px 6px;
   box-sizing: border-box;
+}
+
+.slash-icon {
+  border: 1px solid v-bind(vars.borderColor);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 5px;
 }
 </style>

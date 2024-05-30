@@ -95,6 +95,7 @@ onMounted(() => {
 		:show-arrow="false"
 		:style="trans"
 		content-style="padding: 0;"
+    :z-index="99999"
 		style="
 			padding: 0;
 			width: 20px;
@@ -111,6 +112,7 @@ onMounted(() => {
 				:show="active && showDeleteContent"
 				:show-arrow="false"
 				trigger="manual"
+        :z-index="99999"
 				:placement="vertical ? 'left' : 'top'"
 				style="
 					padding: 0;

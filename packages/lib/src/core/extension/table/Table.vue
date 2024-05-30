@@ -36,6 +36,7 @@ function insertTable(r, c) {
 		<slot>
 			<n-space :size="2">
 				<n-popover
+            :z-index="99999"
 					v-model:show="show"
 					trigger="hover"
 					placement="bottom"

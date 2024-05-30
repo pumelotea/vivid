@@ -24,12 +24,13 @@ import { Editor } from '@tiptap/vue-3'
 import { CellSelection } from 'prosemirror-tables'
 import { TextSelection } from '@tiptap/pm/state'
 import VividSlashCommand from "./components/VividSlashCommand.vue";
+import DragHandle from "../core/extension/drag-handle/DragHandle.vue"
 const vars = useThemeVars()
 
 const props = defineProps({
 	page: {
 		type: Boolean,
-		default: false,
+		default: true,
 	},
   dark: {
     type: Boolean,
@@ -209,6 +210,8 @@ defineExpose({
 	>
 		<n-message-provider>
 			<n-dialog-provider>
+        <drag-handle :editor="editor">
+        </drag-handle>
 				<slash-command :editor="editor" v-if="editor">
           <template v-slot:default="{query, range, bindKeyDownEvent}">
             <slot name="slash-command" :query="query" :range="range" :bindKeyDownEvent="bindKeyDownEvent">
@@ -368,12 +371,12 @@ defineExpose({
 </style>
 <style>
 .tiptap > * {
-	margin-left: 50px !important;
-	margin-right: 50px !important;
+	margin-left: 100px !important;
+	margin-right: 100px !important;
 }
 .tiptap > .vivid-table {
-	margin-left: 35px !important;
-	margin-top: -30px !important;
+	margin-left: 85px !important;
+	margin-top: -25px !important;
 	margin-bottom: 10px !important;
 }
 

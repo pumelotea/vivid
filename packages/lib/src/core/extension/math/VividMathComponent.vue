@@ -86,7 +86,6 @@ function onok(val) {
 	line-height: 0;
 	float: none;
 	vertical-align: baseline;
-	padding: 0 5px;
 }
 
 .math-selected {
