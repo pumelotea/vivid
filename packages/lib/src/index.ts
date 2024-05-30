@@ -89,6 +89,7 @@ import {
 	useLineHeight,
 	useTrailingNode,
 	TrailingNodeExt,
+	MathBubbleMenu,
 } from './core/extension'
 
 export {
@@ -177,6 +178,7 @@ export {
 	ImageBubbleMenu,
 	VideoBubbleMenu,
 	TableBubbleMenu,
+	MathBubbleMenu,
 	VividEditor,
 	VividMenuItem,
 	SlashCommandExt,

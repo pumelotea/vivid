@@ -1,6 +1,6 @@
 import { mergeAttributes, Node } from '@tiptap/core'
 import { VueNodeViewRenderer } from '@tiptap/vue-3'
-import VividMathComponent from './VividMathComponent.vue'
+import VividMathView from './VividMathView.vue'
 
 export function useMath() {
 	const node = Node.create({
@@ -59,7 +59,7 @@ export function useMath() {
 	})
 	return node.extend({
 		addNodeView() {
-			return VueNodeViewRenderer(VividMathComponent)
+			return VueNodeViewRenderer(VividMathView)
 		},
 	})
 }

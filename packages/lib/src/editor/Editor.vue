@@ -185,6 +185,7 @@ const nodeType = computed(() => {
 	const isImage = selection.node?.type.name === 'image'
 	const isVideo = selection.node?.type.name === 'video'
 	const isMagic = selection.node?.type.name === 'magic'
+	const isMath = selection.node?.type.name === 'hb-math'
 	const isCell = selection instanceof CellSelection
 	const isTable = selection.node?.type.name === 'table' || isCell // 选中表格或者单元格
 	const isText = selection instanceof TextSelection
@@ -193,6 +194,7 @@ const nodeType = computed(() => {
 	if (isTable) return 'table'
 	if (isText) return 'text'
 	if (isMagic) return 'magic'
+	if (isMath) return 'math'
 	return undefined
 })
 watch(nodeType, () => {

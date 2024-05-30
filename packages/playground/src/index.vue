@@ -77,6 +77,9 @@
 					<template v-if="nodeType === 'video'">
 						<video-bubble-menu/>
 					</template>
+          <template v-if="nodeType === 'math'">
+            <math-bubble-menu/>
+          </template>
 				</div>
 			</template>
 		</vivid-editor>
@@ -143,6 +146,7 @@ import {
 	HocuspocusExt,
 	ImageBubbleMenu,
 	VideoBubbleMenu,
+  MathBubbleMenu,
   TrailingNodeExt,
 } from '@codecoderun/vivid'
 import OpenAI from "openai";
