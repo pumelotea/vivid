@@ -7,6 +7,7 @@ export function useDragHandle(options: any) {
   let tippyInstance: Instance
   let currentDom: Element
   let editor: Editor
+  let keepCurrentPos = false
 
   const box = document.createElement('div')
   box.style.pointerEvents = 'none'
@@ -136,6 +137,9 @@ export function useDragHandle(options: any) {
   }
 
   function render(dom: Element) {
+    if (keepCurrentPos){
+      return
+    }
     const pos = getHoverRect(dom)
     if (pos) {
       options.update && options.update(editor, pos, currentDom)
@@ -148,6 +152,10 @@ export function useDragHandle(options: any) {
     } else {
       tippyInstance.hide()
     }
+  }
+
+  function lockPos(keep: boolean){
+    keepCurrentPos = keep
   }
 
   const DragHandleExtension = Extension.create({
@@ -185,6 +193,7 @@ export function useDragHandle(options: any) {
   })
   return {
     DragHandleExtension,
+    lockPos
   }
 }
 

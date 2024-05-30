@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {NButton, NPopover, NElement} from 'naive-ui'
 import {useDragHandle} from './drag-handle.js'
-import {inject, onMounted, ref, PropType} from "vue"
+import {inject, onMounted, ref, PropType, watch} from "vue"
 import {Editor} from '@tiptap/core'
 
 const props = defineProps({
@@ -22,6 +22,7 @@ if (!useExtension) {
 }
 
 const activePos = ref(null)
+let lockPosFun: any = null
 
 function update(editor, pos, dom) {
   if (showPop.value || showSlash.value) {
@@ -31,7 +32,8 @@ function update(editor, pos, dom) {
 }
 
 onMounted(() => {
-  const {DragHandleExtension} = useDragHandle({element: root.value, update})
+  const {DragHandleExtension, lockPos} = useDragHandle({element: root.value, update})
+  lockPosFun = lockPos
   useExtension(DragHandleExtension)
 })
 
@@ -165,6 +167,14 @@ function doAction(e) {
   }
 }
 
+watch([showSlash, showPop],()=>{
+  if (showSlash.value || showPop.value){
+    lockPosFun(true)
+  }else{
+    lockPosFun(false)
+  }
+})
+
 </script>
 
 <template>
@@ -176,16 +186,18 @@ function doAction(e) {
           <i class="ri-add-fill scale-125"></i>
         </n-button>
       </template>
-      <n-element class="slash-command">
-        <div class="slash-item" v-for="(e, i) in items" @click="doAction(e)" :key="e.cmd">
-          <div class="slash-name">
-            <div class="slash-icon">
-              <i :class="`ri-${e.icon}`"></i>
+      <slot name="drag-handle-slash" :activePos="activePos">
+        <n-element class="slash-command">
+          <div class="slash-item" v-for="(e, i) in items" @click="doAction(e)" :key="e.cmd">
+            <div class="slash-name">
+              <div class="slash-icon">
+                <i :class="`ri-${e.icon}`"></i>
+              </div>
+              <span>{{ e.name }}</span>
             </div>
-            <span>{{ e.name }}</span>
           </div>
-        </div>
-      </n-element>
+        </n-element>
+      </slot>
     </n-popover>
     <n-popover :z-index="99999" style="padding: 0" v-model:show="showPop" trigger="click" placement="bottom-start"
                :show-arrow="false">
@@ -194,16 +206,18 @@ function doAction(e) {
           <i class="ri-draggable scale-125"></i>
         </n-button>
       </template>
-      <n-element class="slash-command">
-        <div class="slash-item" v-for="(e, i) in items2" @click="doAction(e)" :key="e.name">
-          <div class="slash-name">
-            <div class="slash-icon">
-              <i :class="`ri-${e.icon}`"></i>
+      <slot name="drag-handle-select" :activePos="activePos">
+        <n-element class="slash-command">
+          <div class="slash-item" v-for="(e, i) in items2" @click="doAction(e)" :key="e.name">
+            <div class="slash-name">
+              <div class="slash-icon">
+                <i :class="`ri-${e.icon}`"></i>
+              </div>
+              <span>{{ e.name }}</span>
             </div>
-            <span>{{ e.name }}</span>
           </div>
-        </div>
-      </n-element>
+        </n-element>
+      </slot>
     </n-popover>
   </div>
 </template>
