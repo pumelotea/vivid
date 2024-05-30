@@ -109,43 +109,50 @@ const items = ref([
 
 const items2 = ref([
   {
-    name: '上移',
+    name: '上移一行',
     icon: 'arrow-up-s-line',
-    action: (range) => {
-
+    action: (range, pos) => {
+      if (!pos.preRange) {
+        return
+      }
+      const editor = props.editor
+      const state = props.editor.state
+      const tr = state.tr
+      const range1 = {...pos.preRange}; // 第二个 range 的位置
+      const range2 = {...range}; // 第一个 range 的位置
+      const fromNode = state.doc.cut(range1.from, range1.to)
+      const toNode = state.doc.cut(range2.from, range2.to)
+      tr.replaceRangeWith(range2.from, range2.to, fromNode)
+      tr.replaceRangeWith(range1.from, range1.to, toNode)
+      editor.view.dispatch(tr)
     }
   },
   {
-    name: '删除', icon: 'close-line', action: (range) => {
+    name: '删除本行', icon: 'close-line', action: (range) => {
       const editor = props.editor
       const state = props.editor.state
       const tr = state.tr;
-      editor.commands.deleteNode()
       tr.delete(range.from, range.to).scrollIntoView()
       props.editor.view.dispatch(tr);
     }
   },
   {
-    name: '下移',
+    name: '下移一行',
     icon: 'arrow-down-s-line',
     action: (range, pos) => {
       if (!pos.nextRange) {
         return
       }
       const editor = props.editor
-      const nextRange = pos.nextRange
-      // 假设你有两个 range
+      const state = props.editor.state
+      const tr = state.tr
       const range1 = {...range}; // 第一个 range 的位置
       const range2 = {...pos.nextRange}; // 第二个 range 的位置
-      console.log(range1,range2)
-      // 交换两个 range 中的内容
-      editor.view.dispatch(editor.state.tr.setMeta('swapRanges', true));
-
-      // 创建一个交易，交换两个 range 中的内容
-      editor.view.dispatch(
-          editor.state.tr.setMeta('swapRanges', true).step()
-      );
-
+      const fromNode = state.doc.cut(range1.from, range1.to)
+      const toNode = state.doc.cut(range2.from, range2.to)
+      tr.replaceRangeWith(range2.from, range2.to, fromNode)
+      tr.replaceRangeWith(range1.from, range1.to, toNode)
+      editor.view.dispatch(tr)
     }
   }
 ])

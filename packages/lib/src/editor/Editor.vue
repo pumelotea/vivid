@@ -30,7 +30,7 @@ const vars = useThemeVars()
 const props = defineProps({
 	page: {
 		type: Boolean,
-		default: true,
+		default: false,
 	},
   dark: {
     type: Boolean,
