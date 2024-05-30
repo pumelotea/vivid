@@ -179,6 +179,7 @@ function selectVideo() {
 	display: inline-block;
 	vertical-align: baseline;
 	max-width: 100%;
+  user-select: auto;
 }
 
 .vivid-video.left {

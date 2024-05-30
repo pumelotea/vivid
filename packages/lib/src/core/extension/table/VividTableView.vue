@@ -480,6 +480,7 @@ onBeforeUnmount(() => {
 	max-width: 100%;
 	padding-left: 15px;
 	width: fit-content;
+  user-select: auto;
 }
 
 .table-wrapper {

@@ -153,6 +153,7 @@ function selectImage() {
 				@resizeEnd="onResizeEnd"
 			></Moveable>
 		</div>
+    {{selected}}
 	</node-view-wrapper>
 </template>
 
@@ -162,6 +163,7 @@ function selectImage() {
 	display: inline-block;
 	vertical-align: baseline;
 	max-width: 100%;
+  user-select: auto;
 }
 
 .vivid-image.left {

@@ -159,7 +159,7 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['update:user'])
-const text = ref(`<p>asdasdasd</p>`)
+const text = ref('')
 
 let isFirst = true
 const opt = {
