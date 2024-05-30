@@ -1,6 +1,6 @@
 <template>
 	<div class="editor-wrap">
-		<vivid-editor :dark="dark">
+		<vivid-editor :dark="dark" v-model="text" :readonly="readonly">
 <!--      <template v-slot:slash-command="{query}">-->
 <!--        <n-button>{{query}}</n-button>-->
 <!--      </template>-->
@@ -80,6 +80,9 @@
 				</div>
 			</template>
 		</vivid-editor>
+    <div>
+      <button @click="toggleReadOnly">toggleReadOnly: {{readonly}}</button>
+    </div>
 	</div>
 </template>
 
@@ -92,7 +95,7 @@
 </style>
 <script setup>
 import {useThemeVars, NButton} from 'naive-ui'
-import {nextTick} from 'vue'
+import {nextTick, ref} from 'vue'
 import {VividEditor} from '@codecoderun/vivid'
 import {
 	BoldExt,
@@ -152,6 +155,7 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['update:user'])
+const text = ref(`<p>asdasdasd</p>`)
 
 let isFirst = true
 const opt = {
@@ -214,6 +218,11 @@ async function AICompletions(text, action) {
 async function handleUpload(file, per) {
 	per(100)
 	return URL.createObjectURL(file)
+}
+
+const readonly = ref(false)
+function toggleReadOnly(){
+  readonly.value = !readonly.value
 }
 
 </script>

@@ -56,6 +56,10 @@ const props = defineProps({
 			return { duration: 0, maxWidth: 600, placement: 'top-start' }
 		},
 	},
+  readonly: {
+    type: Boolean,
+    default: false,
+  }
 })
 
 let internalExt = []
@@ -95,6 +99,7 @@ function removeExtension(extName) {
 function initEditor() {
 	const opt = {
 		content: props.modelValue,
+    editable: !props.readonly,
 		extensions: internalExt,
 		onUpdate: ({ editor }) => {
 			// HTML
@@ -122,6 +127,12 @@ function initEditor() {
 
 onMounted(() => {
 	initEditor()
+})
+
+watch(()=> props.readonly ,(value)=>{
+  if (editor.value){
+    editor.value.setEditable(!value)
+  }
 })
 
 watch(
@@ -218,7 +229,7 @@ defineExpose({
             <slot name="drag-handle-select" :activePos="activePos"></slot>
           </template>
         </drag-handle>
-				<slash-command :editor="editor" v-if="editor">
+				<slash-command :editor="editor" v-if="editor && editor.isEditable">
           <template v-slot:default="{query, range, bindKeyDownEvent}">
             <slot name="slash-command" :query="query" :range="range" :bindKeyDownEvent="bindKeyDownEvent">
               <vivid-slash-command :editor="editor" :query="query" :range="range" :bindKeyDownEvent="bindKeyDownEvent"/>
@@ -226,7 +237,7 @@ defineExpose({
           </template>
         </slash-command>
 				<bubble-menu
-					v-if="editor && bubbleMenu"
+					v-if="editor && editor.isEditable && bubbleMenu"
 					v-show="!hideBubble"
 					:editor="editor"
 					:tippy-options="tippyOptions"
@@ -244,9 +255,11 @@ defineExpose({
 					}"
 					spellcheck="false"
 				>
-					<slot name="menu">
-						<vivid-menu class="editor-header" :editor="editor" />
-					</slot>
+          <div :class="{'editor-readonly': readonly}">
+            <slot name="menu" :readonly="readonly">
+              <vivid-menu class="editor-header" :editor="editor"/>
+            </slot>
+          </div>
 					<div class="editor-page" v-if="page">
 						<editor-content
 							class="editor-body editor-body-page markdown-body"
@@ -373,6 +386,11 @@ defineExpose({
 .editor.online {
 	align-items: center;
 	overflow: hidden;
+}
+
+.editor-readonly{
+  pointer-events: none;
+  opacity: 0.6;
 }
 </style>
 <style>

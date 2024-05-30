@@ -160,7 +160,7 @@ function selectVideo() {
 			<Moveable
 				v-if="selected || isResizing"
 				:target="targetRef"
-				:resizable="resizable"
+				:resizable="resizable && editor.isEditable"
 				:rotatable="rotatable"
 				:keepRatio="keepRatio"
 				:throttleResize="throttleResize"

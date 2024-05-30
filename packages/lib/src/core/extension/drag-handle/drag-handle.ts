@@ -137,6 +137,9 @@ export function useDragHandle(options: any) {
   }
 
   function render(dom: Element) {
+    if (!editor.isEditable){
+      return
+    }
     if (keepCurrentPos){
       return
     }
