@@ -341,6 +341,7 @@ defineExpose({
 }
 
 .editor-body {
+	position: relative;
 }
 
 .editor-body-flow {

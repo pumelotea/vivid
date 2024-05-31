@@ -174,6 +174,7 @@ export function useDragHandle(options: any) {
         content: options.element,
         interactive: true,
         trigger: 'manual',
+				appendTo: dom.parentNode,
         placement: 'left-start',
         hideOnClick: 'toggle',
       })[0]

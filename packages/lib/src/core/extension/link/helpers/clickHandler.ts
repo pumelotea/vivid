@@ -46,7 +46,7 @@ export function clickHandler(options: ClickHandlerOptions) {
         const href = link?.href ?? attrs.href
         const target = link?.target ?? attrs.target
 
-        if (link && href) {
+        if (link && href && view.editable) {
           const rect = link.getBoundingClientRect()
           options.element.style.display = ''
           tippyInstance = tippy('body', {

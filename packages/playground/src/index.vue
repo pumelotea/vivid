@@ -1,6 +1,6 @@
 <template>
 	<div class="editor-wrap">
-		<vivid-editor :dark="dark" v-model="text" :readonly="readonly">
+		<vivid-editor :dark="dark" v-model="text" :readonly="readonly" page>
 <!--      <template v-slot:slash-command="{query}">-->
 <!--        <n-button>{{query}}</n-button>-->
 <!--      </template>-->
