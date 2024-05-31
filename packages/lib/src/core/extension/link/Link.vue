@@ -2,7 +2,7 @@
 import VividMenuItem from '../../components/VividMenuItem.vue'
 import {inject, onMounted, Ref, ref} from 'vue'
 import VividLinkModal from './VividLinkModal.vue'
-import {useLink} from './link.ts'
+import {useLink} from './link-ext'
 import {
 	NCard,
 	NInputGroup,
@@ -14,7 +14,6 @@ import {
 	NButton,
 	NSpace,
 } from 'naive-ui'
-import {Editor} from "@tiptap/core";
 
 const props = defineProps({
 	options: {
@@ -23,20 +22,20 @@ const props = defineProps({
 	},
 })
 
-const editorInstance: Ref<Editor> = inject('editorInstance')
-const useExtension: Function = inject('useExtension')
+const editorInstance: any = inject('editorInstance')
+const useExtension: any = inject('useExtension')
 if (!useExtension) {
 	throw new Error('Link component must under VividEditor menu slot')
 }
 
 const isEdit = ref(false)
-const HTL = ref(null)
+const HTL = ref<any>(null)
 
 function handleOpenLink() {
 	if (editorInstance.value.isActive('link')) {
 		editorInstance.value.chain().focus().unsetLink().run()
 	} else {
-		HTL.value.open()
+		HTL.value!.open()
 	}
 }
 

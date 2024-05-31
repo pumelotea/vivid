@@ -7,6 +7,7 @@ import {Editor} from '@tiptap/core'
 const props = defineProps({
   editor: {
     type: Object as PropType<Editor>,
+		required: true
   }
 })
 const vars = useThemeVars()
@@ -14,13 +15,13 @@ const root = ref()
 const showSlash = ref(false)
 const showPop = ref(false)
 
-const editorInstance: Ref<Editor> = inject('editorInstance')!
+const editorInstance: any = inject('editorInstance')!
 const useExtension: any = inject('useExtension')
 if (!useExtension) {
   throw new Error('DragHandle component must under VividEditor menu slot')
 }
 
-const activePos = ref(null)
+const activePos = ref<any>(null)
 let lockPosFun: any = null
 
 function update(editor:Editor, pos:number, dom: HTMLElement) {
