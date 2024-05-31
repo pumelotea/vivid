@@ -138,6 +138,7 @@ export function useDragHandle(options: any) {
 
   function render(dom: Element) {
     if (!editor.isEditable){
+			tippyInstance.hide()
       return
     }
     if (keepCurrentPos){

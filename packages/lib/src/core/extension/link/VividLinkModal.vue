@@ -16,6 +16,7 @@ import { ref } from 'vue'
 const showModal = ref(false)
 
 const href = ref('')
+const text = ref('')
 const target = ref('_blank')
 
 const emit = defineEmits(['ok'])
@@ -24,11 +25,12 @@ function open() {
 	showModal.value = true
 	target.value = '_blank'
 	href.value = ''
+	text.value = ''
 }
 
 function onOk() {
 	showModal.value = false
-	emit('ok', href.value, target.value)
+	emit('ok', text.value ,href.value, target.value)
 }
 
 function onCancel() {
@@ -45,6 +47,11 @@ defineExpose({ open })
 		</template>
 		<div>
 			<n-form label-placement="left" label-width="auto">
+				<n-form-item label="文字">
+					<n-input-group>
+					<n-input v-model:value="text" />
+					</n-input-group>
+				</n-form-item>
 				<n-form-item label="链接地址">
 					<n-input-group>
 						<n-input v-model:value="href" />

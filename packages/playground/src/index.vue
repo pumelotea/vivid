@@ -86,6 +86,9 @@
     <div>
       <button @click="toggleReadOnly">toggleReadOnly: {{readonly}}</button>
     </div>
+    <div>
+      {{text}}
+    </div>
 	</div>
 </template>
 
@@ -159,7 +162,7 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['update:user'])
-const text = ref('')
+const text = ref(`<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://111">asdasdasd</a></p>`)
 
 let isFirst = true
 const opt = {
