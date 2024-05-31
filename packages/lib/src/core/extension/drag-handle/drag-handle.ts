@@ -168,7 +168,8 @@ export function useDragHandle(options: any) {
       editor = this.editor
       const dom = this.editor.view.dom
       // 创建弹出层
-      tippyInstance = tippy('body', {
+      // @ts-ignore
+			tippyInstance = tippy('body', {
         duration: 0,
         getReferenceClientRect: null,
         content: options.element,

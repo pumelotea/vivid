@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {NButton, NPopover, NElement, useThemeVars} from 'naive-ui'
 import {useDragHandle} from './drag-handle.js'
-import {inject, onMounted, ref, PropType, watch} from "vue"
+import {inject, onMounted, ref, PropType, watch, Ref} from "vue"
 import {Editor} from '@tiptap/core'
 
 const props = defineProps({
@@ -14,8 +14,8 @@ const root = ref()
 const showSlash = ref(false)
 const showPop = ref(false)
 
-const editorInstance = inject('editorInstance')
-const useExtension = inject('useExtension')
+const editorInstance: Ref<Editor> = inject('editorInstance')!
+const useExtension: any = inject('useExtension')
 if (!useExtension) {
   throw new Error('DragHandle component must under VividEditor menu slot')
 }
@@ -23,7 +23,7 @@ if (!useExtension) {
 const activePos = ref(null)
 let lockPosFun: any = null
 
-function update(editor, pos, dom) {
+function update(editor:Editor, pos:number, dom: HTMLElement) {
   if (showPop.value || showSlash.value) {
     return
   }
@@ -31,7 +31,7 @@ function update(editor, pos, dom) {
 }
 
 onMounted(() => {
-  const {DragHandleExtension, lockPos} = useDragHandle({element: root.value, update})
+  const {DragHandleExtension, lockPos} = useDragHandle({element: root.value, update}) as any
   lockPosFun = lockPos
   useExtension(DragHandleExtension)
 })
@@ -41,7 +41,7 @@ const items = ref([
     name: '插入图片',
     cmd: '/img',
     icon: 'image-line',
-    action: (range) => {
+    action: (range: any) => {
       props.editor.chain().insertContentAt(range.to, '<p></p>').focus().run()
       props.editor.storage.image.openUploader()
     }
@@ -50,7 +50,7 @@ const items = ref([
     name: '插入视频',
     cmd: '/video',
     icon: 'video-line',
-    action: (range) => {
+    action: (range: any) => {
       props.editor.chain().focus().insertContentAt(range.to, '<p></p>').run()
       props.editor.storage.video.openUploader()
     }
@@ -59,37 +59,37 @@ const items = ref([
     name: '引用',
     cmd: '/b',
     icon: 'double-quotes-l',
-    action: (range) => props.editor.chain().focus().insertContentAt(range.to, '<p></p>').toggleBlockquote().run()
+    action: (range: any) => props.editor.chain().focus().insertContentAt(range.to, '<p></p>').toggleBlockquote().run()
   },
   {
     name: '标题1',
     cmd: '/h1',
     icon: 'h-1',
-    action: (range) => props.editor.chain().focus().insertContentAt(range.to, '<p></p>').setHeading({level: 1}).run()
+    action: (range: any) => props.editor.chain().focus().insertContentAt(range.to, '<p></p>').setHeading({level: 1}).run()
   },
   {
     name: '标题2',
     cmd: '/h2',
     icon: 'h-2',
-    action: (range) => props.editor.chain().insertContentAt(range.to, '<p></p>').setHeading({level: 2}).run()
+    action: (range: any) => props.editor.chain().insertContentAt(range.to, '<p></p>').setHeading({level: 2}).run()
   },
   {
     name: '标题3',
     cmd: '/h3',
     icon: 'h-3',
-    action: (range) => props.editor.chain().insertContentAt(range.to, '<p></p>').setHeading({level: 3}).run()
+    action: (range: any) => props.editor.chain().insertContentAt(range.to, '<p></p>').setHeading({level: 3}).run()
   },
   {
     name: '列表',
     cmd: '/list',
     icon: 'list-unordered',
-    action: (range) => props.editor.chain().focus().insertContentAt(range.to, '<p></p>').toggleBulletList().run()
+    action: (range: any) => props.editor.chain().focus().insertContentAt(range.to, '<p></p>').toggleBulletList().run()
   },
   {
     name: '数学公式',
     cmd: '/math',
     icon: 'functions',
-    action: (range) => {
+    action: (range: any) => {
       props.editor.chain().focus().insertContentAt(range.to, '<p></p>').run()
       props.editor.storage['hb-math'].openEditor()
     }
@@ -98,13 +98,13 @@ const items = ref([
     name: '代码',
     cmd: '/code',
     icon: 'brackets-line',
-    action: (range) => props.editor.chain().focus().insertContentAt(range.to, '<p></p>').toggleCode().run()
+    action: (range: any) => props.editor.chain().focus().insertContentAt(range.to, '<p></p>').toggleCode().run()
   },
   {
     name: '代码块',
     cmd: '/codeblock',
     icon: 'code-view',
-    action: (range) => props.editor.chain().focus().insertContentAt(range.to, '<p></p>').toggleCodeBlock().run()
+    action: (range: any) => props.editor.chain().focus().insertContentAt(range.to, '<p></p>').toggleCodeBlock().run()
   },
 ])
 
@@ -112,7 +112,7 @@ const items2 = ref([
   {
     name: '上移一行',
     icon: 'arrow-up-s-line',
-    action: (range, pos) => {
+    action: (range: any, pos: any) => {
       if (!pos.preRange) {
         return
       }
@@ -129,7 +129,7 @@ const items2 = ref([
     }
   },
   {
-    name: '删除本行', icon: 'close-line', action: (range) => {
+    name: '删除本行', icon: 'close-line', action: (range: any) => {
       const editor = props.editor
       const state = props.editor.state
       const tr = state.tr;
@@ -140,7 +140,7 @@ const items2 = ref([
   {
     name: '下移一行',
     icon: 'arrow-down-s-line',
-    action: (range, pos) => {
+    action: (range: any, pos: any) => {
       if (!pos.nextRange) {
         return
       }
@@ -158,7 +158,7 @@ const items2 = ref([
   }
 ])
 
-function doAction(e) {
+function doAction(e: any) {
   if (activePos.value) {
     e.action(activePos.value.range, activePos.value)
     showSlash.value = false

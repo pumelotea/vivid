@@ -24,7 +24,7 @@ const props = defineProps({
 })
 
 const editorInstance: Ref<Editor> = inject('editorInstance')
-const useExtension = inject('useExtension')
+const useExtension: Function = inject('useExtension')
 if (!useExtension) {
 	throw new Error('Link component must under VividEditor menu slot')
 }
@@ -40,30 +40,31 @@ function handleOpenLink() {
 	}
 }
 
-function toggleLink(text ,href, target) {
-	editorInstance.value.chain().focus().toggleLink({ href, target }).run()
+function toggleLink(text: string, href: string, target: string) {
+	editorInstance.value.chain().focus().toggleLink({href, target}).run()
 }
 
 const root = ref()
 const href = ref('')
 const target = ref('_blank')
-let lastTp = null
-let node = null
-let pos = null
+let lastTp: any = null
+let node: any = null
+let pos: any = null
 
-function onShow(attrs, tp, linkNode, p) {
+function onShow(attrs: any, tp: any, linkNode: any, p: any) {
 	lastTp = tp
 	node = linkNode
 	pos = p
 	target.value = attrs.target
 	href.value = attrs.href
 }
-function onHide(){
+
+function onHide() {
 	isEdit.value = false
 }
 
 onMounted(() => {
-	useExtension(useLink(root.value, onShow,onHide, props.options))
+	useExtension(useLink(root.value, onShow, onHide, props.options))
 })
 
 function onCancel() {
@@ -71,7 +72,7 @@ function onCancel() {
 	isEdit.value = false
 }
 
-function unsetLink(){
+function unsetLink() {
 	editorInstance.value.chain().focus().unsetLink().run()
 	onCancel()
 }
@@ -147,14 +148,15 @@ function onOk() {
 	width: 400px;
 	box-shadow: 0 6px 16px -9px rgba(0, 0, 0, .08), 0 9px 28px 0 rgba(0, 0, 0, .05), 0 12px 48px 16px rgba(0, 0, 0, .03);
 }
-.link-pop{
+
+.link-pop {
 	display: flex;
 	align-items: center;
 	gap: 5px;
 	width: 100%;
 }
 
-.link-href{
+.link-href {
 	flex: 1;
 	word-break: keep-all;
 	overflow: hidden;
