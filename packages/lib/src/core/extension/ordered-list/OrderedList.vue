@@ -1,21 +1,18 @@
-<script setup>
-import VividMenuItem from '../../components/VividMenuItem.vue'
-import OrderedList from '@tiptap/extension-ordered-list'
-import { inject } from 'vue'
+<script setup lang="ts">
+	import VividMenuItem from "../../components/VividMenuItem.vue";
+	import OrderedList, { OrderedListOptions } from "@tiptap/extension-ordered-list";
+	import { PropType } from "vue";
+	import { injectExtension, useEditorInstance } from "@lib/core/extension/utils/common";
 
-const props = defineProps({
-	options: {
-		type: Object,
-		required: false,
-	},
-})
+	const props = defineProps({
+		options: {
+			type: Object as PropType<Partial<OrderedListOptions>>,
+			required: false,
+		},
+	});
 
-const editorInstance = inject('editorInstance')
-const useExtension = inject('useExtension')
-if (!useExtension) {
-	throw new Error('OrderedList component must under VividEditor menu slot')
-}
-useExtension(OrderedList.configure(props.options))
+	const editorInstance = useEditorInstance();
+	injectExtension(OrderedList.configure(props.options));
 </script>
 
 <template>
