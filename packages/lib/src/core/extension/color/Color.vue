@@ -1,33 +1,30 @@
-<script setup>
-import VividMenuItem from '../../components/VividMenuItem.vue'
-import VividColorPicker from '../../components/VividColorPicker.vue'
-import Color from '@tiptap/extension-color'
-import { inject, ref } from 'vue'
+<script setup lang="ts">
+	import VividMenuItem from "../../components/VividMenuItem.vue";
+	import VividColorPicker from "../../components/VividColorPicker.vue";
+	import Color, { ColorOptions } from "@tiptap/extension-color";
+	import { PropType, ref } from "vue";
+	import { useEditorInstance, injectExtension } from "../utils/common";
 
-const props = defineProps({
-	options: {
-		type: Object,
-		required: false,
-	},
-})
+	const props = defineProps({
+		options: {
+			type: Object as PropType<Partial<ColorOptions>>,
+			required: false,
+		},
+	});
 
-const editorInstance = inject('editorInstance')
-const useExtension = inject('useExtension')
-if (!useExtension) {
-	throw new Error('Color component must under VividEditor menu slot')
-}
-useExtension(Color.configure(props.options))
+	const editorInstance = useEditorInstance();
+	injectExtension(Color.configure(props.options));
 
-const color = ref('#000000')
+	const color = ref("#000000");
 
-function setColor() {
-	editorInstance.value.chain().focus().setColor(color.value).run()
-}
+	function setColor() {
+		editorInstance.value.chain().focus().setColor(color.value).run();
+	}
 
-function updateColor(e) {
-	color.value = e
-	setColor()
-}
+	function updateColor(newColor: string) {
+		color.value = newColor;
+		setColor();
+	}
 </script>
 
 <template>
@@ -47,7 +44,7 @@ function updateColor(e) {
 </template>
 
 <style scoped>
-.color-box {
-	display: flex;
-}
+	.color-box {
+		display: flex;
+	}
 </style>
