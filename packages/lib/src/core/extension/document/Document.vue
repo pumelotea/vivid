@@ -2,7 +2,7 @@
 	import Document from "@tiptap/extension-document";
 	import { injectExtension } from "../utils/common";
 
-	injectExtension(Document.configure(props.options));
+	injectExtension(Document);
 </script>
 
 <template>
