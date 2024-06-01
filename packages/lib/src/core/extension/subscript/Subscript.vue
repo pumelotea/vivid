@@ -1,21 +1,18 @@
-<script setup>
-import VividMenuItem from '../../components/VividMenuItem.vue'
-import Subscript from '@tiptap/extension-subscript'
-import { inject } from 'vue'
+<script setup lang="ts">
+	import VividMenuItem from "../../components/VividMenuItem.vue";
+	import Subscript, { SubscriptExtensionOptions } from "@tiptap/extension-subscript";
+	import { PropType } from "vue";
+	import { injectExtension, useEditorInstance } from "@lib/core/extension/utils/common";
 
-const props = defineProps({
-	options: {
-		type: Object,
-		required: false,
-	},
-})
+	const props = defineProps({
+		options: {
+			type: Object as PropType<Partial<SubscriptExtensionOptions>>,
+			required: false,
+		},
+	});
 
-const editorInstance = inject('editorInstance')
-const useExtension = inject('useExtension')
-if (!useExtension) {
-	throw new Error('Subscript component must under VividEditor menu slot')
-}
-useExtension(Subscript.configure(props.options))
+	const editorInstance = useEditorInstance();
+	injectExtension(Subscript.configure(props.options));
 </script>
 
 <template>
