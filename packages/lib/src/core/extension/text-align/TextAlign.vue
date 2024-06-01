@@ -1,27 +1,24 @@
-<script setup>
-import VividMenuItem from '../../components/VividMenuItem.vue'
-import TextAlign from '@tiptap/extension-text-align'
-import { inject } from 'vue'
-import { NSpace } from 'naive-ui'
+<script setup lang="ts">
+	import VividMenuItem from "../../components/VividMenuItem.vue";
+	import TextAlign, { TextAlignOptions } from "@tiptap/extension-text-align";
+	import { PropType } from "vue";
+	import { NSpace } from "naive-ui";
+	import { injectExtension, useEditorInstance } from "@lib/core/extension/utils/common";
 
-const props = defineProps({
-	options: {
-		type: Object,
-		required: false,
-		default: () => {
-			return {
-				types: ['heading', 'paragraph'],
-			}
+	const props = defineProps({
+		options: {
+			type: Object as PropType<Partial<TextAlignOptions>>,
+			required: false,
+			default: () => {
+				return {
+					types: ["heading", "paragraph"],
+				};
+			},
 		},
-	},
-})
+	});
 
-const editorInstance = inject('editorInstance')
-const useExtension = inject('useExtension')
-if (!useExtension) {
-	throw new Error('TextAlign component must under VividEditor menu slot')
-}
-useExtension(TextAlign.configure(props.options))
+	const editorInstance = useEditorInstance();
+	injectExtension(TextAlign.configure(props.options));
 </script>
 
 <template>
