@@ -1,5 +1,5 @@
-import {Editor} from "@tiptap/core";
-import {inject, ShallowRef, shallowRef} from "vue"
+import {Editor, Node} from "@tiptap/core";
+import {inject, ShallowRef} from "vue"
 import {Extension} from '@tiptap/core'
 
 /**
@@ -12,8 +12,8 @@ export function useEditorInstance() {
 /**
  * 在编辑器内部组件提供注入扩展的hook
  */
-export function injectExtension(extension: Extension) {
-  const useExtension = inject('useExtension') as (ext: Extension) => void
+export function injectExtension(extension: Extension | Node) {
+  const useExtension = inject('useExtension') as (ext: Extension | Node) => void
   useExtension(extension)
 }
 
