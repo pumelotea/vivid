@@ -1,21 +1,18 @@
-<script setup>
-import VividMenuItem from '../../components/VividMenuItem.vue'
-import Paragraph from '@tiptap/extension-paragraph'
-import { inject } from 'vue'
+<script setup lang="ts">
+	import VividMenuItem from "../../components/VividMenuItem.vue";
+	import Paragraph, { ParagraphOptions } from "@tiptap/extension-paragraph";
+	import { PropType } from "vue";
+	import { injectExtension, useEditorInstance } from "@lib/core/extension/utils/common";
 
-const props = defineProps({
-	options: {
-		type: Object,
-		required: false,
-	},
-})
+	const props = defineProps({
+		options: {
+			type: Object as PropType<Partial<ParagraphOptions>>,
+			required: false,
+		},
+	});
 
-const editorInstance = inject('editorInstance')
-const useExtension = inject('useExtension')
-if (!useExtension) {
-	throw new Error('Paragraph component must under VividEditor menu slot')
-}
-useExtension(Paragraph.configure(props.options))
+	const editorInstance = useEditorInstance();
+	injectExtension(Paragraph.configure(props.options));
 </script>
 
 <template>
