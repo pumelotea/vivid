@@ -1,21 +1,18 @@
-<script setup>
-import VividMenuItem from '../../components/VividMenuItem.vue'
-import Underline from '@tiptap/extension-underline'
-import { inject } from 'vue'
+<script setup lang="ts">
+	import VividMenuItem from "../../components/VividMenuItem.vue";
+	import Underline, { UnderlineOptions } from "@tiptap/extension-underline";
+	import { PropType } from "vue";
+	import { injectExtension, useEditorInstance } from "@lib/core/extension/utils/common.js";
 
-const props = defineProps({
-	options: {
-		type: Object,
-		required: false,
-	},
-})
+	const props = defineProps({
+		options: {
+			type: Object as PropType<Partial<UnderlineOptions>>,
+			required: false,
+		},
+	});
 
-const editorInstance = inject('editorInstance')
-const useExtension = inject('useExtension')
-if (!useExtension) {
-	throw new Error('Underline component must under VividEditor menu slot')
-}
-useExtension(Underline.configure(props.options))
+	const editorInstance = useEditorInstance();
+	injectExtension(Underline.configure(props.options));
 </script>
 
 <template>
