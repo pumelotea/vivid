@@ -1,21 +1,18 @@
-<script setup>
-import VividMenuItem from '../../components/VividMenuItem.vue'
-import Superscript from '@tiptap/extension-superscript'
-import { inject } from 'vue'
+<script setup lang="ts">
+	import VividMenuItem from "../../components/VividMenuItem.vue";
+	import Superscript, { SuperscriptExtensionOptions } from "@tiptap/extension-superscript";
+	import { PropType } from "vue";
+	import { injectExtension, useEditorInstance } from "@lib/core/extension/utils/common";
 
-const props = defineProps({
-	options: {
-		type: Object,
-		required: false,
-	},
-})
+	const props = defineProps({
+		options: {
+			type: Object as PropType<Partial<SuperscriptExtensionOptions>>,
+			required: false,
+		},
+	});
 
-const editorInstance = inject('editorInstance')
-const useExtension = inject('useExtension')
-if (!useExtension) {
-	throw new Error('Superscript component must under VividEditor menu slot')
-}
-useExtension(Superscript.configure(props.options))
+	const editorInstance = useEditorInstance();
+	injectExtension(Superscript.configure(props.options));
 </script>
 
 <template>
