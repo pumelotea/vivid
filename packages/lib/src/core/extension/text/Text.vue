@@ -3,7 +3,7 @@
 	import { injectExtension } from "@lib/core/extension/utils/common";
 
 
-	injectExtension(Text.configure(props.options));
+	injectExtension(Text);
 </script>
 
 <template>
