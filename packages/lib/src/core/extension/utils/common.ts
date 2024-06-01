@@ -1,6 +1,7 @@
 import {Editor, Node} from "@tiptap/core";
 import {inject, ShallowRef} from "vue"
 import {Extension} from '@tiptap/core'
+import { watchOnce } from "@vueuse/core";
 
 /**
  * 在编辑器内部组件提供注入实例的hook
@@ -20,4 +21,12 @@ export function injectExtension(extension: Extension | Node) {
 export function uninjectExtension(extName: string) {
   const removeExtension = inject('removeExtension') as (extName: string) => void
   removeExtension(extName)
+}
+
+export function onEditorCreated(fn:()=>{}){
+  const instance = useEditorInstance()
+  watchOnce(instance, ()=>{
+    fn()
+  })
+  return instance
 }

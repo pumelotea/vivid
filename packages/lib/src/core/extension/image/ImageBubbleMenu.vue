@@ -1,9 +1,8 @@
-<script setup>
-import { computed, inject } from 'vue'
+<script setup lang="ts">
+import { inject } from 'vue'
 import { NSpace } from 'naive-ui'
 import VividMenuItem from '../../../core/components/VividMenuItem.vue'
-import { deleteSelection } from '@tiptap/pm/commands'
-import SvgIcon from '@jamescoyle/vue-icon'
+import SvgIcon from '@jamescoyle/vue-icon/lib/svg-icon.vue'
 import {
 	mdiFormatFloatLeft,
 	mdiFormatFloatRight,
@@ -12,10 +11,10 @@ import {
 	mdiSizeL,
 	mdiSizeS,
 } from '@mdi/js'
+import { deleteSelection } from "prosemirror-commands";
+
 
 const editorInstance = inject('editorInstance')
-
-const display = ['left', 'inline', 'right']
 
 function deleteImage() {
 	const { state, dispatch } = editorInstance.value.view
@@ -41,11 +40,11 @@ function toggleKeepRatio() {
 						editorInstance
 							.chain()
 							.focus()
-							.updateImage({ display: display[0] })
+							.updateImage({ display: 'left' })
 							.run()
 				"
 				:isActive="
-					() => editorInstance.isActive('image', { display: display[0] })
+					() => editorInstance.isActive('image', { display: 'left' })
 				"
 			>
 				<svg-icon type="mdi" :path="mdiFormatFloatLeft"></svg-icon>
@@ -57,11 +56,11 @@ function toggleKeepRatio() {
 						editorInstance
 							.chain()
 							.focus()
-							.updateImage({ display: display[1] })
+							.updateImage({ display: 'inline' })
 							.run()
 				"
 				:isActive="
-					() => editorInstance.isActive('image', { display: display[1] })
+					() => editorInstance.isActive('image', { display: 'inline' })
 				"
 			>
 				<svg-icon type="mdi" :path="mdiFormatFloatNone"></svg-icon>
@@ -73,11 +72,11 @@ function toggleKeepRatio() {
 						editorInstance
 							.chain()
 							.focus()
-							.updateImage({ display: display[2] })
+							.updateImage({ display: 'right' })
 							.run()
 				"
 				:isActive="
-					() => editorInstance.isActive('image', { display: display[2] })
+					() => editorInstance.isActive('image', { display: 'right' })
 				"
 			>
 				<svg-icon type="mdi" :path="mdiFormatFloatRight"></svg-icon>
