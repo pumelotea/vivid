@@ -1,21 +1,18 @@
-<script setup>
-import VividMenuItem from '../../components/VividMenuItem.vue'
-import Code from '@tiptap/extension-code'
-import { inject } from 'vue'
+<script setup lang="ts">
+	import VividMenuItem from "../../components/VividMenuItem.vue";
+	import Code, { CodeOptions } from "@tiptap/extension-code";
+	import { PropType } from "vue";
+	import { useEditorInstance, injectExtension } from "../utils/common";
 
-const props = defineProps({
-	options: {
-		type: Object,
-		required: false,
-	},
-})
+	const props = defineProps({
+		options: {
+			type: Object as PropType<Partial<CodeOptions>>,
+			required: false,
+		},
+	});
 
-const editorInstance = inject('editorInstance')
-const useExtension = inject('useExtension')
-if (!useExtension) {
-	throw new Error('Code component must under VividEditor menu slot')
-}
-useExtension(Code.configure(props.options))
+	const editorInstance = useEditorInstance();
+	injectExtension(Code.configure(props.options));
 </script>
 
 <template>
