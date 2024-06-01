@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import 'highlight.js/styles/atom-one-light.css'
 import { NodeViewContent, nodeViewProps, NodeViewWrapper } from '@tiptap/vue-3'
 import { NPopselect, NButton } from 'naive-ui'

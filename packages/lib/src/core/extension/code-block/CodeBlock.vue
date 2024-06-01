@@ -1,21 +1,19 @@
-<script setup>
-import VividMenuItem from '../../components/VividMenuItem.vue'
-import { inject } from 'vue'
-import { useCodeBlock } from './code-block.js'
+<script setup lang="ts">
+	import VividMenuItem from "../../components/VividMenuItem.vue";
+	import { PropType } from "vue";
+	import { CodeBlockLowlightOptions } from "@tiptap/extension-code-block-lowlight";
+	import { useCodeBlock } from "./code-block";
+	import { useEditorInstance, injectExtension } from "../utils/common";
 
-const props = defineProps({
-	options: {
-		type: Object,
-		required: false,
-	},
-})
+	const props = defineProps({
+		options: {
+			type: Object as PropType<Partial<CodeBlockLowlightOptions>>,
+			required: false,
+		},
+	});
 
-const editorInstance = inject('editorInstance')
-const useExtension = inject('useExtension')
-if (!useExtension) {
-	throw new Error('CodeBlock component must under VividEditor menu slot')
-}
-useExtension(useCodeBlock(props.options))
+	const editorInstance = useEditorInstance();
+	injectExtension(useCodeBlock(props.options));
 </script>
 
 <template>
