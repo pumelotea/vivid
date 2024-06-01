@@ -14,6 +14,5 @@
 </script>
 
 <template>
-  <div style="display: none"></div>
 </template>
 <style scoped></style>
