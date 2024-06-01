@@ -1,23 +1,17 @@
-<script setup>
-import CharacterCount from '@tiptap/extension-character-count'
-import { inject } from 'vue'
+<script setup lang="ts">
+	import CharacterCount, { CharacterCountOptions } from "@tiptap/extension-character-count";
+	import { PropType } from "vue";
+	import { injectExtension } from "../utils/common";
 
-const props = defineProps({
-	options: {
-		type: Object,
-		required: false,
-	},
-})
-
-const editorInstance = inject('editorInstance')
-const useExtension = inject('useExtension')
-if (!useExtension) {
-	throw new Error('CharacterCount component must under VividEditor menu slot')
-}
-useExtension(CharacterCount.configure(props.options))
+	const props = defineProps({
+		options: {
+			type: Object as PropType<Partial<CharacterCountOptions>>,
+			required: false,
+		},
+	});
+	injectExtension(CharacterCount.configure(props.options));
 </script>
 
 <template>
-	<div style="display: none"></div>
 </template>
 <style scoped></style>
