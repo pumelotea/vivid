@@ -1,15 +1,9 @@
 <script setup lang="ts">
 import {NButton, NPopover, NElement, useThemeVars} from 'naive-ui'
 import {useDragHandle} from './drag-handle.js'
-import {inject, onMounted, ref, PropType, watch, Ref} from "vue"
+import {inject, onMounted, ref, watch} from "vue"
 import {Editor} from '@tiptap/core'
 
-const props = defineProps({
-  editor: {
-    type: Object as PropType<Editor>,
-		required: true
-  }
-})
 const vars = useThemeVars()
 const root = ref()
 const showSlash = ref(false)
@@ -43,8 +37,8 @@ const items = ref([
     cmd: '/img',
     icon: 'image-line',
     action: (range: any) => {
-      props.editor.chain().insertContentAt(range.to, '<p></p>').focus().run()
-      props.editor.storage.image.openUploader()
+      editorInstance.value.chain().insertContentAt(range.to, '<p></p>').focus().run()
+      editorInstance.value.storage.image.openUploader()
     }
   },
   {
@@ -52,60 +46,60 @@ const items = ref([
     cmd: '/video',
     icon: 'video-line',
     action: (range: any) => {
-      props.editor.chain().focus().insertContentAt(range.to, '<p></p>').run()
-      props.editor.storage.video.openUploader()
+      editorInstance.value.chain().focus().insertContentAt(range.to, '<p></p>').run()
+      editorInstance.value.storage.video.openUploader()
     }
   },
   {
     name: '引用',
     cmd: '/b',
     icon: 'double-quotes-l',
-    action: (range: any) => props.editor.chain().focus().insertContentAt(range.to, '<p></p>').toggleBlockquote().run()
+    action: (range: any) => editorInstance.value.chain().focus().insertContentAt(range.to, '<p></p>').toggleBlockquote().run()
   },
   {
     name: '标题1',
     cmd: '/h1',
     icon: 'h-1',
-    action: (range: any) => props.editor.chain().focus().insertContentAt(range.to, '<p></p>').setHeading({level: 1}).run()
+    action: (range: any) => editorInstance.value.chain().focus().insertContentAt(range.to, '<p></p>').setHeading({level: 1}).run()
   },
   {
     name: '标题2',
     cmd: '/h2',
     icon: 'h-2',
-    action: (range: any) => props.editor.chain().insertContentAt(range.to, '<p></p>').setHeading({level: 2}).run()
+    action: (range: any) => editorInstance.value.chain().insertContentAt(range.to, '<p></p>').setHeading({level: 2}).run()
   },
   {
     name: '标题3',
     cmd: '/h3',
     icon: 'h-3',
-    action: (range: any) => props.editor.chain().insertContentAt(range.to, '<p></p>').setHeading({level: 3}).run()
+    action: (range: any) => editorInstance.value.chain().insertContentAt(range.to, '<p></p>').setHeading({level: 3}).run()
   },
   {
     name: '列表',
     cmd: '/list',
     icon: 'list-unordered',
-    action: (range: any) => props.editor.chain().focus().insertContentAt(range.to, '<p></p>').toggleBulletList().run()
+    action: (range: any) => editorInstance.value.chain().focus().insertContentAt(range.to, '<p></p>').toggleBulletList().run()
   },
   {
     name: '数学公式',
     cmd: '/math',
     icon: 'functions',
     action: (range: any) => {
-      props.editor.chain().focus().insertContentAt(range.to, '<p></p>').run()
-      props.editor.storage['hb-math'].openEditor()
+      editorInstance.value.chain().focus().insertContentAt(range.to, '<p></p>').run()
+      editorInstance.value.storage['hb-math'].openEditor()
     }
   },
   {
     name: '代码',
     cmd: '/code',
     icon: 'brackets-line',
-    action: (range: any) => props.editor.chain().focus().insertContentAt(range.to, '<p></p>').toggleCode().run()
+    action: (range: any) => editorInstance.value.chain().focus().insertContentAt(range.to, '<p></p>').toggleCode().run()
   },
   {
     name: '代码块',
     cmd: '/codeblock',
     icon: 'code-view',
-    action: (range: any) => props.editor.chain().focus().insertContentAt(range.to, '<p></p>').toggleCodeBlock().run()
+    action: (range: any) => editorInstance.value.chain().focus().insertContentAt(range.to, '<p></p>').toggleCodeBlock().run()
   },
 ])
 
@@ -117,8 +111,8 @@ const items2 = ref([
       if (!pos.preRange) {
         return
       }
-      const editor = props.editor
-      const state = props.editor.state
+      const editor = editorInstance.value
+      const state = editorInstance.value.state
       const tr = state.tr
       const range1 = {...pos.preRange}; // 第二个 range 的位置
       const range2 = {...range}; // 第一个 range 的位置
@@ -131,11 +125,11 @@ const items2 = ref([
   },
   {
     name: '删除本行', icon: 'close-line', action: (range: any) => {
-      const editor = props.editor
-      const state = props.editor.state
+      const editor = editorInstance.value
+      const state = editorInstance.value.state
       const tr = state.tr;
       tr.delete(range.from, range.to).scrollIntoView()
-      props.editor.view.dispatch(tr);
+      editorInstance.value.view.dispatch(tr);
     }
   },
   {
@@ -145,8 +139,8 @@ const items2 = ref([
       if (!pos.nextRange) {
         return
       }
-      const editor = props.editor
-      const state = props.editor.state
+      const editor = editorInstance.value
+      const state = editorInstance.value.state
       const tr = state.tr
       const range1 = {...range}; // 第一个 range 的位置
       const range2 = {...pos.nextRange}; // 第二个 range 的位置

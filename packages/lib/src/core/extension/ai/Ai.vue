@@ -1,6 +1,6 @@
-<script setup>
+<script setup lang="ts">
 import VividMenuItem from '../../components/VividMenuItem.vue'
-import {inject, nextTick, ref} from 'vue'
+import {h, ref, PropType} from 'vue'
 import {
   NButton,
   NDropdown,
@@ -14,20 +14,22 @@ import {
   useThemeVars,
 } from 'naive-ui'
 import {Icon} from '@iconify/vue'
-import {h} from "vue";
+import {AiOption} from "@/core/extension";
+import {useEditorInstance} from "../utils/common";
+import {Stream} from "openai/streaming";
+import OpenAI from "openai/index";
+import ChatCompletionChunk = OpenAI.ChatCompletionChunk;
 
-const vars = useThemeVars()
 
 const props = defineProps({
   options: {
-    type: Object,
+    type: Object as PropType<AiOption>,
     required: false,
   },
 })
 
-
-const editorInstance = inject('editorInstance')
-
+const vars = useThemeVars()
+const editorInstance = useEditorInstance()
 const options = [
   {
     label: 'AI续写',
@@ -93,25 +95,18 @@ const message = useMessage()
 const dialog = useDialog()
 const status = ref('idle')
 const result = ref('')
-const messageList = ref([])
+const messageList = ref<string[]>([])
 const showModal = ref(false)
-
-
+const storage = editorInstance.value.storage
+let selectionFrom: number
+let selectionTo: number
+let stream: Stream<ChatCompletionChunk>
 
 function renderDropdownIcon(item) {
   return h(NIcon, {size: 18}, {default: () => h(Icon, {icon: item.icon})})
 }
 
-function openAiHelper() {
-
-}
-
-const storage = editorInstance.value.storage
-let selectionFrom
-let selectionTo
-let stream
-
-async function handleSelect(key) {
+async function handleSelect(key: string) {
   showModal.value = true
   const selection = editorInstance.value.state.selection
   const state = editorInstance.value.state
@@ -119,13 +114,13 @@ async function handleSelect(key) {
   selectionTo = state.selection.to
   const selectionText = state.doc.textBetween(selectionFrom, selectionTo)
   const selectionJSON =
-      selectionText.length === 0
-          ? null
-          : state.selection.content().content.toJSON()
+    selectionText.length === 0
+      ? null
+      : state.selection.content().content.toJSON()
   const prevText = state.doc.textBetween(
-      Math.max(0, selectionTo - 5000),
-      selectionTo,
-      '\n'
+    Math.max(0, selectionTo - 5000),
+    selectionTo,
+    '\n'
   )
   status.value = 'loading'
   editorInstance.value.commands.focus()
@@ -149,28 +144,28 @@ function handleReplace() {
     to: Number(selectionTo),
   }
   editorInstance.value
-      .chain()
-      .setTextSelection(range)
-      .deleteSelection()
-      .insertContent(result.value)
-      .run()
+    .chain()
+    .setTextSelection(range)
+    .deleteSelection()
+    .insertContent(result.value)
+    .run()
   reset()
 }
 
-function reset(){
+function reset() {
   result.value = ''
   messageList.value = []
   status.value = 'idle'
   showModal.value = false
 }
 
-function copy(text) {
+function copy(text: string) {
   navigator.clipboard.writeText(text).then(() => {
     message.success('复制成功')
   })
 }
 
-function handleCancel(e) {
+function handleCancel() {
   stream && stream.controller.abort()
   reset()
 }
@@ -180,26 +175,26 @@ function handleCancel(e) {
 <template>
   <div v-if="editorInstance">
     <n-dropdown
-        :to="false"
-        :z-index="9999"
-        placement="bottom-start"
-        trigger="hover"
-        :options="options"
-        :render-icon="renderDropdownIcon"
-        @select="handleSelect"
+      :to="false"
+      :z-index="9999"
+      placement="bottom-start"
+      trigger="hover"
+      :options="options"
+      :render-icon="renderDropdownIcon"
+      @select="handleSelect"
     >
       <vivid-menu-item
-          icon="sparkling-line"
-          title="AI助手"
-          :action="openAiHelper"
-          :is-active="() => {}"
+        icon="sparkling-line"
+        title="AI助手"
+        :action="() => {}"
+        :is-active="() => {}"
       />
     </n-dropdown>
-    <n-modal @mask-click="handleCancel" style="width: 600px"  v-model:show="showModal">
+    <n-modal @mask-click="handleCancel" style="width: 600px" v-model:show="showModal">
       <n-card title="AI助手" size="small">
         <div :class="{'box': status === 'generating'}">
           <n-input placeholder="生成内容"
-									 :bordered="status !== 'generating'"
+                   :bordered="status !== 'generating'"
                    show-count
                    :autosize="{
                   minRows: 3,
@@ -214,7 +209,8 @@ function handleCancel(e) {
           <n-space justify="end">
             <n-button @click="handleCancel" size="small" secondary>取消</n-button>
             <n-button @click="copy(result)" size="small" secondary v-if="status === 'completed'">复制</n-button>
-            <n-button @click="handleReplace" size="small" type="primary" secondary v-if="status === 'completed'">替换</n-button>
+            <n-button @click="handleReplace" size="small" type="primary" secondary v-if="status === 'completed'">替换
+            </n-button>
           </n-space>
         </template>
       </n-card>
@@ -249,7 +245,7 @@ function handleCancel(e) {
   animation: animate_box 5s linear infinite;
 }
 
-.box::after{
+.box::after {
   content: "";
   position: absolute;
   inset: 2px;

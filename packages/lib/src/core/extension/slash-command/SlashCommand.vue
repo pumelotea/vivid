@@ -1,17 +1,18 @@
 <script setup lang="ts">
-import {onBeforeUnmount, onMounted, PropType, ref} from "vue";
+import {onBeforeUnmount, onMounted, ref, watch} from "vue";
 import {
-  SlashCommandPluginProps,
   SlashCommandSuggestPlugin,
 } from "./slash-command";
+import {inject} from "vue";
+import VividSlashCommand from './VividSlashCommand.vue'
 
 const root = ref()
-const props = defineProps({
-  editor: {
-    type: Object as PropType<SlashCommandPluginProps['editor']>,
-    required: true,
-  },
-})
+
+const editorInstance: any = inject('editorInstance')!
+const useExtension: any = inject('useExtension')
+if (!useExtension) {
+  throw new Error('DragHandle component must under VividEditor menu slot')
+}
 
 const queryValue = ref('')
 const range = ref(null)
@@ -27,27 +28,28 @@ function updateRange(r: any) {
 
 function bindKeyDownEvent(fun: any) {
   keyDownEventFun.value = fun
-}
-
-onMounted(() => {
-  props.editor.registerPlugin(SlashCommandSuggestPlugin({
-    editor: props.editor,
+  editorInstance.value.registerPlugin(SlashCommandSuggestPlugin({
+    editor: editorInstance.value,
     element: root.value as HTMLElement,
     onQuery,
     updateRange,
     onKeyDown: keyDownEventFun.value
   }))
-})
+}
+
 
 onBeforeUnmount(() => {
-  props.editor && props.editor.unregisterPlugin('slashCommand')
+  editorInstance.value && editorInstance.value.unregisterPlugin('slashCommand')
 })
+
 
 
 </script>
 
 <template>
   <div ref="root">
-    <slot :query="queryValue" :range="range" :bindKeyDownEvent="bindKeyDownEvent"></slot>
+    <slot :query="queryValue" :range="range" :bindKeyDownEvent="bindKeyDownEvent">
+      <vivid-slash-command v-if="editorInstance && editorInstance.isEditable" :query="queryValue" :bind-key-down-event="bindKeyDownEvent" :range="range" :editor="editorInstance"/>
+    </slot>
   </div>
 </template>

@@ -1,5 +1,5 @@
-import SlashCommandExt from './SlashCommand.vue'
+import SlashCommand from './SlashCommand.vue'
 
 export {
-	SlashCommandExt
+	SlashCommand
 }

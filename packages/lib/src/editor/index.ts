@@ -1,5 +1,6 @@
 import Editor from './Editor.vue'
-function install(app) {
+import {App} from "vue";
+function install(app: App) {
 	app.component('VividEditor', Editor)
 	app.component('viv-editor', Editor)
 }
