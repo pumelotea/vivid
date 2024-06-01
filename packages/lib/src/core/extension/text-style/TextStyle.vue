@@ -1,24 +1,19 @@
-<script setup>
-import TextStyle from '@tiptap/extension-text-style'
-import { inject } from 'vue'
+<script setup lang="ts">
+	import TextStyle, { TextStyleOptions } from "@tiptap/extension-text-style";
+	import { PropType } from "vue";
+	import { injectExtension } from "@lib/core/extension/utils/common";
 
-const props = defineProps({
-	options: {
-		type: Object,
-		required: false,
-	},
-})
+	const props = defineProps({
+		options: {
+			type: Object as PropType<Partial<TextStyleOptions>>,
+			required: false,
+		},
+	});
 
-const editorInstance = inject('editorInstance')
-const useExtension = inject('useExtension')
-if (!useExtension) {
-	throw new Error('TextStyle component must under VividEditor menu slot')
-}
-useExtension(TextStyle.configure(props.options))
+	injectExtension(TextStyle.configure(props.options));
 </script>
 
 <template>
-	<div style="display: none"></div>
 </template>
 
 <style scoped></style>
