@@ -1,21 +1,18 @@
-<script setup>
-import VividMenuItem from '../../components/VividMenuItem.vue'
-import BulletList from '@tiptap/extension-bullet-list'
-import { inject } from 'vue'
+<script setup lang="ts">
+	import VividMenuItem from "../../components/VividMenuItem.vue";
+	import BulletList, { BulletListOptions } from "@tiptap/extension-bullet-list";
+	import { PropType } from "vue";
+	import { useEditorInstance, injectExtension } from "../utils/common";
 
-const props = defineProps({
-	options: {
-		type: Object,
-		required: false,
-	},
-})
+	const props = defineProps({
+		options: {
+			type: Object as PropType<Partial<BulletListOptions>>,
+			required: false,
+		},
+	});
 
-const editorInstance = inject('editorInstance')
-const useExtension = inject('useExtension')
-if (!useExtension) {
-	throw new Error('BulletList component must under VividEditor menu slot')
-}
-useExtension(BulletList.configure(props.options))
+	const editorInstance = useEditorInstance();
+	injectExtension(BulletList.configure(props.options));
 </script>
 
 <template>
