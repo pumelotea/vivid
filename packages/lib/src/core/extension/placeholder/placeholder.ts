@@ -1,6 +1,6 @@
-import Placeholder from '@tiptap/extension-placeholder'
+import Placeholder,{PlaceholderOptions} from '@tiptap/extension-placeholder'
 
-export function usePlaceholder(options) {
+export function usePlaceholder(options?: Partial<PlaceholderOptions>) {
 	if (!options) {
 		options = {
 			placeholder: ({ node, pos }) => {
