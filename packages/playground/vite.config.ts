@@ -1,6 +1,8 @@
 import vue from '@vitejs/plugin-vue'
 import { defineConfig } from 'vite'
+import path from 'path' // 第一部分!!!!!!!!!!!!
 
+const resolve = (dir: string) => path.join(__dirname, dir) // 第二部分!!!!!!!!!!!!
 export default defineConfig({
 	plugins: [vue()],
 	resolve: {
@@ -11,6 +13,8 @@ export default defineConfig({
 				process.env.NODE_ENV === 'production'
 					? '@codecoderun/vivid'
 					: '@codecoderun/vivid/src/index.ts',
+			'@': resolve('src'),
+			'@lib': resolve('../lib/src')
 		},
 		extensions: ['.js', '.json', '.vue', '.ts'],
 		dedupe: ['vue'],

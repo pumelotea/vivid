@@ -5,7 +5,7 @@
   "compilerOptions": {
 	// only uncomment if you encounter problems w. 3rd party libs
 	// See: https://github.com/vuejs/tsconfig?tab=readme-ov-file#migrating-from-typescript--50
-	// "resolvePackageJsonExports": false 
+	// "resolvePackageJsonExports": false
     "composite": true,
     "outDir": "dist",
     "declaration": true,
