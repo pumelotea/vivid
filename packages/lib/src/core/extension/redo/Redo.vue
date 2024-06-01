@@ -1,8 +1,8 @@
-<script setup>
-import VividMenuItem from '../../components/VividMenuItem.vue'
-import { inject } from 'vue'
+<script setup lang="ts">
+	import VividMenuItem from "../../components/VividMenuItem.vue";
+	import { useEditorInstance } from "@lib/core/extension/utils/common";
 
-const editorInstance = inject('editorInstance')
+	const editorInstance = useEditorInstance();
 </script>
 
 <template>
