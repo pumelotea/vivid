@@ -15,7 +15,7 @@ export interface ImageAttrsOptions {
   /** The title of the image. */
   title?: string;
   /** Indicates whether the aspect ratio of the image should be locked. */
-  lockAspectRatio?: boolean;
+	keepRatio?: boolean;
   /** The width of the image. */
   width?: number | string | null;
   /** The height of the image. */
