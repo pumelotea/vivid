@@ -1,19 +1,12 @@
-<script setup>
-import { inject } from 'vue'
-import {TrailingNode} from "./trailing-node";
-const editorInstance = inject('editorInstance')
+<script setup lang="ts">
+	import { TrailingNode } from "./trailing-node";
+	import { injectExtension } from "@lib/core/extension/utils/common";
 
-const useExtension = inject('useExtension')
-if (!useExtension) {
-  throw new Error('TrailingNode component must under VividEditor menu slot')
-}
-useExtension(TrailingNode)
+	injectExtension(TrailingNode);
 
 </script>
 
 <template>
-	<div style="display: none">
-	</div>
 </template>
 
 <style scoped></style>
