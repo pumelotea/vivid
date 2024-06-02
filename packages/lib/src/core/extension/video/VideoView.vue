@@ -1,7 +1,7 @@
-<script setup>
+<script setup lang="ts">
 import { isNumber, nodeViewProps, NodeViewWrapper } from '@tiptap/vue-3'
 import Moveable from 'vue3-moveable'
-import { computed, onBeforeUnmount, onMounted, ref, unref, watch } from 'vue'
+import { computed, ref, unref, watch } from 'vue'
 
 const props = defineProps({
 	...nodeViewProps,
@@ -11,9 +11,8 @@ const props = defineProps({
 	},
 })
 
-const Wrap = ref()
-const videoRef = ref(null)
-const targetRef = ref()
+const Wrap = ref<any>()
+const targetRef = ref<any>()
 const maxWidth = ref('auto')
 const maxHeight = ref('auto')
 const minWidth = ref('auto')

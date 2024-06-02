@@ -1,58 +1,58 @@
-<script setup>
-import { computed, inject } from 'vue'
-import { NSpace } from 'naive-ui'
-import VividMenuItem from '../../../core/components/VividMenuItem.vue'
-import { deleteSelection } from '@tiptap/pm/commands'
-import SvgIcon from '@jamescoyle/vue-icon'
-import {
-	mdiFormatFloatLeft,
-	mdiFormatFloatRight,
-	mdiFormatFloatNone,
-	mdiSizeM,
-	mdiSizeL,
-	mdiSizeS,
-} from '@mdi/js'
+<script setup lang="ts">
+	import { NSpace } from "naive-ui";
+	import VividMenuItem from "../../../core/components/VividMenuItem.vue";
+	import { deleteSelection } from "@tiptap/pm/commands";
+	import SvgIcon from "@jamescoyle/vue-icon/lib/svg-icon.vue";
+	import {
+		mdiFormatFloatLeft,
+		mdiFormatFloatRight,
+		mdiFormatFloatNone,
+		mdiSizeM,
+		mdiSizeL,
+		mdiSizeS,
+	} from "@mdi/js";
+	import { useEditorInstance } from "@lib/core/extension/utils/common";
 
-const editorInstance = inject('editorInstance')
+	const editorInstance = useEditorInstance();
 
-const display = ['left', 'inline', 'right']
+	const display = ["left", "inline", "right"];
 
-function deleteVideo() {
-	const { state, dispatch } = editorInstance.value.view
-	deleteSelection(state, dispatch)
-}
-
-function toggleKeepRatio() {
-	if (editorInstance.value.isActive('video', { keepRatio: true })) {
-		editorInstance.value.chain().focus().updateVideo({ keepRatio: false }).run()
-	} else {
-		editorInstance.value.chain().focus().updateVideo({ keepRatio: true }).run()
+	function deleteVideo() {
+		const { state, dispatch } = editorInstance.value.view;
+		deleteSelection(state, dispatch);
 	}
-}
 
-function toggleControls() {
-	if (editorInstance.value.isActive('video', { controls: true })) {
-		editorInstance.value.chain().focus().updateVideo({ controls: false }).run()
-	} else {
-		editorInstance.value.chain().focus().updateVideo({ controls: true }).run()
+	function toggleKeepRatio() {
+		if (editorInstance.value.isActive("video", { keepRatio: true })) {
+			editorInstance.value.chain().focus().updateVideo({ keepRatio: false }).run();
+		} else {
+			editorInstance.value.chain().focus().updateVideo({ keepRatio: true }).run();
+		}
 	}
-}
 
-function toggleLoop() {
-	if (editorInstance.value.isActive('video', { loop: true })) {
-		editorInstance.value.chain().focus().updateVideo({ loop: false }).run()
-	} else {
-		editorInstance.value.chain().focus().updateVideo({ loop: true }).run()
+	function toggleControls() {
+		if (editorInstance.value.isActive("video", { controls: true })) {
+			editorInstance.value.chain().focus().updateVideo({ controls: false }).run();
+		} else {
+			editorInstance.value.chain().focus().updateVideo({ controls: true }).run();
+		}
 	}
-}
 
-function toggleMuted() {
-	if (editorInstance.value.isActive('video', { muted: true })) {
-		editorInstance.value.chain().focus().updateVideo({ muted: false }).run()
-	} else {
-		editorInstance.value.chain().focus().updateVideo({ muted: true }).run()
+	function toggleLoop() {
+		if (editorInstance.value.isActive("video", { loop: true })) {
+			editorInstance.value.chain().focus().updateVideo({ loop: false }).run();
+		} else {
+			editorInstance.value.chain().focus().updateVideo({ loop: true }).run();
+		}
 	}
-}
+
+	function toggleMuted() {
+		if (editorInstance.value.isActive("video", { muted: true })) {
+			editorInstance.value.chain().focus().updateVideo({ muted: false }).run();
+		} else {
+			editorInstance.value.chain().focus().updateVideo({ muted: true }).run();
+		}
+	}
 </script>
 
 <template>
