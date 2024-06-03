@@ -3,7 +3,7 @@
 	import { lockDragHandle, unlockDragHandle, useDragHandle, useDragHandleData } from "./drag-handle";
 	import { onMounted, ref, watch } from "vue";
 	import { Range } from "@tiptap/core";
-	import { injectExtension, useEditorInstance } from "@lib/core/extension/utils/common";
+  import { injectExtension, onEditorCreated, useEditorInstance } from "@lib/core/extension/utils/common";
 
 	const vars = useThemeVars();
 	const root = ref<any>();
@@ -19,8 +19,19 @@
 		container.append(root.value);
 	});
 
-
 	const items = ref([
+    {
+      name: "插入链接",
+      cmd: "/link",
+      icon: "link",
+      action: (range: Range) => {
+        if (!data.value.range) {
+          return;
+        }
+        editorInstance.value.chain().focus().insertContentAt(range.to, "<p></p>").run();
+        editorInstance.value.storage.link.openLink();
+      },
+    },
 		{
 			name: "插入图片",
 			cmd: "/img",
@@ -120,6 +131,14 @@
 				editorInstance.value.view.dispatch(tr);
 			},
 		},
+    {
+      name: "复制本行", icon: "file-copy-line", action: (range: Range) => {
+        const editor = editorInstance.value;
+        editor.chain().focus().setNodeSelection(range.from).run()
+        console.log(data.value.nodeDOM)
+        navigator.clipboard.writeText(data.value.nodeDOM?.outerHTML)
+      },
+    },
 		{
 			name: "下移一行",
 			icon: "arrow-down-s-line",

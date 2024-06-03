@@ -211,7 +211,6 @@ export function useDragHandle(options: DragHandleOptions) {
 				placement: "left-start",
 				hideOnClick: "toggle",
 			})[0];
-			console.log(options.element);
 			dom.parentNode!.addEventListener("scroll", () => {
 				render(dom);
 			});

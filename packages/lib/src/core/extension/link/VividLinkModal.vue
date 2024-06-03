@@ -49,7 +49,7 @@ defineExpose({ open })
 			<n-form label-placement="left" label-width="auto">
 				<n-form-item label="文字">
 					<n-input-group>
-					<n-input v-model:value="text" />
+					<n-input v-model:value="text"  placeholder="在选中文字上添加内容请留空"/>
 					</n-input-group>
 				</n-form-item>
 				<n-form-item label="链接地址">

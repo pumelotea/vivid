@@ -12,6 +12,18 @@
 	const data = useSlashCommandData();
 
 	const items = ref([
+    {
+      name: "插入链接",
+      cmd: "/link",
+      icon: "link",
+      action: () => {
+        if (!data.value.range) {
+          return;
+        }
+        editor.value.chain().focus().deleteRange(data.value.range).run();
+        editor.value.storage.link.openLink();
+      },
+    },
 		{
 			name: "插入图片",
 			cmd: "/img",

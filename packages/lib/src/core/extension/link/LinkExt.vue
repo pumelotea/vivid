@@ -15,7 +15,7 @@
 		NButton,
 		NSpace,
 	} from "naive-ui";
-	import { injectExtension, useEditorInstance } from "@lib/core/extension/utils/common";
+  import { injectExtension, onEditorCreated, useEditorInstance } from "@lib/core/extension/utils/common";
 	import { EditorView } from "prosemirror-view";
 	import { MarkType } from "@tiptap/pm/model";
 	import tippy, { Instance } from "tippy.js";
@@ -44,6 +44,12 @@
 			HTL.value!.open();
 		}
 	}
+
+  onEditorCreated(()=>{
+    editorInstance.value.storage.link = {
+      openLink: handleOpenLink,
+    };
+  })
 
 	function setLink(text: string, href: string, target: string) {
 		console.log(text, href, target);

@@ -19,6 +19,7 @@
           <text-style-ext/>
           <focus-ext/>
           <trailing-node-ext/>
+          <section-ext/>
 
           <undo-ext/>
           <redo-ext/>
@@ -152,7 +153,8 @@ import {
   MathBubbleMenu,
   TrailingNodeExt,
   DragHandle,
-  SlashCommand
+  SlashCommand,
+  SectionExt,
 } from '@codecoderun/vivid'
 import OpenAI from "openai";
 
