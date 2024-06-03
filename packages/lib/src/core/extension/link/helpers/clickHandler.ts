@@ -4,7 +4,8 @@ import { EditorView } from "prosemirror-view";
 
 type ClickHandlerOptions = {
 	type: MarkType,
-	handleClick?: (view: EditorView, pos: number, event: MouseEvent, type: MarkType) => boolean
+	handleClick?: (view: EditorView, pos: number, event: MouseEvent, type: MarkType) => boolean,
+	handleKeyDown?: () => boolean
 }
 
 export function clickHandler(options: ClickHandlerOptions) {
@@ -14,6 +15,12 @@ export function clickHandler(options: ClickHandlerOptions) {
 			handleClick: (view, pos, event) => {
 				if (options.handleClick) {
 					return options.handleClick(view, pos, event, options.type);
+				}
+				return false;
+			},
+			handleKeyDown: () => {
+				if (options.handleKeyDown) {
+					return options.handleKeyDown();
 				}
 				return false;
 			},

@@ -5,6 +5,7 @@ import { MarkType } from "@tiptap/pm/model";
 
 export interface VividLinkOptions extends LinkOptions {
 	handleClick: (view: EditorView, pos: number, event: MouseEvent, type: MarkType) => boolean;
+	handleKeyDown?: () => boolean
 }
 
 export function useLink(options: Partial<VividLinkOptions>) {
@@ -20,6 +21,7 @@ export function useLink(options: Partial<VividLinkOptions>) {
 					clickHandler({
 						type: this.type,
 						handleClick: options.handleClick,
+						handleKeyDown: options.handleKeyDown,
 					}),
 				);
 			}

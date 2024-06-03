@@ -131,10 +131,12 @@
 			tippyInstance.destroy();
 		}
 		isEdit.value = false;
+		return false
 	}
 
 	injectExtension(useLink({
 		handleClick: handleLinkClick,
+		handleKeyDown: destroyTooltip,
 		protocols: ["ftp", "mailto", "http", "https"],
 		autolink: false,
 	}));
