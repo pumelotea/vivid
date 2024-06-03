@@ -1,92 +1,85 @@
-import { Editor } from '@tiptap/core'
+import { Editor, Extension } from "@tiptap/core";
 import {PluginKey} from '@tiptap/pm/state'
-import tippy from 'tippy.js'
 import {Suggestion} from "@tiptap/suggestion";
+import { SuggestionKeyDownProps, SuggestionOptions } from "@tiptap/suggestion/src/suggestion";
+import { Ref, ref } from "vue";
+import { Range } from "@tiptap/core";
 
-
-export interface SlashCommandPluginProps {
-  editor: Editor
+export interface SlashCommandOptions {
   element: HTMLElement
-  onQuery: (query: string) => void
-  updateRange: (r: any) => void
-  onKeyDown: ((e: any) => boolean) | null
 }
 
-export const SlashCommandSuggestPlugin = (options: SlashCommandPluginProps) => {
-  return Suggestion({
-    editor: options.editor,
-    char: '/',
-    allowSpaces: false,
-    startOfLine: true,
-    pluginKey: new PluginKey('slashCommand'),
-    allow: ({state, range, editor}) => {
-      const $from = state.doc.resolve(range.from)
-      const isRootDepth = $from.depth === 1
-      const isParagraph = $from.parent.type.name === 'paragraph'
-      const isStartOfNode = $from.parent.textContent?.charAt(0) === '/'
-      // TODO 行列内
-      const isInColumn = editor.isActive('column')
-      const afterContent = $from.parent.textContent?.substring($from.parent.textContent?.indexOf('/'))
-      const isValidAfterContent = !afterContent?.endsWith('  ')
-      return (
-        ((isRootDepth && isParagraph && isStartOfNode) || (isInColumn && isParagraph && isStartOfNode)) &&
-        isValidAfterContent
-      )
-    },
-    items: ({query, editor}) => {
-      options.onQuery(query)
-      return []
-    },
-    render() {
-      const tippyInstance = tippy('body', {
-        duration: 0,
-        getReferenceClientRect: null,
-        content: options.element,
-        interactive: true,
-        trigger: 'manual',
-        placement: 'bottom-start',
-        hideOnClick: 'toggle',
-      })[0]
-      return {
-        onStart: (props) => {
-          const {view, state} = props.editor
-          tippyInstance.setProps({
-            getReferenceClientRect: () => {
-              return props.clientRect!() as DOMRect
-            }
-          })
-          options.updateRange(props.range)
-          tippyInstance.show()
-        },
-        onUpdate: (props) => {
-          const {view, state} = props.editor
-          options.updateRange(props.range)
-          tippyInstance.setProps({
-            getReferenceClientRect: () => {
-              return props.clientRect!() as DOMRect
-            }
-          })
-        },
-        onKeyDown: (props) => {
-          if (props.event.key === 'Escape') {
-            tippyInstance.hide()
-            return true
-          }
+export type SlashCommandData = {
+  editor?: Editor
+  query?: string
+  range?: Range
+}
 
-          if (!tippyInstance.state.isShown) {
-            tippyInstance.show()
-          }
-          if (options.onKeyDown){
-            return options.onKeyDown(props.event)
-          }
-          return false
+export type SlashItemsQueryFn = (query: string)=> any[]
+export type SlashRenderFn = SuggestionOptions['render']
+export type SlashCommandKeyDownFn = (props: SuggestionKeyDownProps) => boolean
+
+let itemsFn: SlashItemsQueryFn
+let renderFn: SlashRenderFn | undefined = undefined
+export let keyDownFn: SlashCommandKeyDownFn
+
+export function overwriteItems(fn: SlashItemsQueryFn){
+  itemsFn = fn
+}
+
+export function overwriteRender(fn: SlashRenderFn){
+  renderFn = fn
+}
+
+export function overwriteKeyDown(fn: SlashCommandKeyDownFn){
+	keyDownFn = fn
+}
+
+const data: Ref<SlashCommandData> = ref({})
+export function useSlashCommandData(){
+  return data
+}
+
+export function useSlashCommand(options?: Partial<SlashCommandOptions>){
+
+  return Extension.create<SlashCommandOptions>({
+    addProseMirrorPlugins(){
+      const plugin = Suggestion({
+        editor: this.editor,
+        char: '/',
+        allowSpaces: false,
+        startOfLine: true,
+        pluginKey: new PluginKey('slashCommand'),
+        allow: ({state, range, editor}) => {
+          const $from = state.doc.resolve(range.from)
+          const isRootDepth = $from.depth === 1
+          const isParagraph = $from.parent.type.name === 'paragraph'
+          const isStartOfNode = $from.parent.textContent?.charAt(0) === '/'
+          // TODO 行列内
+          const isInColumn = editor.isActive('column')
+          const afterContent = $from.parent.textContent?.substring($from.parent.textContent?.indexOf('/'))
+          const isValidAfterContent = !afterContent?.endsWith('  ')
+          return (
+            ((isRootDepth && isParagraph && isStartOfNode) || (isInColumn && isParagraph && isStartOfNode)) &&
+            isValidAfterContent
+          )
         },
-        onExit: () => {
-          options.onQuery('')
-          options.updateRange(null)
-          tippyInstance.hide()
+        items: ({query, editor}) => {
+          if (itemsFn){
+            return itemsFn(query)
+          }
+          return []
+        },
+        render() {
+          if (renderFn){
+            return renderFn() || {}
+          }
+          return {}
         }
-      }
+      })
+      return [plugin]
     }
   })
 }
+
+

@@ -1,55 +1,96 @@
 <script setup lang="ts">
-import {onBeforeUnmount, onMounted, ref, watch} from "vue";
-import {
-  SlashCommandSuggestPlugin,
-} from "./slash-command";
-import {inject} from "vue";
-import VividSlashCommand from './VividSlashCommand.vue'
+	import { ref } from "vue";
+	import tippy, { Instance } from "tippy.js";
 
-const root = ref()
+	import {
+		keyDownFn,
+		overwriteItems, overwriteRender,
+		useSlashCommand, useSlashCommandData,
+	} from "./slash-command";
+	import VividSlashCommand from "./DefaultSlashCommandView.vue";
+	import { injectExtension, useEditorInstance } from "@lib/core/extension/utils/common";
 
-const editorInstance: any = inject('editorInstance')!
-const useExtension: any = inject('useExtension')
-if (!useExtension) {
-  throw new Error('DragHandle component must under VividEditor menu slot')
-}
+	const root = ref();
+	let tippyInstance: Instance;
+	const editorInstance = useEditorInstance();
+	injectExtension(useSlashCommand());
 
-const queryValue = ref('')
-const range = ref(null)
-const keyDownEventFun = ref<((e: any) => boolean)>((e: any)=>false)
+	const data = useSlashCommandData();
 
-function onQuery(query: string) {
-  queryValue.value = query
-}
+	overwriteItems((query) => {
+		data.value.query = query;
+	});
 
-function updateRange(r: any) {
-  range.value = r
-}
+	overwriteRender(() => {
+		return {
+			onStart: props => {
+				data.value.range = props.range
+				data.value.editor = props.editor
+				createTooltip(props.clientRect!() as DOMRect)
+			},
+			onUpdate: props => {
+				data.value.range = props.range
+				updateTooltip(props.clientRect!() as DOMRect)
+			},
+			onKeyDown: props => {
+				if (props.event.key === 'Escape') {
+					destroyTooltip()
+					return true
+				}
+				data.value.range = props.range
+				if (keyDownFn){
+					return keyDownFn(props)
+				}
+				return false
+			},
+			onExit: props => {
+				destroyTooltip()
+			},
+		};
+	});
 
-function bindKeyDownEvent(fun: any) {
-  keyDownEventFun.value = fun
-  editorInstance.value.registerPlugin(SlashCommandSuggestPlugin({
-    editor: editorInstance.value,
-    element: root.value as HTMLElement,
-    onQuery,
-    updateRange,
-    onKeyDown: keyDownEventFun.value
-  }))
-}
+	function createTooltip(clientRect: DOMRect) {
+		if (!root.value) {
+			return;
+		}
+		const container = document.createElement("div");
+		container.append(root.value);
+		tippyInstance = tippy("body", {
+			duration: 0,
+			getReferenceClientRect: () => clientRect,
+			content: container,
+			interactive: true,
+			trigger: "manual",
+			placement: "bottom-start",
+		})[0];
+		tippyInstance.show()
+	}
 
+	function updateTooltip(clientRect: DOMRect){
+		if (!tippyInstance){
+			return
+		}
+		tippyInstance.setProps({
+			getReferenceClientRect: () => clientRect
+		})
+	}
 
-onBeforeUnmount(() => {
-  editorInstance.value && editorInstance.value.unregisterPlugin('slashCommand')
-})
-
-
+	function destroyTooltip() {
+		if (tippyInstance) {
+			tippyInstance.destroy();
+			data.value.range = null
+			data.value.query = null
+		}
+	}
 
 </script>
 
 <template>
-  <div ref="root">
-    <slot :query="queryValue" :range="range" :bindKeyDownEvent="bindKeyDownEvent">
-      <vivid-slash-command v-if="editorInstance && editorInstance.isEditable" :query="queryValue" :bind-key-down-event="bindKeyDownEvent" :range="range" :editor="editorInstance"/>
-    </slot>
-  </div>
+	<div style="display: none">
+		<div ref="root">
+			<slot>
+				<vivid-slash-command v-if="editorInstance && editorInstance.isEditable" />
+			</slot>
+		</div>
+	</div>
 </template>
