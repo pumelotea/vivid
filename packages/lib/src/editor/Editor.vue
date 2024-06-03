@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import 'remixicon/fonts/remixicon.css'
 import '../style/index.css'
 import {
@@ -11,7 +11,7 @@ import {
   watch,
 } from 'vue'
 import {useThemeVars} from 'naive-ui'
-import {EditorContent, BubbleMenu} from '@tiptap/vue-3'
+import { EditorContent, BubbleMenu, EditorOptions } from "@tiptap/vue-3";
 import {useDebounceFn} from '@vueuse/core'
 import {NMessageProvider, NDialogProvider} from 'naive-ui'
 
@@ -21,6 +21,7 @@ import VividFooter from './components/VividFooter.vue'
 import {Editor} from '@tiptap/vue-3'
 import {CellSelection} from 'prosemirror-tables'
 import {TextSelection} from '@tiptap/pm/state'
+import { Extension } from "@tiptap/core";
 
 const vars = useThemeVars()
 
@@ -46,21 +47,14 @@ const props = defineProps({
     required: false,
     default: '',
   },
-  tippyOptions: {
-    type: Object,
-    required: false,
-    default: () => {
-      return {duration: 0, maxWidth: 600, placement: 'top-start'}
-    },
-  },
   readonly: {
     type: Boolean,
     default: false,
   }
 })
 
-let internalExt = []
-const editor = shallowRef()
+let internalExt: Extension[] = []
+const editor = shallowRef<Editor>()
 const words = ref(0)
 const characters = ref(0)
 const fullscreen = ref(false)
@@ -79,14 +73,14 @@ const updateEditorWordCount = useDebounceFn(() => {
   characters.value = editor.value.storage.characterCount.characters()
 }, 300)
 
-function useExtension(ext) {
+function useExtension(ext: Extension) {
   if (internalExt.filter((e) => e === ext).length) {
     return
   }
   internalExt.push(ext)
 }
 
-function removeExtension(extName) {
+function removeExtension(extName: string) {
   const index = internalExt.findIndex((e) => e.name === extName)
   if (index > -1) {
     internalExt.splice(index, 1)
@@ -94,7 +88,7 @@ function removeExtension(extName) {
 }
 
 function initEditor() {
-  const opt = {
+  const opt: EditorOptions = {
     content: props.modelValue,
     editable: !props.readonly,
     extensions: internalExt,
@@ -179,7 +173,7 @@ const nodeType = computed(() => {
   if (!editor.value) {
     return undefined
   }
-  const selection = editor.value.state.selection
+  const selection = editor.value.state.selection as any
   const isImage = selection.node?.type.name === 'image'
   const isVideo = selection.node?.type.name === 'video'
   const isMagic = selection.node?.type.name === 'magic'
@@ -226,7 +220,7 @@ defineExpose({
           v-if="editor && editor.isEditable && bubbleMenu"
           v-show="!hideBubble"
           :editor="editor"
-          :tippy-options="tippyOptions"
+          :tippy-options="{duration: 0, maxWidth: 600, placement: 'top-start'}"
         >
           <slot name="bubble-menu" :nodeType="nodeType">
             <vivid-bubble-menu :node-type="nodeType"/>
