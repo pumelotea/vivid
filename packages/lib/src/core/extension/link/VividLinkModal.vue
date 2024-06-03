@@ -43,7 +43,7 @@ defineExpose({ open })
 <template>
 	<n-modal v-model:show="showModal" preset="card" style="width: 450px">
 		<template #header>
-			<div>超链接设置</div>
+			<div>插入超链接</div>
 		</template>
 		<div>
 			<n-form label-placement="left" label-width="auto">

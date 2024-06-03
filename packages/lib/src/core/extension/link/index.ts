@@ -1,5 +1,4 @@
-// @ts-ignore
-import { useLink } from './link-ext'
-import LinkExt from './Link.vue'
+import { useLink } from './link'
+import LinkExt from './LinkExt.vue'
 
 export { LinkExt, useLink }
