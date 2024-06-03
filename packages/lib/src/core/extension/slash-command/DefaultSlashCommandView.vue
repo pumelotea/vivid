@@ -17,7 +17,6 @@
 			cmd: "/img",
 			icon: "image-line",
 			action: () => {
-				console.log(data.value)
 				editor.value.chain().focus().deleteRange(data.value.range).run();
 				editor.value.storage.image.openUploader();
 			},
