@@ -43,10 +43,9 @@ import {
   AiExt,
   FocusExt,
   LineHeightExt,
-  HocuspocusExt,
   ImageBubbleMenu,
-  VideoBubbleMenu,
-} from '@codecoderun/vivid'
+  VideoBubbleMenu, DragHandle, SlashCommand,
+} from "@codecoderun/vivid";
 import OpenAI from "openai";
 import {useThemeVars} from 'naive-ui'
 import {useMutationObserver} from "@vueuse/core";
@@ -126,6 +125,8 @@ async function handleUpload(file, per) {
     <div style="display: flex;justify-content: center;flex-direction: column;align-items: center">
       <div style="padding: 40px;max-width:1280px;height: 600px">
         <vivid-editor v-model="text" :dark="dark">
+          <drag-handle></drag-handle>
+          <slash-command></slash-command>
           <template #menu>
             <div class="menu-bar">
               <document-ext/>
@@ -219,10 +220,10 @@ async function handleUpload(file, per) {
   flex-wrap: wrap;
   padding: 5px 5px;
   gap: 2px;
-  background-color: v-bind(vars.baseColor);
+  background-color: var(--base-color);
   box-sizing: border-box;
   border-bottom: 1px solid;
-  border-color: v-bind(vars.borderColor);
+  border-color: var(--border-color);
 }
 
 .bubble-menu-bar {
@@ -230,8 +231,8 @@ async function handleUpload(file, per) {
   align-items: center;
   flex-wrap: wrap;
   padding: 5px 5px;
-  background: v-bind(vars.popoverColor);
+  background: var(--popover-color);
   border-radius: 3px;
-  box-shadow: v-bind(vars.boxShadow2);
+  box-shadow: var(--box-shadow2);
 }
 </style>

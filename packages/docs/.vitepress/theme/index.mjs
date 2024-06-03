@@ -7,7 +7,7 @@ import './css/index.css'
 import { VividEditor } from '@codecoderun/vivid'
 import "remixicon/fonts/remixicon.css"
 import "@codecoderun/vivid/dist/style.css"
-import Demo from "../components/demo.vue"
+import WrapDemo from "../components/WrapDemo.vue"
 
 const { Layout } = DefaultTheme
 const CssRenderStyle = defineComponent({
@@ -57,7 +57,7 @@ export default {
 			app.provide('css-render-collect', collect)
 		}
     app.use(VividEditor)
-    app.component('demo', Demo)
+    app.component('demo', WrapDemo)
   },
 }
 
