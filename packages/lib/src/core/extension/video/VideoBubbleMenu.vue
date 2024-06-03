@@ -65,11 +65,11 @@
 						editorInstance
 							.chain()
 							.focus()
-							.updateVideo({ display: display[0] })
+							.updateVideo({ display: 'left' })
 							.run()
 				"
 				:isActive="
-					() => editorInstance.isActive('video', { display: display[0] })
+					() => editorInstance.isActive('video', { display: 'left' })
 				"
 			>
 				<svg-icon type="mdi" :path="mdiFormatFloatLeft"></svg-icon>
@@ -81,11 +81,11 @@
 						editorInstance
 							.chain()
 							.focus()
-							.updateVideo({ display: display[1] })
+							.updateVideo({ display: 'inline' })
 							.run()
 				"
 				:isActive="
-					() => editorInstance.isActive('video', { display: display[1] })
+					() => editorInstance.isActive('video', { display: 'inline' })
 				"
 			>
 				<svg-icon type="mdi" :path="mdiFormatFloatNone"></svg-icon>
@@ -97,11 +97,11 @@
 						editorInstance
 							.chain()
 							.focus()
-							.updateVideo({ display: display[2] })
+							.updateVideo({ display: 'right' })
 							.run()
 				"
 				:isActive="
-					() => editorInstance.isActive('video', { display: display[2] })
+					() => editorInstance.isActive('video', { display: 'right' })
 				"
 			>
 				<svg-icon type="mdi" :path="mdiFormatFloatRight"></svg-icon>

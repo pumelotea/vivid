@@ -21,7 +21,7 @@ import VividFooter from './components/VividFooter.vue'
 import {Editor} from '@tiptap/vue-3'
 import {CellSelection} from 'prosemirror-tables'
 import {TextSelection} from '@tiptap/pm/state'
-import { Extension } from "@tiptap/core";
+import { Extension, Mark ,Node } from "@tiptap/core";
 
 const vars = useThemeVars()
 
@@ -53,13 +53,13 @@ const props = defineProps({
   }
 })
 
-let internalExt: Extension[] = []
+let internalExt: (Extension | Node | Mark)[] = []
 const editor = shallowRef<Editor>()
 const words = ref(0)
 const characters = ref(0)
 const fullscreen = ref(false)
-const editorBox = ref(null)
-const editorBoxParent = ref(null)
+const editorBox = ref<any>(null)
+const editorBoxParent = ref<any>(null)
 const isFocused = ref(false)
 
 const emit = defineEmits(['update:modelValue', 'change'])
@@ -69,11 +69,11 @@ provide('removeExtension', removeExtension)
 provide('editorInstance', editor)
 
 const updateEditorWordCount = useDebounceFn(() => {
-  words.value = editor.value.storage.characterCount.words()
-  characters.value = editor.value.storage.characterCount.characters()
+  words.value = editor.value?.storage.characterCount.words() || 0
+  characters.value = editor.value?.storage.characterCount.characters() || 0
 }, 300)
 
-function useExtension(ext: Extension) {
+function useExtension(ext: Extension | Node | Mark) {
   if (internalExt.filter((e) => e === ext).length) {
     return
   }
@@ -88,7 +88,7 @@ function removeExtension(extName: string) {
 }
 
 function initEditor() {
-  const opt: EditorOptions = {
+  const opt: Partial<EditorOptions> = {
     content: props.modelValue,
     editable: !props.readonly,
     extensions: internalExt,
@@ -130,6 +130,9 @@ watch(() => props.readonly, (value) => {
 watch(
   () => props.modelValue,
   (value) => {
+		if (!editor.value){
+			return
+		}
     // HTML
     const isSame = editor.value.getHTML() === value
 
@@ -148,7 +151,10 @@ watch(fullscreen, () => {
   if (fullscreen.value === true) {
     if (props.to) {
       editorBoxParent.value = editorBox.value.parentNode
-      document.getElementById(props.to).append(editorBox.value)
+      const to = document.getElementById(props.to)
+			if (to){
+				to.append(editorBox.value)
+			}
     }
   } else {
     if (props.to) {
@@ -169,7 +175,7 @@ function tab(e) {
 
 
 const hideBubble = ref(false)
-const nodeType = computed(() => {
+const nodeType = computed<string | undefined>(() => {
   if (!editor.value) {
     return undefined
   }

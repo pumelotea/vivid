@@ -75,7 +75,7 @@
 			return false;
 		}
 		let a = event.target as HTMLElement;
-		const els = [];
+		const els: HTMLElement[] = [];
 		while (a.nodeName !== "DIV") {
 			els.push(a);
 			a = a.parentNode as HTMLElement;

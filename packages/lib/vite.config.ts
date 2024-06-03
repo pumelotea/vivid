@@ -1,8 +1,8 @@
-/// <reference types="vitest"/>
-
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { fileURLToPath } from 'url'
+import path from 'path'
+const resolve = (dir: string) => path.join(__dirname, dir)
 
 export default defineConfig({
 	plugins: [vue()],
@@ -13,6 +13,7 @@ export default defineConfig({
 			 * because they will leak into the generated d.ts files and then
 			 * break the lib's types in the consuming app.
 			 */
+			'@lib': resolve('src')
 		},
 		extensions: ['.js', '.json', '.vue', '.ts']
 	},
@@ -56,8 +57,5 @@ export default defineConfig({
 				},
 			},
 		},
-	},
-	test: {
-		environment: 'jsdom',
 	},
 })

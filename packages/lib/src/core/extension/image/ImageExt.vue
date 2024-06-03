@@ -29,7 +29,7 @@
   });
 
 
-  function insertImage(url) {
+  function insertImage(url: string) {
     if (url) {
       editorInstance.value.chain().setImage({ src: url }).focus().run();
     }

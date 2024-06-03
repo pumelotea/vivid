@@ -2,19 +2,19 @@
 import VividMenuItem from '../../components/VividMenuItem.vue'
 import {h, ref, PropType} from 'vue'
 import {
-  NButton,
-  NDropdown,
-  NSpace,
-  NIcon,
-  NCard,
-  NInput,
-  NModal,
-  useMessage,
-  useDialog,
-  useThemeVars,
-} from 'naive-ui'
+	NButton,
+	NDropdown,
+	NSpace,
+	NIcon,
+	NCard,
+	NInput,
+	NModal,
+	useMessage,
+	useDialog,
+	useThemeVars,
+} from "naive-ui";
 import {Icon} from '@iconify/vue'
-import {AiOption} from "@/core/extension";
+import {AiOption} from "@lib/core/extension";
 import {useEditorInstance} from "../utils/common";
 import {Stream} from "openai/streaming";
 import OpenAI from "openai/index";
@@ -24,13 +24,13 @@ import ChatCompletionChunk = OpenAI.ChatCompletionChunk;
 const props = defineProps({
   options: {
     type: Object as PropType<AiOption>,
-    required: false,
+    required: true,
   },
 })
 
 const vars = useThemeVars()
 const editorInstance = useEditorInstance()
-const options = [
+const options: any[] = [
   {
     label: 'AI续写',
     icon: 'mdi:magic',

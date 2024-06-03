@@ -17,12 +17,18 @@
 			cmd: "/img",
 			icon: "image-line",
 			action: () => {
+				if (!data.value.range) {
+					return;
+				}
 				editor.value.chain().focus().deleteRange(data.value.range).run();
 				editor.value.storage.image.openUploader();
 			},
 		},
 		{
 			name: "插入视频", cmd: "/video", icon: "video-line", action: () => {
+				if (!data.value.range) {
+					return;
+				}
 				editor.value.chain().focus().deleteRange(data.value.range).run();
 				editor.value.storage.video.openUploader();
 			},
@@ -31,34 +37,62 @@
 			name: "引用",
 			cmd: "/b",
 			icon: "double-quotes-l",
-			action: () => editor.value.chain().focus().deleteRange(data.value.range).toggleBlockquote().run(),
+			action: () => {
+				if (!data.value.range) {
+					return;
+				}
+				editor.value.chain().focus().deleteRange(data.value.range).toggleBlockquote().run();
+			},
 		},
 		{
 			name: "标题1",
 			cmd: "/h1",
 			icon: "h-1",
-			action: () => editor.value.chain().focus().deleteRange(data.value.range).toggleHeading({ level: 1 }).run(),
+			action: () => {
+				if (!data.value.range) {
+					return;
+				}
+				editor.value.chain().focus().deleteRange(data.value.range).toggleHeading({ level: 1 }).run();
+			},
 		},
 		{
 			name: "标题2",
 			cmd: "/h2",
 			icon: "h-2",
-			action: () => editor.value.chain().focus().deleteRange(data.value.range).toggleHeading({ level: 2 }).run(),
+			action: () => {
+				if (!data.value.range) {
+					return;
+				}
+				editor.value.chain().focus().deleteRange(data.value.range).toggleHeading({ level: 2 }).run()
+			},
 		},
 		{
 			name: "标题3",
 			cmd: "/h3",
 			icon: "h-3",
-			action: () => editor.value.chain().focus().deleteRange(data.value.range).toggleHeading({ level: 3 }).run(),
+			action: () => {
+				if (!data.value.range) {
+					return;
+				}
+				editor.value.chain().focus().deleteRange(data.value.range).toggleHeading({ level: 3 }).run();
+			},
 		},
 		{
 			name: "列表",
 			cmd: "/list",
 			icon: "list-unordered",
-			action: () => editor.value.chain().focus().deleteRange(data.value.range).toggleBulletList().run(),
+			action: () => {
+				if (!data.value.range) {
+					return;
+				}
+				editor.value.chain().focus().deleteRange(data.value.range).toggleBulletList().run();
+			},
 		},
 		{
 			name: "数学公式", cmd: "/math", icon: "functions", action: () => {
+				if (!data.value.range) {
+					return;
+				}
 				editor.value.chain().focus().deleteRange(data.value.range).run();
 				editor.value.storage["hb-math"].openEditor();
 			},
@@ -67,13 +101,23 @@
 			name: "代码",
 			cmd: "/code",
 			icon: "brackets-line",
-			action: () => editor.value.chain().focus().deleteRange(data.value.range).toggleCode().run(),
+			action: () => {
+				if (!data.value.range) {
+					return;
+				}
+				editor.value.chain().focus().deleteRange(data.value.range).toggleCode().run();
+			},
 		},
 		{
 			name: "代码块",
 			cmd: "/codeblock",
 			icon: "code-view",
-			action: () => editor.value.chain().focus().deleteRange(data.value.range).toggleCodeBlock().run(),
+			action: () => {
+				if (!data.value.range) {
+					return;
+				}
+				editor.value.chain().focus().deleteRange(data.value.range).toggleCodeBlock().run();
+			},
 		},
 	]);
 

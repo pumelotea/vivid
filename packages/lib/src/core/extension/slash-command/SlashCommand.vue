@@ -19,6 +19,7 @@
 
 	overwriteItems((query) => {
 		data.value.query = query;
+		return []
 	});
 
 	overwriteRender(() => {
@@ -78,8 +79,8 @@
 	function destroyTooltip() {
 		if (tippyInstance) {
 			tippyInstance.destroy();
-			data.value.range = null
-			data.value.query = null
+			data.value.range = undefined
+			data.value.query = undefined
 		}
 	}
 

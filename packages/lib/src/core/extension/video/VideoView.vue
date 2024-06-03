@@ -23,7 +23,7 @@ const keepRatio = ref(false)
 const throttleResize = ref(1)
 const renderDirections = ref(['nw', 'n', 'ne', 'w', 'e', 'sw', 's', 'se'])
 
-function updateAttr({ width, height, transform }) {
+function updateAttr({ width, height, transform }: Record<string, any>) {
 	props.updateAttributes({
 		keepRatio: keepRatio.value,
 		width,

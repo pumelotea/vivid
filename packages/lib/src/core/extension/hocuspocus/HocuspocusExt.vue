@@ -2,7 +2,7 @@
   import { PropType } from "vue";
   import { useHocuspocus, getRandomColor } from "./hocuspocus";
   import { HocuspocusProviderConfiguration } from "@hocuspocus/provider";
-  import { injectExtension } from "@lib/core/extension/utils/common";
+	import { injectExtension, uninjectExtension } from "@lib/core/extension/utils/common";
 
   const props = defineProps({
     options: {
@@ -22,13 +22,12 @@
     },
   });
 
-  injectExtension("history");
+	uninjectExtension("history");
   useHocuspocus(props.options, props.user).map((ext) => {
     injectExtension(ext);
   });
 </script>
 
 <template>
-  <div style="display: none"></div>
 </template>
 <style scoped></style>

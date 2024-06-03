@@ -16,6 +16,7 @@ import VideoBubbleMenu from '../../core/extension/video/VideoBubbleMenu.vue'
 
 defineProps({
 	nodeType: {
+		type: String | undefined,
 		default: undefined,
 	},
 })

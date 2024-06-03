@@ -74,6 +74,9 @@
 	}
 
 	async function handleUpload() {
+		if (!readyFile.value){
+			return
+		}
 		if (props.handleUpload) {
 			percent.value = 0;
 			const path = await props.handleUpload(readyFile.value, updateProgress);

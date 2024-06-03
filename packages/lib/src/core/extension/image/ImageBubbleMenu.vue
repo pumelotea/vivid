@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { inject } from 'vue'
 import { NSpace } from 'naive-ui'
 import VividMenuItem from '../../../core/components/VividMenuItem.vue'
 import SvgIcon from '@jamescoyle/vue-icon/lib/svg-icon.vue'
@@ -12,9 +11,10 @@ import {
 	mdiSizeS,
 } from '@mdi/js'
 import { deleteSelection } from "prosemirror-commands";
+import { useEditorInstance } from "@lib/core/extension/utils/common";
 
 
-const editorInstance = inject('editorInstance')
+const editorInstance = useEditorInstance()
 
 function deleteImage() {
 	const { state, dispatch } = editorInstance.value.view
