@@ -4,6 +4,7 @@
 	import { onMounted, ref, watch } from "vue";
 	import { Range } from "@tiptap/core";
   import { injectExtension, onEditorCreated, useEditorInstance } from "@lib/core/extension/utils/common";
+  import { DOMSerializer } from "prosemirror-model";
 
 	const vars = useThemeVars();
 	const root = ref<any>();
@@ -135,8 +136,11 @@
       name: "复制本行", icon: "file-copy-line", action: (range: Range) => {
         const editor = editorInstance.value;
         editor.chain().focus().setNodeSelection(range.from).run()
-        console.log(data.value.nodeDOM)
-        navigator.clipboard.writeText(data.value.nodeDOM?.outerHTML)
+        const serializer = DOMSerializer.fromSchema(editor.schema);
+        const html = serializer.serializeNode(data.value.node)
+        const div = document.createElement('div')
+        div.append(html)
+        navigator.clipboard.writeText(div.innerHTML)
       },
     },
 		{

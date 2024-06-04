@@ -166,7 +166,7 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['update:user'])
-const text = ref(`<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://111">asdasdasd</a></p>`)
+const text = ref(`<h1>asdasdasd</h1>`)
 
 let isFirst = true
 const opt = {
