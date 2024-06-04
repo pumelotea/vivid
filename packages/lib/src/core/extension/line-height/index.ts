@@ -1,14 +1,13 @@
 import { Extension } from "@tiptap/core";
 import {
 	createLineHeightCommand,
-	transformCSStoLineHeight,
-	transformLineHeightToCSS,
 } from "./utils";
 import LineHeightExt from "./LineHeight.vue";
 
 export interface LineHeightOptions {
 	types: string[];
 	lineHeights: string[];
+	defaultHeight: string
 }
 
 declare module "@tiptap/core" {
@@ -25,8 +24,10 @@ export function useLineHeight() {
 		name: "lineHeight",
 		addOptions() {
 			return {
+				...this.parent?.(),
 				types: ["paragraph", "heading", "list_item", "todo_item"],
 				lineHeights: ["100%", "115%", "150%", "200%", "250%", "300%"],
+				defaultHeight: "100%"
 			};
 		},
 		addGlobalAttributes() {
@@ -36,21 +37,14 @@ export function useLineHeight() {
 					attributes: {
 						lineHeight: {
 							default: null,
-							parseHTML: (element) => {
-								return (
-									transformCSStoLineHeight(element.style.lineHeight) || null
-								);
+							parseHTML: element => {
+								return element.style.lineHeight || this.options.defaultHeight
 							},
-							renderHTML: (attributes) => {
-								if (!attributes.lineHeight) {
-									return {};
+							renderHTML: attributes => {
+								if (attributes.lineHeight === this.options.defaultHeight || !attributes.lineHeight) {
+									return {}
 								}
-								const cssLineHeight = transformLineHeightToCSS(
-									attributes.lineHeight,
-								);
-								return {
-									style: `line-height: ${cssLineHeight};`,
-								};
+								return { style: `line-height: ${attributes.lineHeight}` }
 							},
 						},
 					},
