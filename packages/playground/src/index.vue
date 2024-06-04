@@ -87,6 +87,9 @@
     <div>
       <button @click="toggleReadOnly">toggleReadOnly: {{ readonly }}</button>
     </div>
+    <div style="margin-top: 100px;width: 400px;height: 800px;overflow: scroll;padding:20px;border: 1px solid" v-html="text">
+
+    </div>
     <div>
       {{ text }}
     </div>
