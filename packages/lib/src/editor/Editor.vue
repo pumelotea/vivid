@@ -398,6 +398,23 @@ defineExpose({
   margin-top: -25px !important;
   margin-bottom: 10px !important;
 }
+.tiptap > section{
+
+}
+.tiptap > section:hover::after{
+  content: ' ';
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  z-index: 1;
+  border: 1px dashed;
+  color: #00bd63;
+  pointer-events: none;
+}
+
+.tiptap > section:hover {
+  position: relative;
+}
 
 /* Give a remote user a caret */
 .collaboration-cursor__caret {
