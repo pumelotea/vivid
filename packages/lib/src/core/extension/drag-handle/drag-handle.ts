@@ -1,8 +1,8 @@
-import { Editor, Extension, Range, Node } from "@tiptap/core";
+import { Editor, Extension, Range } from "@tiptap/core";
 import tippy, { Instance } from "tippy.js";
 import { Ref, ref } from "vue";
 import { Plugin, PluginKey } from "@tiptap/pm/state";
-import { DOMParser as TipTapDOMParser, DOMSerializer } from "prosemirror-model";
+import { DOMParser as TipTapDOMParser, DOMSerializer, Node } from "prosemirror-model";
 
 export interface DragHandleOptions {
   element: HTMLElement,
