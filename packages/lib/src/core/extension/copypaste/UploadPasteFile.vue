@@ -64,6 +64,9 @@
 
   async function handleUpload(data: UploadCustomRequestOptions) {
     const ext = editor.value.extensionManager.extensions.find(e => e.name === "image");
+    if (!ext){
+      return
+    }
     const url = await ext.options.handleUpload(data.file.file, (n: number) => {
       data.onProgress({ percent: n });
     });

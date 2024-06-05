@@ -135,7 +135,9 @@
     {
       name: "复制本行", icon: "file-copy-line", action: (range: Range) => {
         const editor = editorInstance.value;
-        editor.commands.copyRange(range, data.value.node)
+        if (data.value.node){
+          editor.commands.copyRange(range, data.value.node)
+        }
       },
     },
     {
