@@ -1,8 +1,7 @@
 import { Editor, Extension, Range } from "@tiptap/core";
 import tippy, { Instance } from "tippy.js";
 import { Ref, ref } from "vue";
-import { Plugin, PluginKey } from "@tiptap/pm/state";
-import { DOMParser as TipTapDOMParser, DOMSerializer, Node } from "prosemirror-model";
+import { Node } from "prosemirror-model";
 
 export interface DragHandleOptions {
   element: HTMLElement,
@@ -233,49 +232,7 @@ export function useDragHandle(options: DragHandleOptions) {
     },
     onDestroy() {
       tippyInstance?.destroy();
-    },
-    addProseMirrorPlugins() {
-      const plugin = new Plugin({
-        key: new PluginKey("handleCopyPaste"),
-        props: {
-          handlePaste: (view, event, p) => {
-            const html = event.clipboardData!.getData("text/html");
-            if (html) {
-              return false;
-            }
-            const text = event.clipboardData!.getData("text");
-            if (!text) {
-              return false;
-            }
-            const htmlText = `<div>${text}</div>`;
-            const parserHtml = new DOMParser();
-            const parser = TipTapDOMParser.fromSchema(view.state.schema);
-            const serializer = DOMSerializer.fromSchema(view.state.schema);
-
-            // string -> html dom
-            const dom = parserHtml.parseFromString(htmlText, "text/html");
-            // html dom -> pm node
-
-            const node = parser.parse(dom.body.firstChild!);
-
-            // console.log('handlePaste string',htmlText)
-            // console.log('handlePaste string -> html',dom)
-            // console.log('handlePaste html -> node', node)
-            // console.log('handlePaste node -> html', serializer.serializeFragment(node.content))
-            if (dom.body.firstChild!.nodeName === "#text") {
-              return false;
-            } else {
-              const from = view.state.selection.from - 1;
-              const tr = view.state.tr;
-              tr.insert(from, node.content);
-              view.dispatch(tr);
-            }
-            return true;
-          },
-        },
-      });
-      return [plugin];
-    },
+    }
   });
 }
 

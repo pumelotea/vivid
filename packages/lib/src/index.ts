@@ -53,7 +53,8 @@ export {
 	useFocus,
 	useLineHeight,
 	useTrailingNode,
-	useSection
+	useSection,
+	useCopyPaste
 } from './core/extension'
 
 /**
@@ -104,7 +105,8 @@ export {
 	LineHeightExt,
 	AiExt,
 	TrailingNodeExt,
-	SectionExt
+	SectionExt,
+	CopyPasteExt
 } from './core/extension'
 
 /**

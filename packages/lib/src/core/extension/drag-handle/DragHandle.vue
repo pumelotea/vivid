@@ -135,14 +135,7 @@
     {
       name: "复制本行", icon: "file-copy-line", action: (range: Range) => {
         const editor = editorInstance.value;
-        editor.chain().focus().setNodeSelection(range.from).run();
-        const serializer = DOMSerializer.fromSchema(editor.schema);
-        if (data.value.node) {
-          const html = serializer.serializeNode(data.value.node);
-          const div = document.createElement("div");
-          div.append(html);
-          navigator.clipboard.writeText(div.innerHTML);
-        }
+        editor.commands.copyRange(range, data.value.node)
       },
     },
     {
