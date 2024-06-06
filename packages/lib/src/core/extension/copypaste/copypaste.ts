@@ -30,29 +30,6 @@ export function useCopyPaste(){
             }
             return false
           }
-        },
-        insertHtml: (innerHTML: string) => {
-          return ({  view ,state, dispatch }) => {
-            const parserHtml = new DOMParser();
-            const parser = TipTapDOMParser.fromSchema(view.state.schema);
-            const serializer = DOMSerializer.fromSchema(view.state.schema);
-            // string -> html dom
-            const dom = parserHtml.parseFromString(innerHTML, "text/html");
-            // html dom -> pm node
-            const node = parser.parse(dom.body.firstChild!);
-            // console.log('handlePaste string',innerHTML)
-            // console.log('handlePaste string -> html',dom)
-            // console.log('handlePaste html -> node', node)
-            // console.log('handlePaste node -> html', serializer.serializeFragment(node.content))
-            if (dom.body.firstChild!.nodeName === "#text") {
-              return true;
-            } else {
-              const from = view.state.selection.from - 1;
-              state.tr.insert(from, node.content)
-              dispatch!()
-              return false
-            }
-          }
         }
       }
     },
@@ -83,6 +60,12 @@ export function useCopyPaste(){
                 fileList.push(file)
               }
               editor.storage.copypaste.handelOpenUpload(fileList)
+							/**
+							 * TODO 改造
+							 * 1. 插入image node
+							 * 2. 预先渲染vue 上传组件，把dom挂在到img node的dom上（如何找到image的dom）
+							 * 3. 上传组件上传完成后，更新image src，自动销毁
+							 */
               return true
             }
 
@@ -95,7 +78,7 @@ export function useCopyPaste(){
             if (!text) {
               return false;
             }
-            return !editor.commands.insertHtml(`<div>${text}</div>`)
+            return editor.commands.insertContent(text)
           },
         },
       });

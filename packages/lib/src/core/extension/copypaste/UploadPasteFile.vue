@@ -77,7 +77,9 @@
   function handleFinish() {
     if (uploaded.length === list.value.length) {
       uploaded.forEach(url => {
-        editor.value.commands.insertHtml(`<p><img alt="" src="${url}"/></p>`);
+				editor.value.commands.setImage({
+					src: url,
+				})
       });
       show.value = false;
       message.success(`上传 ${uploaded.length}张图片 成功`);
