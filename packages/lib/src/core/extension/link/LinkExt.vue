@@ -239,5 +239,6 @@
 		word-break: keep-all;
 		overflow: hidden;
 		text-overflow: ellipsis;
+		text-decoration: underline;
 	}
 </style>
