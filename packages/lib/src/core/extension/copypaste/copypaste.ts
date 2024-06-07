@@ -6,18 +6,18 @@ import { UploadInfo } from "@lib/core/extension/types";
 declare module "@tiptap/core" {
   interface Commands<ReturnType> {
     copyPaste: {
-      copyRange: (range:Range, node: Node) => ReturnType
+      copyRange: (range: Range, node: Node) => ReturnType
     };
   }
 }
 
-export function useCopyPaste(){
+export function useCopyPaste() {
   return Extension.create({
-    name: 'handleCopyPaste',
+    name: "handleCopyPaste",
     addCommands() {
       return {
-        copyRange: (range:Range, node: Node) => {
-          return ({ state, dispatch }) =>{
+        copyRange: (range: Range, node: Node) => {
+          return ({ state, dispatch }) => {
             this.editor.chain().focus().setNodeSelection(range.from).run();
             const serializer = DOMSerializer.fromSchema(this.editor.schema);
             if (node) {
@@ -25,48 +25,50 @@ export function useCopyPaste(){
               const div = document.createElement("div");
               div.append(html);
               navigator.clipboard.writeText(div.innerHTML);
-              return true
+              return true;
             }
-            return false
-          }
-        }
-      }
+            return false;
+          };
+        },
+      };
     },
-    addStorage(){
-      return {}
+    addStorage() {
+      return {};
     },
     addProseMirrorPlugins() {
-      const editor = this.editor
+      const editor = this.editor;
       const plugin = new Plugin({
         key: new PluginKey("handleCopyPaste"),
         props: {
           handlePaste: (view, event, p) => {
-            function hasImageExt(){
-              return editor.extensionManager.extensions.find(e => e.name === 'image');
+            function hasImageExt() {
+              return editor.extensionManager.extensions.find(e => e.name === "image");
             }
-            function hasUploadManagerExt(){
-              return editor.extensionManager.extensions.find(e => e.name === 'upload-manager');
+
+            function hasUploadManagerExt() {
+              return editor.extensionManager.extensions.find(e => e.name === "upload-manager");
             }
-            const files = event.clipboardData!.files
-            const imageExt = hasImageExt()
-            const uploadManagerExt = hasUploadManagerExt()
-            if (uploadManagerExt && imageExt && files && files.length){
-              const fileList: UploadInfo[] = []
+
+            const files = event.clipboardData!.files;
+            const imageExt = hasImageExt();
+            const uploadManagerExt = hasUploadManagerExt();
+            if (uploadManagerExt && imageExt && files && files.length) {
+              const fileList: UploadInfo[] = [];
               for (let i = 0; i < files.length; i++) {
-                const file = files.item(i)
-                if (!file){
-                  continue
+                const file = files.item(i);
+                if (!file) {
+                  continue;
                 }
-                if (!file.type.startsWith('image')){
-                  continue
+                if (!file.type.startsWith("image")) {
+                  continue;
                 }
                 fileList.push({
                   file,
-                  pos: view.state.selection.from
-                })
+                  pos: view.state.selection.from,
+                });
               }
-							editor.commands.upload(fileList)
-              return true
+              editor.commands.upload(fileList);
+              return true;
             }
 
             const html = event.clipboardData!.getData("text/html");
@@ -78,11 +80,11 @@ export function useCopyPaste(){
             if (!text) {
               return false;
             }
-            return editor.commands.insertContent(text)
+            return editor.commands.insertContent(text);
           },
         },
       });
       return [plugin];
     },
-  })
+  });
 }
