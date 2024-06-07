@@ -2,15 +2,15 @@
 import { NodeViewContent, nodeViewProps, NodeViewWrapper } from '@tiptap/vue-3'
 import * as pm from 'prosemirror-tables'
 import {
-	computed,
-	nextTick,
-	onBeforeUnmount,
-	onMounted,
-	onUpdated,
-	ref,
-	toRaw,
-	unref,
-} from 'vue'
+  computed,
+  nextTick,
+  onBeforeUnmount,
+  onMounted,
+  onUpdated,
+  ref,
+  toRaw,
+  unref, watch,
+} from "vue";
 import { NPopover, NButton, useThemeVars } from 'naive-ui'
 import ControlButton from './ControlButton.vue'
 import { CellSelection } from 'prosemirror-tables'
@@ -67,20 +67,21 @@ function updateFunc(updateColumnsOnResize = false) {
 		pm.updateColumnsOnResize(props.node, colgroup, tableDOM, 15)
 	}
 
-	// 获取宽度
-	widths.value = []
-	for (let child of colgroup.children) {
-		widths.value.push(child.getBoundingClientRect().width)
-	}
+  // 获取宽度
+  widths.value = []
+  for (let child of colgroup.children) {
+    widths.value.push(child.getBoundingClientRect().width)
+  }
+  // console.log(widths.value)
 
-	// 获取高度
-	heights.value = []
-	for (const row of tableDOM.rows) {
-		heights.value.push(row.getBoundingClientRect().height)
-	}
-	// console.log('heights',heights, 'widths',widths)
-	// 检测左右2侧是否覆盖
-	updateShadow()
+  // 获取高度
+  heights.value = []
+  for (const row of tableDOM.rows) {
+    heights.value.push(row.getBoundingClientRect().height)
+  }
+  // console.log('heights',heights, 'widths',widths)
+  // 检测左右2侧是否覆盖
+  updateShadow()
 }
 
 function handleTableScroll() {
@@ -248,7 +249,7 @@ const selectRow = (row) => {
 }
 
 onMounted(() => {
-	updateFunc(true)
+  updateFunc(true)
 	TableWrapper.value.addEventListener('mousedown', onmousedown)
 })
 
@@ -305,10 +306,14 @@ const showToolPop = computed(() => {
 })
 
 const resizeOb = new ResizeObserver(() => updateFunc(false))
-unref(resizeOb).observe(props.editor.view.dom)
+
+onMounted(()=>{
+  resizeOb.observe(props.editor.view.dom)
+})
+
 onBeforeUnmount(() => {
 	observer.stop()
-	unref(resizeOb).disconnect()
+  resizeOb.disconnect()
 })
 </script>
 

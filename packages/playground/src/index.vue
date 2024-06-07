@@ -1,6 +1,7 @@
 <template>
   <div class="editor-wrap">
-    <vivid-editor :dark="dark" v-model="text" :readonly="readonly" page>
+    <n-modal preset="card" v-model:show="destroy" @after-enter="isLoad=true" @after-leave="isLoad=false">
+      <vivid-editor v-if="isLoad" :dark="dark" v-model="text" :readonly="readonly" page>
       <drag-handle></drag-handle>
       <slash-command></slash-command>
 
@@ -21,7 +22,7 @@
           <trailing-node-ext />
           <section-ext />
           <copy-paste-ext />
-					<upload-manager-ext :handleUpload="handleUpload"/>
+          <upload-manager-ext :handleUpload="handleUpload"/>
 
           <undo-ext />
           <redo-ext />
@@ -86,8 +87,15 @@
         </div>
       </template>
     </vivid-editor>
+      <div style="height: 100vh;display: flex;justify-content: center;align-items: center" v-else>
+        <n-spin></n-spin>
+      </div>
+    </n-modal>
+
     <div>
       <button @click="toggleReadOnly">toggleReadOnly: {{ readonly }}</button>
+      <button @click="destroy = !destroy">toggleDestroy: {{ destroy }}</button>
+      <button @click="reset">reset</button>
     </div>
     <div style="margin-top: 100px;width: 400px;height: 800px;overflow: scroll;padding:20px;border: 1px solid"
          v-html="text">
@@ -107,7 +115,7 @@
   }
 </style>
 <script setup>
-  import { useThemeVars, NButton } from "naive-ui";
+  import { useThemeVars, NButton, NModal,NSpin } from "naive-ui";
   import { nextTick, ref } from "vue";
   import { VividEditor } from "@codecoderun/vivid";
   import {
@@ -173,8 +181,14 @@
     },
   });
 
+  const isLoad = ref(false)
+
   const emit = defineEmits(["update:user"]);
-  const text = ref(`<h1>asdasdasd</h1>`);
+  const text = ref(``);
+
+  function reset(){
+    text.value = `<table style="minWidth: 75px"><colgroup><col><col><col></colgroup><tbody><tr><th colspan="1" rowspan="1"><p></p></th><th colspan="1" rowspan="1"><p></p></th><th colspan="1" rowspan="1"><p></p></th></tr><tr><td colspan="1" rowspan="1"><p></p></td><td colspan="1" rowspan="1"><p></p></td><td colspan="1" rowspan="1"><p></p></td></tr><tr><td colspan="1" rowspan="1"><p></p></td><td colspan="1" rowspan="1"><p></p></td><td colspan="1" rowspan="1"><p></p></td></tr></tbody></table><h1>asdasdasd</h1><p></p>`
+  }
 
   let isFirst = true;
   const opt = {
@@ -251,6 +265,7 @@
   }
 
   const readonly = ref(false);
+  const destroy = ref(false)
 
   function toggleReadOnly() {
     readonly.value = !readonly.value;

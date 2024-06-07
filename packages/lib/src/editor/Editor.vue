@@ -223,6 +223,7 @@ defineExpose({
       <n-dialog-provider>
         <slot/>
         <bubble-menu
+          class="bubble-menu-bar"
           v-if="editor && editor.isEditable && bubbleMenu"
           v-show="!hideBubble"
           :editor="editor"
@@ -242,7 +243,7 @@ defineExpose({
 					}"
           spellcheck="false"
         >
-          <div :class="{'editor-readonly': readonly}">
+          <div :class="{'editor-readonly': readonly}" style="width: 100%">
             <slot name="menu" :readonly="readonly">
               <vivid-menu class="editor-header" :editor="editor"/>
             </slot>
@@ -280,6 +281,11 @@ defineExpose({
   transition-property: border-color, box-shadow;
   transition-duration: 0.2s;
   background: v-bind(vars.inputColor);
+}
+
+.bubble-menu-bar {
+  background: v-bind(vars.popoverColor);
+  box-shadow: v-bind(vars.boxShadow2);
 }
 
 .editor-background {

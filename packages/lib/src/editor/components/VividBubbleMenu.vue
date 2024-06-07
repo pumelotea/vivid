@@ -48,8 +48,6 @@ defineProps({
 	align-items: center;
 	flex-wrap: wrap;
 	padding: 5px 5px;
-	background: v-bind(vars.popoverColor);
 	border-radius: 3px;
-	box-shadow: v-bind(vars.boxShadow2);
 }
 </style>
