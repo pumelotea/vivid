@@ -43,8 +43,16 @@ import {
   AiExt,
   FocusExt,
   LineHeightExt,
+  HocuspocusExt,
   ImageBubbleMenu,
-  VideoBubbleMenu, DragHandle, SlashCommand,
+  VideoBubbleMenu,
+  MathBubbleMenu,
+  TrailingNodeExt,
+  DragHandle,
+  SlashCommand,
+  SectionExt,
+  CopyPasteExt,
+  UploadManagerExt
 } from "@codecoderun/vivid";
 import OpenAI from "openai";
 import {useThemeVars} from 'naive-ui'
@@ -129,18 +137,22 @@ async function handleUpload(file, per) {
           <slash-command></slash-command>
           <template #menu>
             <div class="menu-bar">
-              <document-ext/>
-              <paragraph-ext/>
-              <hard-break-ext/>
-              <indent-ext/>
-              <history-ext/>
-              <dropcursor-ext/>
-              <gapcursor-ext/>
-              <text-ext/>
-              <placeholder-ext/>
-              <character-count-ext/>
-              <text-style-ext/>
-              <focus-ext/>
+              <document-ext />
+              <paragraph-ext />
+              <hard-break-ext />
+              <indent-ext />
+              <history-ext />
+              <dropcursor-ext />
+              <gapcursor-ext />
+              <text-ext />
+              <placeholder-ext />
+              <character-count-ext />
+              <text-style-ext />
+              <focus-ext />
+              <trailing-node-ext />
+              <section-ext />
+              <copy-paste-ext />
+              <upload-manager-ext :handleUpload="handleUpload"/>
 
               <undo-ext/>
               <redo-ext/>
@@ -198,6 +210,9 @@ async function handleUpload(file, per) {
               </template>
               <template v-if="nodeType === 'video'">
                 <video-bubble-menu/>
+              </template>
+              <template v-if="nodeType === 'math'">
+                <math-bubble-menu />
               </template>
             </div>
           </template>

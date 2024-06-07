@@ -165,6 +165,10 @@
 		destroyTooltip();
 	}
 
+  function openLink(){
+    window.open(href.value, target.value)
+  }
+
 </script>
 
 <template>
@@ -182,7 +186,7 @@
 			<div ref="root">
 				<n-card size="small" class="link-card" v-if="!isEdit">
 					<div class="link-pop">
-						<div class="link-href">
+						<div class="link-href" @click="openLink">
 							{{ href }}
 						</div>
 						<n-button quaternary size="small" @click="isEdit=true">
@@ -240,5 +244,6 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 		text-decoration: underline;
+    cursor: pointer;
 	}
 </style>

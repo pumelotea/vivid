@@ -36,7 +36,7 @@
     props.handleUpload(props.file, onProgress).then(url => {
       props.onSuccess(url);
       setTimeout(() => {
-        props?.destroy();
+        props.destroy && props.destroy();
       });
     });
   });
