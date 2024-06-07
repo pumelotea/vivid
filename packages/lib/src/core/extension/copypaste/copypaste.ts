@@ -1,4 +1,4 @@
-import { createNodeFromContent, Extension, Range } from "@tiptap/core";
+import { Extension, Range } from "@tiptap/core";
 import { Plugin, PluginKey } from "@tiptap/pm/state";
 import { DOMSerializer, Node } from "prosemirror-model";
 import { UploadInfo } from "@lib/core/extension/types";
