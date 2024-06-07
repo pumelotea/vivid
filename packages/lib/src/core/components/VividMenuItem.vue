@@ -37,7 +37,9 @@ const iconUrl = ref('')
 					</slot>
 				</button>
 			</template>
-			{{ title }}
+			<div class="menu-title">
+        {{ title }}
+      </div>
 		</n-tooltip>
 	</div>
 </template>
@@ -58,13 +60,15 @@ const iconUrl = ref('')
 	display: flex;
 	align-items: center;
 }
-.menu-item + .menu-item {
-	margin-left: 5px;
-}
 
 .menu-item:hover,
 .is-active {
 	color: v-bind(vars.baseColor);
 	background-color: v-bind(vars.textColorBase);
+}
+
+.menu-title{
+  font-size: 12px;
+  white-space: nowrap;
 }
 </style>

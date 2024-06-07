@@ -71,8 +71,8 @@ const state = computed(() => {
 
 <style scoped>
 .table-bubble-menu {
-	padding: 5px;
-	border-radius: 5px;
+	padding: 4px 5px;
+	border-radius: 10px;
 	overflow: hidden;
 }
 </style>

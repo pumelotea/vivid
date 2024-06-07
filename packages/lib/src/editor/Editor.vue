@@ -286,6 +286,7 @@ defineExpose({
 .bubble-menu-bar {
   background: v-bind(vars.popoverColor);
   box-shadow: v-bind(vars.boxShadow2);
+  border-radius: 10px;
 }
 
 .editor-background {

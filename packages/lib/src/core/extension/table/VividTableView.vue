@@ -333,17 +333,15 @@ onBeforeUnmount(() => {
 		>
 			<div class="table-bubble-container">
 				<n-popover
-					content-class="table-popover-color"
 					:show-arrow="false"
 					trigger="manual"
-					raw
+          style="padding: 0;border-radius: 10px;"
 					:show="showToolPop"
-					style="border-radius: 5px"
 				>
 					<template #trigger>
 						<div></div>
 					</template>
-					<table-bubble-menu />
+					<table-bubble-menu/>
 				</n-popover>
 			</div>
 			<div class="table-controller-left">
@@ -631,13 +629,9 @@ onBeforeUnmount(() => {
 	position: absolute;
 	left: 50%;
 	transform: translateX(-50%);
-	top: 0px;
+	top: 0;
 }
 
-.table-popover-color {
-	border-radius: 3px;
-	background: var(--n-color);
-}
 </style>
 <style>
 .editor-body th.selectedCell,
