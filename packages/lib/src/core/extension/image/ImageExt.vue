@@ -1,9 +1,10 @@
 <script setup lang="ts">
   import VividMenuItem from "../../components/VividMenuItem.vue";
   import { ref, PropType } from "vue";
-  import { UploadFunction, useImage } from "./image";
+  import { useImage } from "./image";
   import VividImageModal from "./VividImageModal.vue";
   import { injectExtension, onEditorCreated, useEditorInstance } from "@lib/core/extension/utils/common";
+  import { UploadFunction } from "@lib/core/extension/types";
 
   const props = defineProps({
     handleUpload: {

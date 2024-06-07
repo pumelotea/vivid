@@ -106,7 +106,8 @@ export {
 	AiExt,
 	TrailingNodeExt,
 	SectionExt,
-	CopyPasteExt
+	CopyPasteExt,
+	UploadManagerExt,
 } from './core/extension'
 
 /**

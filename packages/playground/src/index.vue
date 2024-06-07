@@ -21,6 +21,7 @@
           <trailing-node-ext />
           <section-ext />
           <copy-paste-ext />
+					<upload-manager-ext :handleUpload="handleUpload"/>
 
           <undo-ext />
           <redo-ext />
@@ -161,6 +162,7 @@
     SlashCommand,
     SectionExt,
     CopyPasteExt,
+    UploadManagerExt
   } from "@codecoderun/vivid";
   import OpenAI from "openai";
 

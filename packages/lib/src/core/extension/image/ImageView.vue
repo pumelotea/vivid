@@ -162,6 +162,7 @@
     vertical-align: baseline;
     max-width: 100%;
     user-select: auto;
+    position: relative;
   }
 
   .vivid-image.left {

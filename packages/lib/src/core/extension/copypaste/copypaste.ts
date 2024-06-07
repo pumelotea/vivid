@@ -1,13 +1,12 @@
-import { Extension,Range } from "@tiptap/core";
+import { createNodeFromContent, Extension, Range } from "@tiptap/core";
 import { Plugin, PluginKey } from "@tiptap/pm/state";
-import { DOMParser as TipTapDOMParser, DOMSerializer, Node } from "prosemirror-model";
-
+import { DOMSerializer, Node } from "prosemirror-model";
+import { UploadInfo } from "@lib/core/extension/types";
 
 declare module "@tiptap/core" {
   interface Commands<ReturnType> {
     copyPaste: {
       copyRange: (range:Range, node: Node) => ReturnType
-      insertHtml: (html: string) => ReturnType
     };
   }
 }
@@ -45,10 +44,14 @@ export function useCopyPaste(){
             function hasImageExt(){
               return editor.extensionManager.extensions.find(e => e.name === 'image');
             }
+            function hasUploadManagerExt(){
+              return editor.extensionManager.extensions.find(e => e.name === 'upload-manager');
+            }
             const files = event.clipboardData!.files
             const imageExt = hasImageExt()
-            if (imageExt && files && files.length){
-              const fileList: File[] = []
+            const uploadManagerExt = hasUploadManagerExt()
+            if (uploadManagerExt && imageExt && files && files.length){
+              const fileList: UploadInfo[] = []
               for (let i = 0; i < files.length; i++) {
                 const file = files.item(i)
                 if (!file){
@@ -57,15 +60,12 @@ export function useCopyPaste(){
                 if (!file.type.startsWith('image')){
                   continue
                 }
-                fileList.push(file)
+                fileList.push({
+                  file,
+                  pos: view.state.selection.from
+                })
               }
-              editor.storage.copypaste.handelOpenUpload(fileList)
-							/**
-							 * TODO 改造
-							 * 1. 插入image node
-							 * 2. 预先渲染vue 上传组件，把dom挂在到img node的dom上（如何找到image的dom）
-							 * 3. 上传组件上传完成后，更新image src，自动销毁
-							 */
+							editor.commands.upload(fileList)
               return true
             }
 

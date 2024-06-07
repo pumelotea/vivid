@@ -1,15 +1,8 @@
 import { VueNodeViewRenderer } from "@tiptap/vue-3";
-import { Image as TiptapImage, ImageOptions as TiptapImageOptions } from "@tiptap/extension-image";
+import { Image as TiptapImage } from "@tiptap/extension-image";
 import ImageView from "./ImageView.vue";
 
-
 export type Display = "block" | "inline" | "left" | "right"
-
-export type UploadFunction = (file: File, updateProgress: (percent: number) => void) => Promise<string>
-
-export interface ImageOptions extends TiptapImageOptions{
-  handleUpload?: UploadFunction
-}
 
 export interface ImageAttrsOptions {
   /** The source URL of the image. */
@@ -48,7 +41,7 @@ declare module "@tiptap/core" {
   }
 }
 
-export function useImage(options?: Partial<ImageOptions>) {
+export function useImage() {
   return TiptapImage.extend({
     addOptions() {
       return {
@@ -108,5 +101,5 @@ export function useImage(options?: Partial<ImageOptions>) {
             },
       };
     },
-  }).configure(options);
+  });
 }
