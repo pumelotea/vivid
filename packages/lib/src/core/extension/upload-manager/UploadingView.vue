@@ -4,7 +4,7 @@
   import { NSpin } from "naive-ui";
 
   const percent = ref(0);
-  const url = ref('')
+  const url = ref("");
 
   function onProgress(n: number) {
     if (n >= 100) {
@@ -32,11 +32,11 @@
   });
 
   onMounted(() => {
-    url.value = URL.createObjectURL(props.file)
+    url.value = URL.createObjectURL(props.file);
     props.handleUpload(props.file, onProgress).then(url => {
       props.onSuccess(url);
       setTimeout(() => {
-        props.destroy();
+        props?.destroy();
       });
     });
   });

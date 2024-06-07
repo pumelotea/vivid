@@ -14,9 +14,7 @@
   });
 
   const editorInstance = useEditorInstance();
-  injectExtension(useImage({
-    handleUpload: props.handleUpload
-  }));
+  injectExtension(useImage());
 
   const HTI = ref<any>(null);
 

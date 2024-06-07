@@ -14,7 +14,8 @@
 	} from "naive-ui";
 	import { ref, watch } from "vue";
 	import { PropType } from "vue";
-	import { ImageAttrsOptions, UploadFunction } from "@lib/core/extension/image/image";
+	import { ImageAttrsOptions } from "@lib/core/extension/image/image";
+  import { UploadFunction } from "@lib/core/extension/types";
 
 	const showModal = ref(false);
 
