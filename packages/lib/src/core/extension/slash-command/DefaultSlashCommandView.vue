@@ -206,13 +206,14 @@
 	.slash-command {
 		background: v-bind(vars.popoverColor);
 		width: 180px;
-		border-radius: 5px;
+		border-radius: 10px;
 		box-sizing: border-box;
 		display: flex;
 		flex-direction: column;
 		box-shadow: v-bind(vars.boxShadow3);
 		outline: none;
 		border: none;
+    overflow: hidden;
 		user-select: none;
 	}
 

@@ -182,7 +182,7 @@
 <template>
   <div style="display: none">
     <div class="drag-handle" ref="root">
-      <n-popover :z-index="99999" style="padding: 0" v-model:show="showSlash" trigger="click" placement="bottom-start"
+      <n-popover :z-index="99999" style="padding: 0;border-radius: 10px" v-model:show="showSlash" trigger="click" placement="bottom-start"
                  :show-arrow="false">
         <template #trigger>
           <n-element class="drag-button">
@@ -202,7 +202,7 @@
           </n-element>
         </slot>
       </n-popover>
-      <n-popover :z-index="99999" style="padding: 0" v-model:show="showPop" trigger="click" placement="bottom-start"
+      <n-popover :z-index="99999" style="padding: 0;border-radius: 10px" v-model:show="showPop" trigger="click" placement="bottom-start"
                  :show-arrow="false">
         <template #trigger>
           <n-element class="drag-button">
@@ -235,6 +235,8 @@
     outline: none;
     border: none;
     user-select: none;
+    border-radius: 10px;
+    overflow: hidden;
   }
 
   .slash-item {
