@@ -184,19 +184,21 @@ const nodeType = computed<string | undefined>(() => {
   const isVideo = selection.node?.type.name === 'video'
   const isMagic = selection.node?.type.name === 'magic'
   const isMath = selection.node?.type.name === 'hb-math'
+  const isCodeBlock = selection.$anchor.parent.type.name === 'codeBlock'
   const isCell = selection instanceof CellSelection
   const isTable = selection.node?.type.name === 'table' || isCell // 选中表格或者单元格
   const isText = selection instanceof TextSelection
   if (isImage) return 'image'
   if (isVideo) return 'video'
   if (isTable) return 'table'
-  if (isText) return 'text'
   if (isMagic) return 'magic'
   if (isMath) return 'math'
+  if (isCodeBlock) return 'codeBlock'
+  if (isText) return 'text'
   return undefined
 })
 watch(nodeType, () => {
-  if (nodeType.value === 'table' || nodeType.value === 'magic') {
+  if (nodeType.value === 'table' || nodeType.value === 'magic' || nodeType.value === 'codeBlock') {
     hideBubble.value = true
   } else {
     hideBubble.value = false
@@ -224,7 +226,7 @@ defineExpose({
         <slot/>
         <bubble-menu
           class="bubble-menu-bar"
-          v-if="editor && editor.isEditable && bubbleMenu"
+          v-if="editor && editor.isEditable && bubbleMenu && nodeType"
           v-show="!hideBubble"
           :editor="editor"
           :tippy-options="{duration: 0, maxWidth: 600, placement: 'top-start'}"

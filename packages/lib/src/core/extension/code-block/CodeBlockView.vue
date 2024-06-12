@@ -43,7 +43,7 @@ onMounted(() => {
 	<node-view-wrapper class="code-block" as="p">
 		<div class="lang-select" contenteditable="false">
 			<n-popselect
-				:disabled="props.editor.isEditable"
+				:disabled="!props.editor.isEditable"
 				v-model:value="selectedLanguage"
 				:options="languages"
 				trigger="click"
