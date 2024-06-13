@@ -105,6 +105,7 @@ export {
 	SectionExt,
 	CopyPasteExt,
 	UploadManagerExt,
+	OutlineExt
 } from "./core/extension";
 
 /**

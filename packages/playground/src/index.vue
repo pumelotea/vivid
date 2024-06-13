@@ -63,6 +63,7 @@
           <ordered-list-ext />
           <task-list-ext />
           <divider-ext />
+					<outline-ext/>
           <fullscreen-ext />
           <!--          <hocuspocus-ext :options="opt"/>-->
         </div>
@@ -175,7 +176,8 @@
     SlashCommand,
     SectionExt,
     CopyPasteExt,
-    UploadManagerExt
+    UploadManagerExt,
+    OutlineExt
   } from "@codecoderun/vivid";
   import OpenAI from "openai";
 

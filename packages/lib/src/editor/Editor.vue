@@ -323,6 +323,7 @@
 		display: flex;
 		justify-content: center;
 		background: v-bind(vars.baseColor);
+    position: relative;
 	}
 
 	.editor-body {
@@ -335,6 +336,7 @@
 		flex: 1 1 auto;
 		overflow: auto;
 		padding: 40px 0;
+    position: relative;
 	}
 
 	.editor-body-page {

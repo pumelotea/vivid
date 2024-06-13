@@ -47,3 +47,4 @@ export * from "./drag-handle";
 export * from "./section";
 export * from "./copypaste";
 export * from "./upload-manager";
+export * from "./outline";
