@@ -1,7 +1,7 @@
 <script setup lang="ts">
 	import VividMenuItem from "../../components/VividMenuItem.vue";
   import { onBeforeUnmount, ref ,h } from "vue";
-  import {NDrawer,NDrawerContent,NTree, NIcon} from 'naive-ui';
+  import { NDrawer, NDrawerContent, NTree, NIcon, TreeOption } from "naive-ui";
   import {
     onEditorCreated,
     useEditorInstance,
@@ -18,6 +18,7 @@
     level: Level; //标题大小（1-6）
     key: string
     children: HeadingItem[];
+    dom: HTMLElement
   };
   const getHeadingTree = (items: HeadingItem[]) => {
     let result: HeadingItem[] = [];
@@ -69,6 +70,7 @@
         label: e.innerText,//标题
         level: parseInt(e.nodeName.slice(1), 10), //标题大小（1-6）
         key: i,
+        dom: e,
         children: []
       })
     })
@@ -82,6 +84,14 @@
   onBeforeUnmount(()=>{
     editorInstance.value.off('update', update)
   })
+
+  const nodeProps = ({ option } : { option: TreeOption & HeadingItem }) => {
+    return {
+      onClick () {
+        option.dom.scrollIntoView()
+      }
+    }
+  }
 </script>
 
 <template>
@@ -101,6 +111,7 @@
           :data="treeData"
           :default-expand-all="true"
           :render-prefix="renderPrefix"
+          :node-props="nodeProps"
         >
           <template #empty>
             <div class="empty-outline">
