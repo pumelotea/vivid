@@ -28,33 +28,25 @@
 				<vivid-menu-item
 					icon="align-left"
 					title="左对齐"
-					:action="
-						() => editorInstance.chain().focus().setTextAlign('left').run()
-					"
+					:action="() => editorInstance.chain().focus().setTextAlign('left').run()"
 					:is-active="() => editorInstance.isActive('align-left')"
 				/>
 				<vivid-menu-item
 					icon="align-center"
 					title="居中"
-					:action="
-						() => editorInstance.chain().focus().setTextAlign('center').run()
-					"
+					:action="() => editorInstance.chain().focus().setTextAlign('center').run()"
 					:is-active="() => editorInstance.isActive('align-center')"
 				/>
 				<vivid-menu-item
 					icon="align-right"
 					title="右对齐"
-					:action="
-						() => editorInstance.chain().focus().setTextAlign('right').run()
-					"
+					:action="() => editorInstance.chain().focus().setTextAlign('right').run()"
 					:is-active="() => editorInstance.isActive('align-right')"
 				/>
 				<vivid-menu-item
 					icon="align-justify"
 					title="两端对齐"
-					:action="
-						() => editorInstance.chain().focus().setTextAlign('justify').run()
-					"
+					:action="() => editorInstance.chain().focus().setTextAlign('justify').run()"
 					:is-active="() => editorInstance.isActive('align-justify')"
 				/>
 			</n-space>

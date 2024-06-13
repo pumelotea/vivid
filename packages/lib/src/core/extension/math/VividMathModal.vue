@@ -1,31 +1,31 @@
 <script setup>
-import { NModal, NButton, NSpace } from 'naive-ui'
-import { nextTick, ref } from 'vue'
-import VividMathContent from './VividMathContent.vue'
+	import { NModal, NButton, NSpace } from "naive-ui";
+	import { nextTick, ref } from "vue";
+	import VividMathContent from "./VividMathContent.vue";
 
-const HTMC = ref(null)
+	const HTMC = ref(null);
 
-const showModal = ref(false)
+	const showModal = ref(false);
 
-function open(val = '') {
-	showModal.value = true
-	nextTick(() => {
-		HTMC.value.setTex(val)
-	})
-}
+	function open(val = "") {
+		showModal.value = true;
+		nextTick(() => {
+			HTMC.value.setTex(val);
+		});
+	}
 
-const emit = defineEmits(['ok'])
+	const emit = defineEmits(["ok"]);
 
-function onOk() {
-	showModal.value = false
-	emit('ok', HTMC.value.getTex())
-}
+	function onOk() {
+		showModal.value = false;
+		emit("ok", HTMC.value.getTex());
+	}
 
-function onCancel() {
-	showModal.value = false
-}
+	function onCancel() {
+		showModal.value = false;
+	}
 
-defineExpose({ open })
+	defineExpose({ open });
 </script>
 <template>
 	<n-modal v-model:show="showModal" preset="card" style="width: 500px">

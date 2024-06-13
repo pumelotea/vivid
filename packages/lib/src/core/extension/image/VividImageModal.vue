@@ -15,7 +15,7 @@
 	import { ref, watch } from "vue";
 	import { PropType } from "vue";
 	import { ImageAttrsOptions } from "@lib/core/extension/image/image";
-  import { UploadFunction } from "@lib/core/extension/types";
+	import { UploadFunction } from "@lib/core/extension/types";
 
 	const showModal = ref(false);
 
@@ -75,8 +75,8 @@
 	}
 
 	async function handleUpload() {
-		if (!readyFile.value){
-			return
+		if (!readyFile.value) {
+			return;
 		}
 		if (props.handleUpload) {
 			percent.value = 0;
@@ -114,12 +114,7 @@
 			<div>插入图片</div>
 		</template>
 		<div>
-			<n-tabs
-				type="line"
-				animated
-				:default-value="tabName"
-				@update:value="changeTab"
-			>
+			<n-tabs type="line" animated :default-value="tabName" @update:value="changeTab">
 				<n-tab-pane name="网络图片">
 					<n-form label-placement="left" label-width="auto">
 						<n-form-item label="地址">
@@ -140,16 +135,8 @@
 		<template #footer>
 			<n-space justify="end">
 				<n-button @click="onCancel"> 取消</n-button>
-				<n-button
-					v-if="readyFile && !readySave"
-					type="info"
-					@click="handleUpload"
-				>
-					上传
-				</n-button>
-				<n-button v-if="readySave" type="success" @click="onOk">
-					确定
-				</n-button>
+				<n-button v-if="readyFile && !readySave" type="info" @click="handleUpload"> 上传 </n-button>
+				<n-button v-if="readySave" type="success" @click="onOk"> 确定 </n-button>
 			</n-space>
 		</template>
 	</n-modal>

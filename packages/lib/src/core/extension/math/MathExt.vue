@@ -3,7 +3,11 @@
 	import { ref } from "vue";
 	import VividMathModal from "./VividMathModal.vue";
 	import { useMath } from "./math";
-	import { injectExtension, onEditorCreated, useEditorInstance } from "@lib/core/extension/utils/common";
+	import {
+		injectExtension,
+		onEditorCreated,
+		useEditorInstance,
+	} from "@lib/core/extension/utils/common";
 
 	const editorInstance = useEditorInstance();
 	injectExtension(useMath());
@@ -15,11 +19,11 @@
 		HTM.value.open(val);
 	}
 
-	onEditorCreated(()=>{
+	onEditorCreated(() => {
 		editorInstance.value.storage["hb-math"] = {
 			openEditor: handleOpenMath,
 		};
-	})
+	});
 
 	function setMath(val: string) {
 		editorInstance.value.chain().focus().setHbMath({ tex: val }).run();

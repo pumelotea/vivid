@@ -9,7 +9,7 @@ interface SetMathProps {
 declare module "@tiptap/core" {
 	interface Commands<ReturnType> {
 		math: {
-			setHbMath: (data: SetMathProps) => ReturnType
+			setHbMath: (data: SetMathProps) => ReturnType;
 		};
 	}
 }
@@ -48,22 +48,19 @@ export function useMath() {
 		},
 
 		renderHTML({ HTMLAttributes }) {
-			return [
-				"span",
-				mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
-			];
+			return ["span", mergeAttributes(this.options.HTMLAttributes, HTMLAttributes)];
 		},
 
 		addCommands() {
 			return {
 				setHbMath:
 					(options) =>
-						({ commands }) => {
-							return commands.insertContent({
-								type: this.name,
-								attrs: options,
-							});
-						},
+					({ commands }) => {
+						return commands.insertContent({
+							type: this.name,
+							attrs: options,
+						});
+					},
 			};
 		},
 	});

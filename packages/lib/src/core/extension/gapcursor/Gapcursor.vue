@@ -1,10 +1,9 @@
 <script setup lang="ts">
-  import Gapcursor from "@tiptap/extension-gapcursor";
-  import { injectExtension } from "../utils/common";
+	import Gapcursor from "@tiptap/extension-gapcursor";
+	import { injectExtension } from "../utils/common";
 
-  injectExtension(Gapcursor);
+	injectExtension(Gapcursor);
 </script>
 
-<template>
-</template>
+<template></template>
 <style scoped></style>

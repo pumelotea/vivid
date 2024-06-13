@@ -1,71 +1,71 @@
 <script setup>
-import { NInputNumber, NButton, useThemeVars } from 'naive-ui'
-import { ref } from 'vue'
-const vars = useThemeVars()
-const row = ref(3)
-const col = ref(3)
+	import { NInputNumber, NButton, useThemeVars } from "naive-ui";
+	import { ref } from "vue";
+	const vars = useThemeVars();
+	const row = ref(3);
+	const col = ref(3);
 
-function onmouseenter(r, c) {
-	if (!isMousedown) {
-		return
+	function onmouseenter(r, c) {
+		if (!isMousedown) {
+			return;
+		}
+		er.value = r;
+		ec.value = c;
+		calcRC();
 	}
-	er.value = r
-	ec.value = c
-	calcRC()
-}
 
-const sr = ref(0)
-const er = ref(0)
-const sc = ref(0)
-const ec = ref(0)
-let isMousedown = false
+	const sr = ref(0);
+	const er = ref(0);
+	const sc = ref(0);
+	const ec = ref(0);
+	let isMousedown = false;
 
-function onmousedown(r, c) {
-	if (isMousedown) {
-		onmouseup(r, c)
-		return
+	function onmousedown(r, c) {
+		if (isMousedown) {
+			onmouseup(r, c);
+			return;
+		}
+		sr.value = r;
+		sc.value = c;
+		er.value = r;
+		ec.value = c;
+		isMousedown = true;
+		calcRC();
 	}
-	sr.value = r
-	sc.value = c
-	er.value = r
-	ec.value = c
-	isMousedown = true
-	calcRC()
-}
 
-function onmouseup(r, c) {
-	if (!isMousedown) {
-		return
+	function onmouseup(r, c) {
+		if (!isMousedown) {
+			return;
+		}
+		er.value = r;
+		ec.value = c;
+		calcRC();
+		isMousedown = false;
+		console.log(`(${sr.value},${sc.value})=>(${er.value},${ec.value})`);
 	}
-	er.value = r
-	ec.value = c
-	calcRC()
-	isMousedown = false
-	console.log(`(${sr.value},${sc.value})=>(${er.value},${ec.value})`)
-}
 
-function calcRC() {
-	row.value = Math.abs(er.value - sr.value) + 1
-	col.value = Math.abs(ec.value - sc.value) + 1
-}
+	function calcRC() {
+		row.value = Math.abs(er.value - sr.value) + 1;
+		col.value = Math.abs(ec.value - sc.value) + 1;
+	}
 
-function preventDefault(e) {
-	e.preventDefault()
-}
+	function preventDefault(e) {
+		e.preventDefault();
+	}
 
-function isSelected(r, c) {
-	const minr = Math.min(sr.value, er.value)
-	const maxr = Math.max(sr.value, er.value)
-	const minc = Math.min(sc.value, ec.value)
-	const maxc = Math.max(sc.value, ec.value)
-	return r >= minr && r <= maxr && c >= minc && c <= maxc
-}
+	function isSelected(r, c) {
+		const minr = Math.min(sr.value, er.value);
+		const maxr = Math.max(sr.value, er.value);
+		const minc = Math.min(sc.value, ec.value);
+		const maxc = Math.max(sc.value, ec.value);
+		return r >= minr && r <= maxr && c >= minc && c <= maxc;
+	}
 
-const emit = defineEmits(['insert'])
+	const emit = defineEmits(["insert"]);
 
-function insertTable() {
-	emit('insert', row.value, col.value)
-}
+	function insertTable() {
+		emit("insert", row.value, col.value);
+	}
 </script>
 
 <template>
@@ -95,13 +95,7 @@ function insertTable() {
 			</div>
 		</div>
 		<div class="actions">
-			<n-button
-				size="small"
-				type="primary"
-				block
-				secondary
-				@click="insertTable"
-			>
+			<n-button size="small" type="primary" block secondary @click="insertTable">
 				插入表格
 			</n-button>
 		</div>
@@ -109,49 +103,49 @@ function insertTable() {
 </template>
 
 <style scoped>
-.hb-tiptap-table-creator {
-	width: 200px;
-	box-sizing: border-box;
-	padding: 10px 0;
-	overflow: hidden;
-}
+	.hb-tiptap-table-creator {
+		width: 200px;
+		box-sizing: border-box;
+		padding: 10px 0;
+		overflow: hidden;
+	}
 
-.inputs {
-	display: flex;
-	align-items: center;
-	margin-bottom: 10px;
-	justify-content: space-between;
-}
+	.inputs {
+		display: flex;
+		align-items: center;
+		margin-bottom: 10px;
+		justify-content: space-between;
+	}
 
-.label {
-	margin-right: 10px;
-	white-space: nowrap;
-}
+	.label {
+		margin-right: 10px;
+		white-space: nowrap;
+	}
 
-.grid {
-	display: flex;
-	justify-content: center;
-	flex-wrap: wrap;
-	margin-bottom: 10px;
-	user-select: none;
-	box-sizing: border-box;
-}
+	.grid {
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
+		margin-bottom: 10px;
+		user-select: none;
+		box-sizing: border-box;
+	}
 
-.grid-row {
-	display: flex;
-	box-sizing: border-box;
-}
+	.grid-row {
+		display: flex;
+		box-sizing: border-box;
+	}
 
-.grid-item {
-	width: 18px;
-	height: 18px;
-	background: v-bind(vars.borderColor);
-	border: 2px solid v-bind(vars.bodyColor);
-	box-sizing: border-box;
-	margin: -1px;
-}
+	.grid-item {
+		width: 18px;
+		height: 18px;
+		background: v-bind(vars.borderColor);
+		border: 2px solid v-bind(vars.bodyColor);
+		box-sizing: border-box;
+		margin: -1px;
+	}
 
-.grid-item-selected {
-	background: v-bind(vars.infoColor);
-}
+	.grid-item-selected {
+		background: v-bind(vars.infoColor);
+	}
 </style>

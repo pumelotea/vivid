@@ -1,11 +1,11 @@
 <script setup lang="ts">
-  import VividMenuItem from "../../components/VividMenuItem.vue";
-  import { injectExtension, useEditorInstance } from "@lib/core/extension/utils/common";
-  import { useSection } from "@lib/core/extension";
+	import VividMenuItem from "../../components/VividMenuItem.vue";
+	import { injectExtension, useEditorInstance } from "@lib/core/extension/utils/common";
+	import { useSection } from "@lib/core/extension";
 
-  const editorInstance = useEditorInstance();
-  injectExtension(useSection());
-  const html = `
+	const editorInstance = useEditorInstance();
+	injectExtension(useSection());
+	const html = `
   <section>
   <section
     style="
@@ -85,21 +85,21 @@
 </section>
 `;
 
-  function insert() {
-    editorInstance.value
-      .chain()
-      .focus()
-      .insertContent(html, {
-        parseOptions: {
-          preserveWhitespace: false,
-        },
-      })
-      .run();
-  }
+	function insert() {
+		editorInstance.value
+			.chain()
+			.focus()
+			.insertContent(html, {
+				parseOptions: {
+					preserveWhitespace: false,
+				},
+			})
+			.run();
+	}
 </script>
 
 <template>
-  <vivid-menu-item title="插入模板" icon="shapes-line" :action="insert" />
+	<vivid-menu-item title="插入模板" icon="shapes-line" :action="insert" />
 </template>
 
 <style scoped></style>

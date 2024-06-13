@@ -3,7 +3,11 @@
 	import { PropType, ref } from "vue";
 	import { UploadFunction, useVideo } from "./video.js";
 	import VividVideoModal from "./VividVideoModal.vue";
-	import { injectExtension, onEditorCreated, useEditorInstance } from "@lib/core/extension/utils/common";
+	import {
+		injectExtension,
+		onEditorCreated,
+		useEditorInstance,
+	} from "@lib/core/extension/utils/common";
 
 	const props = defineProps({
 		handleUpload: {
@@ -43,11 +47,7 @@
 				:action="handleOpenVideo"
 				:is-active="() => editorInstance.isActive('video')"
 			/>
-			<vivid-video-modal
-				:handle-upload="handleUpload"
-				ref="HTV"
-				@ok="insertVideo"
-			/>
+			<vivid-video-modal :handle-upload="handleUpload" ref="HTV" @ok="insertVideo" />
 		</slot>
 	</div>
 </template>

@@ -3,10 +3,8 @@
 	import { injectExtension } from "@lib/core/extension/utils/common";
 
 	injectExtension(TrailingNode);
-
 </script>
 
-<template>
-</template>
+<template></template>
 
 <style scoped></style>

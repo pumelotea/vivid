@@ -2,9 +2,12 @@ import { mergeAttributes, Node } from "@tiptap/core";
 import { VueNodeViewRenderer } from "@tiptap/vue-3";
 import VideoView from "./VideoView.vue";
 
-export type Display = "block" | "inline" | "left" | "right"
+export type Display = "block" | "inline" | "left" | "right";
 
-export type UploadFunction = (file: File, updateProgress: (percent: number) => void) => Promise<string>
+export type UploadFunction = (
+	file: File,
+	updateProgress: (percent: number) => void,
+) => Promise<string>;
 
 export interface VideoAttrsOptions {
 	/** The source URL of the image. */
@@ -37,11 +40,11 @@ declare module "@tiptap/core" {
 			/**
 			 * Add an image
 			 */
-			setVideo: (options: Partial<SetVideoAttrsOptions>) => ReturnType
+			setVideo: (options: Partial<SetVideoAttrsOptions>) => ReturnType;
 			/**
 			 * Update an image
 			 */
-			updateVideo: (options: Partial<SetVideoAttrsOptions>) => ReturnType
+			updateVideo: (options: Partial<SetVideoAttrsOptions>) => ReturnType;
 		};
 	}
 }
@@ -117,26 +120,23 @@ export function useVideo() {
 			];
 		},
 		renderHTML({ HTMLAttributes }) {
-			return [
-				"video",
-				mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
-			];
+			return ["video", mergeAttributes(this.options.HTMLAttributes, HTMLAttributes)];
 		},
 		addCommands() {
 			return {
 				setVideo:
 					(options) =>
-						({ commands }) => {
-							return commands.insertContent({
-								type: this.name,
-								attrs: options,
-							});
-						},
+					({ commands }) => {
+						return commands.insertContent({
+							type: this.name,
+							attrs: options,
+						});
+					},
 				updateVideo:
 					(options) =>
-						({ commands }) => {
-							return commands.updateAttributes(this.name, options);
-						},
+					({ commands }) => {
+						return commands.updateAttributes(this.name, options);
+					},
 			};
 		},
 	});

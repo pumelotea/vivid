@@ -1,7 +1,7 @@
 import TaskItem, { TaskItemOptions } from "@tiptap/extension-task-item";
 import { mergeAttributes } from "@tiptap/core";
 
-export function useTaskItem(options ?: Partial<TaskItemOptions>) {
+export function useTaskItem(options?: Partial<TaskItemOptions>) {
 	if (!options) {
 		options = {
 			nested: true,
@@ -14,13 +14,10 @@ export function useTaskItem(options ?: Partial<TaskItemOptions>) {
 				checked: {
 					default: false,
 					keepOnSplit: false,
-					parseHTML: (element) =>
-						element.getAttribute("data-checked") === "true",
+					parseHTML: (element) => element.getAttribute("data-checked") === "true",
 					renderHTML: (attributes) => ({
 						"data-checked": attributes.checked,
-						class: attributes.checked
-							? "task-list-item enabled"
-							: "task-list-item",
+						class: attributes.checked ? "task-list-item enabled" : "task-list-item",
 					}),
 				},
 			};
@@ -64,7 +61,7 @@ export function useTaskItem(options ?: Partial<TaskItemOptions>) {
 						checkbox.checked = !checkbox.checked;
 						return;
 					}
-					const { checked } = event.target as HTMLInputElement
+					const { checked } = event.target as HTMLInputElement;
 
 					if (editor.isEditable && typeof getPos === "function") {
 						editor

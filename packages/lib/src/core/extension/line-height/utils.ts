@@ -5,15 +5,9 @@ import type { Command } from "@tiptap/core";
 export const LINE_HEIGHT_100 = 1.7;
 export const DEFAULT_LINE_HEIGHT = "100%";
 
-export const ALLOWED_NODE_TYPES = [
-	"paragraph",
-	"heading",
-	"list_item",
-	"todo_item",
-];
+export const ALLOWED_NODE_TYPES = ["paragraph", "heading", "list_item", "todo_item"];
 
 const NUMBER_VALUE_PATTERN = /^\d+(.\d+)?$/;
-
 
 export function isLineHeightActive(state: EditorState, lineHeight: string): boolean {
 	const { selection, doc } = state;
@@ -22,7 +16,7 @@ export function isLineHeightActive(state: EditorState, lineHeight: string): bool
 	let keepLooking = true;
 	let active = false;
 
-	doc.nodesBetween(from, to, node => {
+	doc.nodesBetween(from, to, (node) => {
 		const nodeType = node.type;
 		const lineHeightValue = node.attrs.lineHeight || DEFAULT_LINE_HEIGHT;
 
@@ -107,7 +101,7 @@ export function setTextLineHeight(tr: Transaction, lineHeight: string | null): T
 
 	if (!tasks.length) return tr;
 
-	tasks.forEach(task => {
+	tasks.forEach((task) => {
 		const { node, pos, nodeType } = task;
 		let { attrs } = node;
 

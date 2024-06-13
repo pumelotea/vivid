@@ -2,7 +2,10 @@
 	import { computed, ref, watch } from "vue";
 	import { useThemeVars } from "naive-ui";
 	import { useEditorInstance } from "@lib/core/extension/utils/common";
-	import { overwriteKeyDown, useSlashCommandData } from "@lib/core/extension/slash-command/slash-command";
+	import {
+		overwriteKeyDown,
+		useSlashCommandData,
+	} from "@lib/core/extension/slash-command/slash-command";
 	import { SuggestionKeyDownProps } from "@tiptap/suggestion/src/suggestion";
 
 	const vars = useThemeVars();
@@ -12,18 +15,18 @@
 	const data = useSlashCommandData();
 
 	const items = ref([
-    {
-      name: "插入链接",
-      cmd: "/link",
-      icon: "link",
-      action: () => {
-        if (!data.value.range) {
-          return;
-        }
-        editor.value.chain().focus().deleteRange(data.value.range).run();
-        editor.value.storage.link.openLink();
-      },
-    },
+		{
+			name: "插入链接",
+			cmd: "/link",
+			icon: "link",
+			action: () => {
+				if (!data.value.range) {
+					return;
+				}
+				editor.value.chain().focus().deleteRange(data.value.range).run();
+				editor.value.storage.link.openLink();
+			},
+		},
 		{
 			name: "插入图片",
 			cmd: "/img",
@@ -37,7 +40,10 @@
 			},
 		},
 		{
-			name: "插入视频", cmd: "/video", icon: "video-line", action: () => {
+			name: "插入视频",
+			cmd: "/video",
+			icon: "video-line",
+			action: () => {
 				if (!data.value.range) {
 					return;
 				}
@@ -64,7 +70,12 @@
 				if (!data.value.range) {
 					return;
 				}
-				editor.value.chain().focus().deleteRange(data.value.range).toggleHeading({ level: 1 }).run();
+				editor.value
+					.chain()
+					.focus()
+					.deleteRange(data.value.range)
+					.toggleHeading({ level: 1 })
+					.run();
 			},
 		},
 		{
@@ -75,7 +86,12 @@
 				if (!data.value.range) {
 					return;
 				}
-				editor.value.chain().focus().deleteRange(data.value.range).toggleHeading({ level: 2 }).run()
+				editor.value
+					.chain()
+					.focus()
+					.deleteRange(data.value.range)
+					.toggleHeading({ level: 2 })
+					.run();
 			},
 		},
 		{
@@ -86,7 +102,12 @@
 				if (!data.value.range) {
 					return;
 				}
-				editor.value.chain().focus().deleteRange(data.value.range).toggleHeading({ level: 3 }).run();
+				editor.value
+					.chain()
+					.focus()
+					.deleteRange(data.value.range)
+					.toggleHeading({ level: 3 })
+					.run();
 			},
 		},
 		{
@@ -101,7 +122,10 @@
 			},
 		},
 		{
-			name: "数学公式", cmd: "/math", icon: "functions", action: () => {
+			name: "数学公式",
+			cmd: "/math",
+			icon: "functions",
+			action: () => {
 				if (!data.value.range) {
 					return;
 				}
@@ -134,14 +158,17 @@
 	]);
 
 	const renderList = computed(() => {
-		return items.value.filter(e => e.cmd.startsWith(`/${data.value.query}`));
+		return items.value.filter((e) => e.cmd.startsWith(`/${data.value.query}`));
 	});
 
 	const selectedIndex = ref(-1);
 
-	watch(() => data.value.query, () => {
-		selectedIndex.value = -1;
-	});
+	watch(
+		() => data.value.query,
+		() => {
+			selectedIndex.value = -1;
+		},
+	);
 
 	function onKeyDown({ event }: SuggestionKeyDownProps) {
 		if (event.key === "Enter") {
@@ -182,13 +209,17 @@
 	}
 
 	overwriteKeyDown(onKeyDown);
-
 </script>
 
 <template>
 	<div class="slash-command" v-show="renderList.length > 0">
-		<div class="slash-item" v-for="(e, i) in renderList" @click="e.action()" :key="e.cmd"
-				 :class="{'active':selectedIndex === i}">
+		<div
+			class="slash-item"
+			v-for="(e, i) in renderList"
+			@click="e.action()"
+			:key="e.cmd"
+			:class="{ active: selectedIndex === i }"
+		>
 			<div class="slash-name">
 				<div class="slash-icon">
 					<i :class="`ri-${e.icon}`"></i>
@@ -213,7 +244,7 @@
 		box-shadow: v-bind(vars.boxShadow3);
 		outline: none;
 		border: none;
-    overflow: hidden;
+		overflow: hidden;
 		user-select: none;
 	}
 

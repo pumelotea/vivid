@@ -36,7 +36,6 @@
 			return true;
 		});
 	}
-
 </script>
 
 <template>

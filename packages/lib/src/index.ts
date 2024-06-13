@@ -1,13 +1,10 @@
-import VividEditor from './editor/index'
-import VividMenuItem from './core/components/VividMenuItem.vue'
+import VividEditor from "./editor/index";
+import VividMenuItem from "./core/components/VividMenuItem.vue";
 
 /**
  * 核心
  */
-export {
-	VividEditor,
-	VividMenuItem
-}
+export { VividEditor, VividMenuItem };
 
 /**
  * 编辑器扩展包
@@ -54,8 +51,8 @@ export {
 	useLineHeight,
 	useTrailingNode,
 	useSection,
-	useCopyPaste
-} from './core/extension'
+	useCopyPaste,
+} from "./core/extension";
 
 /**
  * 编辑器扩展组件
@@ -108,7 +105,7 @@ export {
 	SectionExt,
 	CopyPasteExt,
 	UploadManagerExt,
-} from './core/extension'
+} from "./core/extension";
 
 /**
  * 编辑器组件
@@ -120,5 +117,4 @@ export {
 	MathBubbleMenu,
 	DragHandle,
 	SlashCommand,
-} from './core/extension'
-
+} from "./core/extension";

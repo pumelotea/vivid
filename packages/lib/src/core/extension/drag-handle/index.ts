@@ -1,5 +1,3 @@
-import DragHandle from './DragHandle.vue'
+import DragHandle from "./DragHandle.vue";
 
-export {
-  DragHandle
-}
+export { DragHandle };

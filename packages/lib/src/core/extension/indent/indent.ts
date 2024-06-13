@@ -13,11 +13,11 @@ declare module "@tiptap/core" {
 			/**
 			 * Set the indent attribute
 			 */
-			indent: () => ReturnType
+			indent: () => ReturnType;
 			/**
 			 * Set the outdent attribute
 			 */
-			outdent: () => ReturnType
+			outdent: () => ReturnType;
 		};
 	}
 }
@@ -37,9 +37,7 @@ function updateIndentLevel(tr: Transaction, delta: number, types: string[], edit
 
 	if (!doc || !selection) return tr;
 
-	if (
-		!(selection instanceof TextSelection || selection instanceof AllSelection)
-	) {
+	if (!(selection instanceof TextSelection || selection instanceof AllSelection)) {
 		return tr;
 	}
 
@@ -81,7 +79,7 @@ function setNodeIndentMarkup(tr: Transaction, pos: number, delta: number) {
 	return tr.setNodeMarkup(pos, node.type, nodeAttrs, node.marks);
 }
 
-function createIndentCommand({ delta, types }: { delta: number, types: string[] }) {
+function createIndentCommand({ delta, types }: { delta: number; types: string[] }) {
 	return ({ state, dispatch, editor }) => {
 		const { selection } = state;
 		let { tr } = state;

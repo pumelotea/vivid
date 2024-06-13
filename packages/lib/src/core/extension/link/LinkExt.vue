@@ -15,7 +15,11 @@
 		NButton,
 		NSpace,
 	} from "naive-ui";
-  import { injectExtension, onEditorCreated, useEditorInstance } from "@lib/core/extension/utils/common";
+	import {
+		injectExtension,
+		onEditorCreated,
+		useEditorInstance,
+	} from "@lib/core/extension/utils/common";
 	import { EditorView } from "prosemirror-view";
 	import { MarkType } from "@tiptap/pm/model";
 	import tippy, { Instance } from "tippy.js";
@@ -45,15 +49,16 @@
 		}
 	}
 
-  onEditorCreated(()=>{
-    editorInstance.value.storage.link = {
-      openLink: handleOpenLink,
-    };
-  })
+	onEditorCreated(() => {
+		editorInstance.value.storage.link = {
+			openLink: handleOpenLink,
+		};
+	});
 
 	function setLink(text: string, href: string, target: string) {
 		console.log(text, href, target);
-		editorInstance.value.chain()
+		editorInstance.value
+			.chain()
 			.extendMarkRange("link")
 			.insertContent({
 				type: "text",
@@ -86,15 +91,15 @@
 			els.push(a);
 			a = a.parentNode as HTMLElement;
 		}
-		if (!els.find(value => value.nodeName === "A")) {
+		if (!els.find((value) => value.nodeName === "A")) {
 			return false;
 		}
 		const attrs = getAttributes(view.state, type.name);
-		const link = (event.target as HTMLLinkElement);
+		const link = event.target as HTMLLinkElement;
 
 		const node = view.state.doc.nodeAt(pos);
 		if (node) {
-			const linkNode = node.marks.filter(e => e.type.name === "link");
+			const linkNode = node.marks.filter((e) => e.type.name === "link");
 			if (linkNode.length) {
 				const { schema, doc, tr } = view.state;
 				const range = getMarkRange(doc.resolve(pos), schema.marks.link);
@@ -137,15 +142,17 @@
 			tippyInstance.destroy();
 		}
 		isEdit.value = false;
-		return false
+		return false;
 	}
 
-	injectExtension(useLink({
-		handleClick: handleLinkClick,
-		handleKeyDown: destroyTooltip,
-		protocols: ["ftp", "mailto", "http", "https"],
-		autolink: false,
-	}));
+	injectExtension(
+		useLink({
+			handleClick: handleLinkClick,
+			handleKeyDown: destroyTooltip,
+			protocols: ["ftp", "mailto", "http", "https"],
+			autolink: false,
+		}),
+	);
 
 	function onCancel() {
 		destroyTooltip();
@@ -157,7 +164,8 @@
 	}
 
 	function onOk() {
-		editorInstance.value.chain()
+		editorInstance.value
+			.chain()
 			.extendMarkRange("link")
 			.setLink({ href: href.value, target: target.value })
 			.focus()
@@ -165,10 +173,9 @@
 		destroyTooltip();
 	}
 
-  function openLink(){
-    window.open(href.value, target.value)
-  }
-
+	function openLink() {
+		window.open(href.value, target.value);
+	}
 </script>
 
 <template>
@@ -189,7 +196,7 @@
 						<div class="link-href" @click="openLink">
 							{{ href }}
 						</div>
-						<n-button quaternary size="small" @click="isEdit=true">
+						<n-button quaternary size="small" @click="isEdit = true">
 							<i class="ri-edit-box-line"></i>
 						</n-button>
 						<n-button quaternary size="small" @click="unsetLink">
@@ -228,7 +235,10 @@
 <style scoped>
 	.link-card {
 		width: 400px;
-		box-shadow: 0 6px 16px -9px rgba(0, 0, 0, .08), 0 9px 28px 0 rgba(0, 0, 0, .05), 0 12px 48px 16px rgba(0, 0, 0, .03);
+		box-shadow:
+			0 6px 16px -9px rgba(0, 0, 0, 0.08),
+			0 9px 28px 0 rgba(0, 0, 0, 0.05),
+			0 12px 48px 16px rgba(0, 0, 0, 0.03);
 	}
 
 	.link-pop {
@@ -244,6 +254,6 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 		text-decoration: underline;
-    cursor: pointer;
+		cursor: pointer;
 	}
 </style>

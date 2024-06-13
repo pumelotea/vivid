@@ -60,76 +60,42 @@
 		<n-space :size="2">
 			<vivid-menu-item
 				title="左侧浮动"
-				:action="
-					() =>
-						editorInstance
-							.chain()
-							.focus()
-							.updateVideo({ display: 'left' })
-							.run()
-				"
-				:isActive="
-					() => editorInstance.isActive('video', { display: 'left' })
-				"
+				:action="() => editorInstance.chain().focus().updateVideo({ display: 'left' }).run()"
+				:isActive="() => editorInstance.isActive('video', { display: 'left' })"
 			>
 				<svg-icon type="mdi" :path="mdiFormatFloatLeft"></svg-icon>
 			</vivid-menu-item>
 			<vivid-menu-item
 				title="行内"
-				:action="
-					() =>
-						editorInstance
-							.chain()
-							.focus()
-							.updateVideo({ display: 'inline' })
-							.run()
-				"
-				:isActive="
-					() => editorInstance.isActive('video', { display: 'inline' })
-				"
+				:action="() => editorInstance.chain().focus().updateVideo({ display: 'inline' }).run()"
+				:isActive="() => editorInstance.isActive('video', { display: 'inline' })"
 			>
 				<svg-icon type="mdi" :path="mdiFormatFloatNone"></svg-icon>
 			</vivid-menu-item>
 			<vivid-menu-item
 				title="右侧浮动"
-				:action="
-					() =>
-						editorInstance
-							.chain()
-							.focus()
-							.updateVideo({ display: 'right' })
-							.run()
-				"
-				:isActive="
-					() => editorInstance.isActive('video', { display: 'right' })
-				"
+				:action="() => editorInstance.chain().focus().updateVideo({ display: 'right' }).run()"
+				:isActive="() => editorInstance.isActive('video', { display: 'right' })"
 			>
 				<svg-icon type="mdi" :path="mdiFormatFloatRight"></svg-icon>
 			</vivid-menu-item>
 			<vivid-menu-item
 				title="小型尺寸"
-				:action="
-					() => editorInstance.chain().focus().updateVideo({ width: 200 }).run()
-				"
+				:action="() => editorInstance.chain().focus().updateVideo({ width: 200 }).run()"
 				:isActive="() => editorInstance.isActive('video', { width: 200 })"
 			>
 				<svg-icon type="mdi" :path="mdiSizeS"></svg-icon>
 			</vivid-menu-item>
 			<vivid-menu-item
 				title="中型尺寸"
-				:action="
-					() => editorInstance.chain().focus().updateVideo({ width: 500 }).run()
-				"
+				:action="() => editorInstance.chain().focus().updateVideo({ width: 500 }).run()"
 				:isActive="() => editorInstance.isActive('video', { width: 500 })"
 			>
 				<svg-icon type="mdi" :path="mdiSizeM"></svg-icon>
 			</vivid-menu-item>
 			<vivid-menu-item
 				title="铺满"
-				:action="
-					() =>
-						editorInstance.chain().focus().updateVideo({ width: '100%' }).run()
-				"
+				:action="() => editorInstance.chain().focus().updateVideo({ width: '100%' }).run()"
 				:isActive="() => editorInstance.isActive('video', { width: '100%' })"
 			>
 				<svg-icon type="mdi" :path="mdiSizeL"></svg-icon>
@@ -158,11 +124,7 @@
 				:action="toggleMuted"
 				:isActive="() => editorInstance.isActive('video', { muted: true })"
 			/>
-			<vivid-menu-item
-				icon="delete-bin-line"
-				title="删除"
-				:action="deleteVideo"
-			/>
+			<vivid-menu-item icon="delete-bin-line" title="删除" :action="deleteVideo" />
 		</n-space>
 	</div>
 </template>

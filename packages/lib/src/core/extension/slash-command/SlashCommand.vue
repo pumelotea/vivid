@@ -4,8 +4,10 @@
 
 	import {
 		keyDownFn,
-		overwriteItems, overwriteRender,
-		useSlashCommand, useSlashCommandData,
+		overwriteItems,
+		overwriteRender,
+		useSlashCommand,
+		useSlashCommandData,
 	} from "./slash-command";
 	import VividSlashCommand from "./DefaultSlashCommandView.vue";
 	import { injectExtension, useEditorInstance } from "@lib/core/extension/utils/common";
@@ -19,33 +21,33 @@
 
 	overwriteItems((query) => {
 		data.value.query = query;
-		return []
+		return [];
 	});
 
 	overwriteRender(() => {
 		return {
-			onStart: props => {
-				data.value.range = props.range
-				data.value.editor = props.editor
-				createTooltip(props.clientRect!() as DOMRect)
+			onStart: (props) => {
+				data.value.range = props.range;
+				data.value.editor = props.editor;
+				createTooltip(props.clientRect!() as DOMRect);
 			},
-			onUpdate: props => {
-				data.value.range = props.range
-				updateTooltip(props.clientRect!() as DOMRect)
+			onUpdate: (props) => {
+				data.value.range = props.range;
+				updateTooltip(props.clientRect!() as DOMRect);
 			},
-			onKeyDown: props => {
-				if (props.event.key === 'Escape') {
-					destroyTooltip()
-					return true
+			onKeyDown: (props) => {
+				if (props.event.key === "Escape") {
+					destroyTooltip();
+					return true;
 				}
-				data.value.range = props.range
-				if (keyDownFn){
-					return keyDownFn(props)
+				data.value.range = props.range;
+				if (keyDownFn) {
+					return keyDownFn(props);
 				}
-				return false
+				return false;
 			},
-			onExit: props => {
-				destroyTooltip()
+			onExit: (props) => {
+				destroyTooltip();
 			},
 		};
 	});
@@ -64,26 +66,25 @@
 			trigger: "manual",
 			placement: "bottom-start",
 		})[0];
-		tippyInstance.show()
+		tippyInstance.show();
 	}
 
-	function updateTooltip(clientRect: DOMRect){
-		if (!tippyInstance){
-			return
+	function updateTooltip(clientRect: DOMRect) {
+		if (!tippyInstance) {
+			return;
 		}
 		tippyInstance.setProps({
-			getReferenceClientRect: () => clientRect
-		})
+			getReferenceClientRect: () => clientRect,
+		});
 	}
 
 	function destroyTooltip() {
 		if (tippyInstance) {
 			tippyInstance.destroy();
-			data.value.range = undefined
-			data.value.query = undefined
+			data.value.range = undefined;
+			data.value.query = undefined;
 		}
 	}
-
 </script>
 
 <template>

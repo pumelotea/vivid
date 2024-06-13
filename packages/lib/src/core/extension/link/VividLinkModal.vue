@@ -1,43 +1,43 @@
 <script setup>
-import {
-	NModal,
-	NInputGroup,
-	NSelect,
-	NInput,
-	NRadioGroup,
-	NRadio,
-	NForm,
-	NFormItem,
-	NButton,
-	NSpace,
-} from 'naive-ui'
-import { ref } from 'vue'
+	import {
+		NModal,
+		NInputGroup,
+		NSelect,
+		NInput,
+		NRadioGroup,
+		NRadio,
+		NForm,
+		NFormItem,
+		NButton,
+		NSpace,
+	} from "naive-ui";
+	import { ref } from "vue";
 
-const showModal = ref(false)
+	const showModal = ref(false);
 
-const href = ref('')
-const text = ref('')
-const target = ref('_blank')
+	const href = ref("");
+	const text = ref("");
+	const target = ref("_blank");
 
-const emit = defineEmits(['ok'])
+	const emit = defineEmits(["ok"]);
 
-function open() {
-	showModal.value = true
-	target.value = '_blank'
-	href.value = ''
-	text.value = ''
-}
+	function open() {
+		showModal.value = true;
+		target.value = "_blank";
+		href.value = "";
+		text.value = "";
+	}
 
-function onOk() {
-	showModal.value = false
-	emit('ok', text.value ,href.value, target.value)
-}
+	function onOk() {
+		showModal.value = false;
+		emit("ok", text.value, href.value, target.value);
+	}
 
-function onCancel() {
-	showModal.value = false
-}
+	function onCancel() {
+		showModal.value = false;
+	}
 
-defineExpose({ open })
+	defineExpose({ open });
 </script>
 
 <template>
@@ -49,7 +49,7 @@ defineExpose({ open })
 			<n-form label-placement="left" label-width="auto">
 				<n-form-item label="文字">
 					<n-input-group>
-					<n-input v-model:value="text"  placeholder="在选中文字上添加内容请留空"/>
+						<n-input v-model:value="text" placeholder="在选中文字上添加内容请留空" />
 					</n-input-group>
 				</n-form-item>
 				<n-form-item label="链接地址">

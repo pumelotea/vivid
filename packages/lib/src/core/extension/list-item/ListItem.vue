@@ -13,7 +13,6 @@
 	injectExtension(ListItem.configure(props.options));
 </script>
 
-<template>
-</template>
+<template></template>
 
 <style scoped></style>

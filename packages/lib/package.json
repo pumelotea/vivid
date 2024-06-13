@@ -22,7 +22,7 @@
 		"build-types": "vue-tsc --emitDeclarationOnly --declaration -p tsconfig.app.json",
 		"publish": "npm publish --access public",
 		"lint": "eslint 'src/**/*.{ts,vue}'",
-		"format": "prettier --write \"src/**/*.js\" \"src/**/*.vue\""
+		"format": "prettier --write \"src/**/*.ts\" \"src/**/*.vue\""
 	},
 	"dependencies": {
 		"@hocuspocus/provider": "^2.8.1",

@@ -1,35 +1,35 @@
 <script setup>
-import { computed, inject } from 'vue'
-import { NSpace } from 'naive-ui'
-import VividMenuItem from '../../../core/components/VividMenuItem.vue'
-import { CellSelection } from 'prosemirror-tables'
+	import { computed, inject } from "vue";
+	import { NSpace } from "naive-ui";
+	import VividMenuItem from "../../../core/components/VividMenuItem.vue";
+	import { CellSelection } from "prosemirror-tables";
 
-const editorInstance = inject('editorInstance')
+	const editorInstance = inject("editorInstance");
 
-const analyzeCellSelection = (editor) => {
-	const selection = editor.state.selection
-	if (selection instanceof CellSelection) {
-		let cellCount = 0
-		let mergedCellCount = 0
-		selection.forEachCell((cell) => {
-			cellCount++
-			if (cell.attrs.colspan > 1 || cell.attrs.rowspan > 1) {
-				mergedCellCount++
-			}
-		})
-		return {
-			isRowSelection: selection.isRowSelection(),
-			isColSelection: selection.isColSelection(),
-			cellCount,
-			mergedCellCount,
+	const analyzeCellSelection = (editor) => {
+		const selection = editor.state.selection;
+		if (selection instanceof CellSelection) {
+			let cellCount = 0;
+			let mergedCellCount = 0;
+			selection.forEachCell((cell) => {
+				cellCount++;
+				if (cell.attrs.colspan > 1 || cell.attrs.rowspan > 1) {
+					mergedCellCount++;
+				}
+			});
+			return {
+				isRowSelection: selection.isRowSelection(),
+				isColSelection: selection.isColSelection(),
+				cellCount,
+				mergedCellCount,
+			};
 		}
-	}
-	return null
-}
+		return null;
+	};
 
-const state = computed(() => {
-	return analyzeCellSelection(editorInstance.value)
-})
+	const state = computed(() => {
+		return analyzeCellSelection(editorInstance.value);
+	});
 </script>
 
 <template>
@@ -47,26 +47,26 @@ const state = computed(() => {
 				title="拆分单元格"
 				:action="() => editorInstance.chain().focus().mergeOrSplit().run()"
 			/>
-      <vivid-menu-item
-        icon="insert-row-top"
-        title="上面添加一行"
-        :action="() => editorInstance.chain().focus().addRowBefore().run()"
-      />
-      <vivid-menu-item
-        icon="insert-row-bottom"
-        title="下面添加一行"
-        :action="() => editorInstance.chain().focus().addRowAfter().run()"
-      />
-      <vivid-menu-item
-        icon="insert-column-left"
-        title="左边添加一列"
-        :action="() => editorInstance.chain().focus().addColumnBefore().run()"
-      />
-      <vivid-menu-item
-        icon="insert-column-right"
-        title="右边添加一列"
-        :action="() => editorInstance.chain().focus().addColumnAfter().run()"
-      />
+			<vivid-menu-item
+				icon="insert-row-top"
+				title="上面添加一行"
+				:action="() => editorInstance.chain().focus().addRowBefore().run()"
+			/>
+			<vivid-menu-item
+				icon="insert-row-bottom"
+				title="下面添加一行"
+				:action="() => editorInstance.chain().focus().addRowAfter().run()"
+			/>
+			<vivid-menu-item
+				icon="insert-column-left"
+				title="左边添加一列"
+				:action="() => editorInstance.chain().focus().addColumnBefore().run()"
+			/>
+			<vivid-menu-item
+				icon="insert-column-right"
+				title="右边添加一列"
+				:action="() => editorInstance.chain().focus().addColumnAfter().run()"
+			/>
 			<vivid-menu-item
 				v-if="state.isRowSelection && !state.isColSelection"
 				icon="delete-row"

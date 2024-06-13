@@ -31,10 +31,9 @@
 	}
 
 	const LineHeights = computed(() => {
-		const lineHeightOptions =
-			editorInstance.value.extensionManager.extensions.find(
-				(e) => e.name === "lineHeight",
-			)!.options;
+		const lineHeightOptions = editorInstance.value.extensionManager.extensions.find(
+			(e) => e.name === "lineHeight",
+		)!.options;
 		const a = lineHeightOptions.lineHeights;
 		const b = a.map((item) => ({
 			label: percentageToDecimal(item),
