@@ -73,7 +73,7 @@ export function useDragHandle(options: DragHandleOptions) {
 		const width = rect.width + marginLeft + marginRight;
 		const height = rect.height + marginTop + marginBottom;
 
-		const isTable = dom.classList.contains("vivid-table");
+		const isTable = dom.classList.contains("tableWrapper");
 
 		const res = {
 			top: rect.top - marginTop,
@@ -87,12 +87,12 @@ export function useDragHandle(options: DragHandleOptions) {
 		};
 
 		if (isTable) {
-			res.right += 15;
-			res.width += 15;
+			res.right += 10;
+			res.width += 10;
 		} else {
-			res.left -= 15;
-			res.right += 15;
-			res.width += 30;
+			res.left -= 10;
+			res.right += 10;
+			res.width += 20;
 		}
 		return res;
 	}
