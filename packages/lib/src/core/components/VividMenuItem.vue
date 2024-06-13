@@ -25,7 +25,7 @@
 </script>
 <template>
 	<div>
-		<n-tooltip trigger="hover">
+		<n-tooltip trigger="hover" style="border-radius: 10px">
 			<template #trigger>
 				<button
 					class="menu-item"
@@ -51,7 +51,7 @@
 		color: v-bind(vars.textColorBase);
 		border: none;
 		background-color: transparent;
-		border-radius: 3px;
+		border-radius: 5px;
 		padding: 5px;
 		transition: all 0.2s;
 		margin-left: 2px;

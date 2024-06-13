@@ -22,7 +22,7 @@
 	<div v-if="editorInstance">
 		<slot>
 			<vivid-menu-item
-				icon="task-line"
+				icon="list-check-3"
 				title="任务列表"
 				:action="() => editorInstance.chain().focus().toggleTaskList().run()"
 				:is-active="() => editorInstance.isActive('taskList')"

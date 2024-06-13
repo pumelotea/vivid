@@ -343,7 +343,7 @@
 		padding: 40px 0;
 		height: fit-content;
 		min-height: 297mm;
-		border-radius: 3px;
+		border-radius: 10px;
 		box-shadow: v-bind(vars.boxShadow3);
 		overflow: hidden;
 		max-width: 210mm;
