@@ -57,25 +57,34 @@
 
 	function setLink(text: string, href: string, target: string) {
 		console.log(text, href, target);
-		editorInstance.value
-			.chain()
-			.extendMarkRange("link")
-			.insertContent({
-				type: "text",
-				text: text,
-				marks: [
-					{
-						type: "link",
-						attrs: {
-							href: href,
-							target: target,
+		if (text) {
+			editorInstance.value
+				.chain()
+				// .extendMarkRange("link")
+				.insertContent({
+					type: "text",
+					text: text,
+					marks: [
+						{
+							type: "link",
+							attrs: {
+								href: href,
+								target: target,
+							},
 						},
-					},
-				],
-			})
-			.setLink({ href: href })
-			.focus()
-			.run();
+					],
+				})
+				.setLink({ href: href })
+				.focus()
+				.run();
+		} else {
+			editorInstance.value
+				.chain()
+				.setLink({ href: href, target: target })
+				.focus()
+				.run();
+		}
+
 	}
 
 	function handleLinkClick(view: EditorView, pos: number, event: MouseEvent, type: MarkType) {
@@ -196,11 +205,11 @@
 						<div class="link-href" @click="openLink">
 							{{ href }}
 						</div>
-						<n-button quaternary size="small" @click="isEdit = true">
-							<i class="ri-edit-box-line"></i>
+						<n-button text @click="isEdit = true">
+							<i class="ri-lg ri-edit-circle-line"></i>
 						</n-button>
-						<n-button quaternary size="small" @click="unsetLink">
-							<i class="ri-link-unlink"></i>
+						<n-button text type="error"  @click="unsetLink">
+							<i class="ri-lg ri-delete-bin-5-line"></i>
 						</n-button>
 					</div>
 				</n-card>
@@ -235,16 +244,16 @@
 <style scoped>
 	.link-card {
 		width: 400px;
-		box-shadow:
-			0 6px 16px -9px rgba(0, 0, 0, 0.08),
-			0 9px 28px 0 rgba(0, 0, 0, 0.05),
-			0 12px 48px 16px rgba(0, 0, 0, 0.03);
+		box-shadow: 0 6px 16px -9px rgba(0, 0, 0, 0.08),
+		0 9px 28px 0 rgba(0, 0, 0, 0.05),
+		0 12px 48px 16px rgba(0, 0, 0, 0.03);
+		border-radius: 10px;
 	}
 
 	.link-pop {
 		display: flex;
 		align-items: center;
-		gap: 5px;
+		gap: 12px;
 		width: 100%;
 	}
 

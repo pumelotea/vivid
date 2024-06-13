@@ -12,20 +12,26 @@
 		NSpace,
 	} from "naive-ui";
 	import { ref } from "vue";
+	import { useEditorInstance } from "@lib/core/extension/utils/common";
 
 	const showModal = ref(false);
 
 	const href = ref("");
 	const text = ref("");
 	const target = ref("_blank");
+	const isInsert = ref(false)
 
 	const emit = defineEmits(["ok"]);
+
+	const editor = useEditorInstance()
 
 	function open() {
 		showModal.value = true;
 		target.value = "_blank";
 		href.value = "";
 		text.value = "";
+		const selection = editor.value.state.selection
+		isInsert.value = selection.from === selection.to
 	}
 
 	function onOk() {
@@ -47,7 +53,7 @@
 		</template>
 		<div>
 			<n-form label-placement="left" label-width="auto">
-				<n-form-item label="文字">
+				<n-form-item label="文字" v-if="isInsert">
 					<n-input-group>
 						<n-input v-model:value="text" placeholder="在选中文字上添加内容请留空" />
 					</n-input-group>

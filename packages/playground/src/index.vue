@@ -75,8 +75,10 @@
             <italic-ext />
             <strike-ext />
             <underline-ext />
+						<divider-ext />
             <color-ext />
             <highlight-ext />
+						<link-ext />
             <divider-ext />
             <text-align-ext />
           </template>
