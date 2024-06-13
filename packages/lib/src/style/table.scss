@@ -1,0 +1,100 @@
+.tiptap > .tableWrapper {
+  margin-left: 90px !important;
+  margin-bottom: 10px;
+  margin-top: 0;
+}
+
+.tableWrapper {
+  max-width: 100%;
+  --selected-cell-color1: rgba(166, 203, 255, 0.8);
+  --selected-cell-color: rgba(160, 201, 255, 0.25);
+
+  .grip-column {
+    position: absolute;
+    left: -1px;
+    right: -1px;
+    height: 10px;
+    top: -10px;
+    border: 1px solid rgba(196, 196, 196, 0.3);
+    box-sizing: border-box;
+    transition: all 0.2s;
+
+    &.selected {
+      background-color: var(--selected-cell-color1) !important;
+    }
+
+    &:hover {
+      background-color: var(--selected-cell-color1) !important;
+    }
+
+    &.first {
+    }
+
+    &.last {
+      border-top-right-radius: 2px;
+    }
+  }
+
+  .grip-row {
+    position: absolute;
+    left: -10px;
+    width: 10px;
+    top: -1px;
+    bottom: -1px;
+    border: 1px solid rgba(196, 196, 196, 0.3);
+    box-sizing: border-box;
+    transition: all 0.2s;
+
+    &.selected {
+      background-color: var(--selected-cell-color1) !important;
+    }
+
+    &:hover {
+      background-color: var(--selected-cell-color1) !important;
+    }
+
+    &.first {
+    }
+
+    &.last {
+      border-bottom-left-radius: 2px;
+    }
+  }
+
+  .grip-row-col{
+    position: absolute;
+    left: -10px;
+    width: 10px;
+    top: -10px;
+    height: 10px;
+    border: 1px solid rgba(196, 196, 196, 0.3);
+    box-sizing: border-box;
+    transition: all 0.2s;
+    border-top-left-radius: 2px;
+
+    &.selected {
+      background-color: var(--selected-cell-color1) !important;
+    }
+
+    &:hover {
+      background-color: var(--selected-cell-color1) !important;
+    }
+  }
+
+
+  .table-box {
+    position: relative;
+    max-width: 100%;
+    width: fit-content;
+    user-select: auto;
+  }
+
+  table {
+    padding-top: 10px;
+    padding-left: 10px;
+  }
+
+  .selectedCell {
+    background-color: var(--selected-cell-color) !important;
+  }
+}

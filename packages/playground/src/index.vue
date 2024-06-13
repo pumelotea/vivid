@@ -1,7 +1,12 @@
 <template>
   <div class="editor-wrap">
-    <n-modal preset="card" v-model:show="destroy" @after-enter="isLoad=true" @after-leave="isLoad=false">
-      <vivid-editor v-if="isLoad" :dark="dark" v-model="text" :readonly="readonly" page>
+<!--    <n-modal preset="card" v-model:show="destroy" @after-enter="isLoad=true" @after-leave="isLoad=false">-->
+
+<!--      <div style="height: 100vh;display: flex;justify-content: center;align-items: center" v-else>-->
+<!--        <n-spin></n-spin>-->
+<!--      </div>-->
+<!--    </n-modal>-->
+    <vivid-editor :dark="dark" v-model="text" :readonly="readonly" page>
       <drag-handle></drag-handle>
       <slash-command></slash-command>
 
@@ -84,14 +89,12 @@
           <template v-if="nodeType === 'math'">
             <math-bubble-menu />
           </template>
+          <template v-if="nodeType === 'table'">
+            <table-bubble-menu />
+          </template>
         </div>
       </template>
     </vivid-editor>
-      <div style="height: 100vh;display: flex;justify-content: center;align-items: center" v-else>
-        <n-spin></n-spin>
-      </div>
-    </n-modal>
-
     <div>
       <button @click="toggleReadOnly">toggleReadOnly: {{ readonly }}</button>
       <button @click="destroy = !destroy">toggleDestroy: {{ destroy }}</button>
@@ -99,7 +102,6 @@
     </div>
     <div style="margin-top: 100px;width: 400px;height: 800px;overflow: scroll;padding:20px;border: 1px solid"
          v-html="text">
-
     </div>
     <div>
       {{ text }}
@@ -165,6 +167,7 @@
     ImageBubbleMenu,
     VideoBubbleMenu,
     MathBubbleMenu,
+    TableBubbleMenu,
     TrailingNodeExt,
     DragHandle,
     SlashCommand,

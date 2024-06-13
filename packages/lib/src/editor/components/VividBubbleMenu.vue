@@ -13,6 +13,7 @@ import {
 } from '../../core/extension'
 import ImageBubbleMenu from '../../core/extension/image/ImageBubbleMenu.vue'
 import VideoBubbleMenu from '../../core/extension/video/VideoBubbleMenu.vue'
+import TableBubbleMenu from '../../core/extension/table/TableBubbleMenu.vue'
 
 defineProps({
 	nodeType: {
@@ -39,6 +40,9 @@ defineProps({
 		<template v-if="nodeType === 'video'">
 			<video-bubble-menu />
 		</template>
+    <template v-if="nodeType === 'video'">
+      <table-bubble-menu />
+    </template>
 	</div>
 </template>
 

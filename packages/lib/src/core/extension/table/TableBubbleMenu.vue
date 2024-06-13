@@ -47,6 +47,26 @@ const state = computed(() => {
 				title="拆分单元格"
 				:action="() => editorInstance.chain().focus().mergeOrSplit().run()"
 			/>
+      <vivid-menu-item
+        icon="insert-row-top"
+        title="上面添加一行"
+        :action="() => editorInstance.chain().focus().addRowBefore().run()"
+      />
+      <vivid-menu-item
+        icon="insert-row-bottom"
+        title="下面添加一行"
+        :action="() => editorInstance.chain().focus().addRowAfter().run()"
+      />
+      <vivid-menu-item
+        icon="insert-column-left"
+        title="左边添加一列"
+        :action="() => editorInstance.chain().focus().addColumnBefore().run()"
+      />
+      <vivid-menu-item
+        icon="insert-column-right"
+        title="右边添加一列"
+        :action="() => editorInstance.chain().focus().addColumnAfter().run()"
+      />
 			<vivid-menu-item
 				v-if="state.isRowSelection && !state.isColSelection"
 				icon="delete-row"
@@ -62,17 +82,9 @@ const state = computed(() => {
 			<vivid-menu-item
 				v-if="state.isColSelection && state.isRowSelection"
 				icon="delete-bin-6-line"
-				title="删除列"
+				title="删除表格"
 				:action="() => editorInstance.chain().focus().deleteTable().run()"
 			/>
 		</n-space>
 	</div>
 </template>
-
-<style scoped>
-.table-bubble-menu {
-	padding: 4px 5px;
-	border-radius: 10px;
-	overflow: hidden;
-}
-</style>

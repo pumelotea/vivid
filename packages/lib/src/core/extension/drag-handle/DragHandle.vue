@@ -22,6 +22,17 @@
 
   const items = ref([
     {
+      name: "插入段落",
+      cmd: "/paragraph",
+      icon: "paragraph",
+      action: (range: Range) => {
+        if (!data.value.range) {
+          return;
+        }
+        editorInstance.value.chain().focus().insertContentAt(range.to, "<p></p>").run();
+      },
+    },
+    {
       name: "插入链接",
       cmd: "/link",
       icon: "link",

@@ -1,5 +1,5 @@
-import { useTable } from './table.js'
-import TableExt from './Table.vue'
+import { useTable } from './table'
+import TableExt from './TableExt.vue'
 import TableBubbleMenu from './TableBubbleMenu.vue'
 
 export { useTable, TableBubbleMenu, TableExt }

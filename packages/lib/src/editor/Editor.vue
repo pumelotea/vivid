@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import 'remixicon/fonts/remixicon.css'
 import '../style/index.css'
+import '../style/table.scss'
+
 import {
   computed,
   onBeforeUnmount,
@@ -198,7 +200,7 @@ const nodeType = computed<string | undefined>(() => {
   return undefined
 })
 watch(nodeType, () => {
-  if (nodeType.value === 'table' || nodeType.value === 'magic' || nodeType.value === 'codeBlock') {
+  if (nodeType.value === 'magic' || nodeType.value === 'codeBlock') {
     hideBubble.value = true
   } else {
     hideBubble.value = false
@@ -289,6 +291,7 @@ defineExpose({
   background: v-bind(vars.popoverColor);
   box-shadow: v-bind(vars.boxShadow2);
   border-radius: 10px;
+  overflow: hidden;
 }
 
 .editor-background {
@@ -402,11 +405,6 @@ defineExpose({
   margin-right: 100px !important;
 }
 
-.tiptap > .vivid-table {
-  margin-left: 85px !important;
-  margin-top: -25px !important;
-  margin-bottom: 10px !important;
-}
 .tiptap > section{
 
 }
