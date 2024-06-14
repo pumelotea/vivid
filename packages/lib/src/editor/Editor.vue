@@ -6,7 +6,7 @@
 	import { computed, onBeforeUnmount, onMounted, provide, ref, shallowRef, watch } from "vue";
 	import { useThemeVars } from "naive-ui";
 	import { EditorContent, BubbleMenu, EditorOptions } from "@tiptap/vue-3";
-	import { useDebounceFn } from "@vueuse/core";
+  import { useDebounceFn, useThrottleFn } from "@vueuse/core";
 	import { NMessageProvider, NDialogProvider } from "naive-ui";
 
 	import VividMenu from "./components/VividMenu.vue";
@@ -81,20 +81,22 @@
 		}
 	}
 
+  const onUpdate = useThrottleFn(({editor}: {editor: Editor})=>{
+    // HTML
+    emit("update:modelValue", editor.getHTML());
+
+    // JSON
+    // this.$emit('update:modelValue', this.editor.getJSON())
+
+    updateEditorWordCount();
+  }, 100)
+
 	function initEditor() {
 		const opt: Partial<EditorOptions> = {
 			content: props.modelValue,
 			editable: !props.readonly,
 			extensions: internalExt,
-			onUpdate: ({ editor }) => {
-				// HTML
-				emit("update:modelValue", editor.getHTML());
-
-				// JSON
-				// this.$emit('update:modelValue', this.editor.getJSON())
-
-				updateEditorWordCount();
-			},
+			onUpdate: onUpdate,
 			onFocus: () => {
 				isFocused.value = true;
 			},
@@ -123,24 +125,25 @@
 		},
 	);
 
+  const onValueChange = useThrottleFn((value: string)=>{
+    if (!editor.value) {
+      return;
+    }
+    // HTML
+    const isSame = editor.value.getHTML() === value;
+
+    // JSON
+    // const isSame = JSON.stringify(this.editor.getJSON()) === JSON.stringify(value)
+
+    if (isSame) {
+      return;
+    }
+    editor.value.commands.setContent(value, false);
+  }, 100)
+
 	watch(
 		() => props.modelValue,
-		(value) => {
-			if (!editor.value) {
-				return;
-			}
-			// HTML
-			const isSame = editor.value.getHTML() === value;
-
-			// JSON
-			// const isSame = JSON.stringify(this.editor.getJSON()) === JSON.stringify(value)
-
-			if (isSame) {
-				return;
-			}
-
-			editor.value.commands.setContent(value, false);
-		},
+    onValueChange,
 	);
 
 	watch(fullscreen, () => {
