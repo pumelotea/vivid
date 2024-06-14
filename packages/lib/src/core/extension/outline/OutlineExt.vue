@@ -51,6 +51,9 @@
 	}
 
 	function update() {
+    if (!editorInstance.value){
+      return
+    }
 		let dom = editorInstance.value.options.element as HTMLElement;
 		if (dom.classList.contains("editor-body-page")) {
 			dom = dom.parentElement as HTMLElement;
@@ -73,10 +76,12 @@
 
 	onEditorCreated(() => {
 		editorInstance.value.on("update", update);
+    editorInstance.value.on("focus", update)
 	});
 
 	onBeforeUnmount(() => {
 		editorInstance.value.off("update", update);
+		editorInstance.value.off("focus", update);
 	});
 
 	const nodeProps = ({ option }: {
