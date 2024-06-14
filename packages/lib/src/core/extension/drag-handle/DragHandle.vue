@@ -9,8 +9,6 @@
 	import { onMounted, ref, watch } from "vue";
 	import { Range } from "@tiptap/core";
 	import { injectExtension, useEditorInstance } from "@lib/core/extension/utils/common";
-	import { DOMSerializer, Node } from "prosemirror-model";
-	import { Selection } from "prosemirror-state";
 
 	const vars = useThemeVars();
 	const root = ref<any>();
