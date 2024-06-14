@@ -106,7 +106,7 @@
 			:show-mask="false"
 			:close-on-esc="false"
 			:width="200" :show="show"
-			style="top: 150px;bottom:150px"
+			style="top: 100px;bottom:100px;border-radius: 10px"
 			:trap-focus="false"
 			:block-scroll="false"
 			:auto-focus="false">
