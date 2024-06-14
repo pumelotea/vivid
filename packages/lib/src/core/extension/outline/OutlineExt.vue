@@ -1,6 +1,6 @@
 <script setup lang="ts">
 	import VividMenuItem from "../../components/VividMenuItem.vue";
-	import { onBeforeUnmount, ref, h } from "vue";
+  import { onBeforeUnmount, ref, h, nextTick } from "vue";
 	import { NDrawer, NDrawerContent, NTree, NIcon, TreeOption } from "naive-ui";
 	import {
 		onEditorCreated,
@@ -50,6 +50,17 @@
 		return h(NIcon, { class: `ri-h-${item.option.level}` });
 	}
 
+  function init(){
+    nextTick(()=>{
+      let dom = editorInstance.value.options.element as HTMLElement;
+      if (dom.classList.contains("editor-body-page")) {
+        dom = dom.parentElement as HTMLElement;
+      }
+
+      target.value = dom.parentElement as HTMLElement;
+    })
+  }
+
 	function update() {
     if (!editorInstance.value){
       return
@@ -59,7 +70,6 @@
 			dom = dom.parentElement as HTMLElement;
 		}
 
-		target.value = dom.parentElement as HTMLElement;
 		const list = [...dom.querySelectorAll("h1,h2,h3,h4")] as HTMLElement[];
 		const items: HeadingItem[] = [];
 		list.forEach((e, i) => {
@@ -76,12 +86,11 @@
 
 	onEditorCreated(() => {
 		editorInstance.value.on("update", update);
-    editorInstance.value.on("focus", update)
+    init()
 	});
 
 	onBeforeUnmount(() => {
 		editorInstance.value.off("update", update);
-		editorInstance.value.off("focus", update);
 	});
 
 	const nodeProps = ({ option }: {
