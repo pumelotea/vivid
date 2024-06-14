@@ -10,6 +10,7 @@
 	import { Range } from "@tiptap/core";
 	import { injectExtension, useEditorInstance } from "@lib/core/extension/utils/common";
 	import { DOMSerializer, Node } from "prosemirror-model";
+	import { Selection } from "prosemirror-state";
 
 	const vars = useThemeVars();
 	const root = ref<any>();
@@ -198,6 +199,14 @@
 				if (data.value.node) {
 					editor.commands.copyRange(range, data.value.node);
 				}
+			},
+		},
+		{
+			name: "清除格式",
+			icon: "format-clear",
+			action: (range: Range) => {
+				const editor = editorInstance.value;
+				editor.chain().setNodeSelection(range.from).unsetAllMarks().run()
 			},
 		},
 		{
