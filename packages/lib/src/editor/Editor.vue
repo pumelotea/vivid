@@ -273,6 +273,7 @@
 		transition-property: border-color, box-shadow;
 		transition-duration: 0.2s;
 		background: v-bind(vars.inputColor);
+		position: relative;
 	}
 
 	.bubble-menu-bar {
