@@ -81,7 +81,7 @@
     }
   }
 
-  const onUpdate = useThrottleFn((editor: TiptapEditor) => {
+  const onUpdate = useDebounceFn((editor: TiptapEditor) => {
     // HTML
     emit("update:modelValue", editor.getHTML());
 
@@ -89,7 +89,7 @@
     // this.$emit('update:modelValue', this.editor.getJSON())
 
     updateEditorWordCount();
-  }, 100);
+  }, 300);
 
   function initEditor() {
     const opt: Partial<EditorOptions> = {
@@ -142,7 +142,7 @@
       return;
     }
     editor.value.commands.setContent(value, false);
-  }, 100);
+  }, 200);
 
   watch(
     () => props.modelValue,
