@@ -65,10 +65,11 @@ export function useDragHandle(options: DragHandleOptions) {
 	function getBoundingClientRect(dom: Element) {
 		const rect = dom.getBoundingClientRect();
 		// 获取元素的边距
-		const marginLeft = parseFloat(window.getComputedStyle(dom).marginLeft);
-		const marginTop = parseFloat(window.getComputedStyle(dom).marginTop);
-		const marginBottom = parseFloat(window.getComputedStyle(dom).marginBottom);
-		const marginRight = parseFloat(window.getComputedStyle(dom).marginRight);
+		const computedStyle = window.getComputedStyle(dom)
+		const marginLeft = parseFloat(computedStyle.marginLeft);
+		const marginTop = parseFloat(computedStyle.marginTop);
+		const marginBottom = parseFloat(computedStyle.marginBottom);
+		const marginRight = parseFloat(computedStyle.marginRight);
 		// 计算包含边距的宽度和高度
 		const width = rect.width + marginLeft + marginRight;
 		const height = rect.height + marginTop + marginBottom;
