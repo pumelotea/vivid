@@ -6,7 +6,7 @@
 		onEditorCreated,
 		useEditorInstance,
 	} from "@lib/core/extension/utils/common";
-  import { useThrottleFn } from "@vueuse/core";
+  import { useDebounceFn, useThrottleFn } from "@vueuse/core";
 
 	const editorInstance = useEditorInstance();
 	const show = ref(false);
@@ -62,7 +62,7 @@
     })
   }
 
-  const update = useThrottleFn(onUpdate, 100)
+  const update = useDebounceFn(onUpdate, 100)
 	function onUpdate() {
     if (!editorInstance.value){
       return
