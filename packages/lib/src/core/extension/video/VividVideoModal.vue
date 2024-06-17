@@ -44,6 +44,7 @@
 		percent.value = 0;
 		readyFile.value = null;
 		readySave.value = false;
+		loading.value = false;
 		showModal.value = true;
 		tabName.value = "本地视频";
 		href.value = attrs?.src || "";
@@ -51,6 +52,7 @@
 
 	const readyFile = ref(null);
 	const readySave = ref(false);
+	const loading = ref(false);
 	const url = ref("");
 	function onOk() {
 		showModal.value = false;
@@ -69,18 +71,24 @@
 	}
 
 	async function handleUpload() {
+    loading.value = true
+    if (!readyFile.value) {
+      return;
+    }
 		if (props.handleUpload) {
 			percent.value = 0;
 			const path = await props.handleUpload(readyFile.value, updateProgress);
 			url.value = path;
 			href.value = url.value;
 			readySave.value = true;
+
 		} else {
 			percent.value = 100;
 			url.value = URL.createObjectURL(readyFile.value);
 			href.value = url.value;
 			readySave.value = true;
 		}
+    loading.value = false
 	}
 
 	function onCancel() {
@@ -116,7 +124,7 @@
 					</n-form>
 				</n-tab-pane>
 				<n-tab-pane name="本地视频">
-					<div style="padding: 15px; box-sizing: border-box">
+					<div>
 						<vivid-simple-upload ref="simpleUpload" type="video" @change="onChange" />
 					</div>
 					<n-progress v-if="readyFile" :percentage="percent" />
@@ -126,7 +134,7 @@
 		<template #footer>
 			<n-space justify="end">
 				<n-button @click="onCancel"> 取消 </n-button>
-				<n-button v-if="readyFile && !readySave" type="info" @click="handleUpload"> 上传 </n-button>
+				<n-button v-if="readyFile && !readySave" type="info" @click="handleUpload"  :loading="loading"> 上传 </n-button>
 				<n-button v-if="readySave" type="success" @click="onOk"> 确定 </n-button>
 			</n-space>
 		</template>

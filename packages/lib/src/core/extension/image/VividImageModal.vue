@@ -56,6 +56,7 @@
 
 	const readyFile = ref<File | null>(null);
 	const readySave = ref(false);
+  const loading = ref(false);
 	const url = ref("");
 
 	async function onOk() {
@@ -75,6 +76,7 @@
 	}
 
 	async function handleUpload() {
+    loading.value = true
 		if (!readyFile.value) {
 			return;
 		}
@@ -90,6 +92,7 @@
 			href.value = url.value;
 			readySave.value = true;
 		}
+    loading.value = false
 	}
 
 	function onCancel() {
@@ -125,7 +128,7 @@
 					</n-form>
 				</n-tab-pane>
 				<n-tab-pane name="本地图片">
-					<div style="padding: 15px; box-sizing: border-box">
+					<div>
 						<vivid-simple-upload ref="simpleUpload" @change="onChange" />
 					</div>
 					<n-progress v-if="readyFile" :percentage="percent" />
@@ -135,7 +138,7 @@
 		<template #footer>
 			<n-space justify="end">
 				<n-button @click="onCancel"> 取消</n-button>
-				<n-button v-if="readyFile && !readySave" type="info" @click="handleUpload"> 上传 </n-button>
+				<n-button v-if="readyFile && !readySave" type="info" @click="handleUpload" :loading="loading"> 上传 </n-button>
 				<n-button v-if="readySave" type="success" @click="onOk"> 确定 </n-button>
 			</n-space>
 		</template>

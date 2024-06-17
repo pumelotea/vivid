@@ -1,163 +1,117 @@
 <script setup>
-	import { computed, nextTick, onBeforeUnmount, ref } from "vue";
-	import Player, { I18N } from "xgplayer";
-	import ZH from "xgplayer/es/lang/zh-cn";
-	import play from "xgplayer/es/plugins/play";
-	import fullscreen from "xgplayer/es/plugins/fullscreen";
-	import progress from "xgplayer/es/plugins/progress";
-	import volume from "xgplayer/es/plugins/volume";
-	import pip from "xgplayer/es/plugins/pip";
-	import "xgplayer/dist/index.min.css";
-	import { useThemeVars } from "naive-ui";
-	import VividImage from "./VividImage.vue";
-	// 启用中文
-	I18N.use(ZH);
-	const vars = useThemeVars();
-	const props = defineProps({
-		type: {
-			type: String,
-			default: "image", // image 或  video  或  audio
-		},
-	});
+  import { computed, nextTick, ref } from "vue";
+  import { useThemeVars, NUploadDragger, NUpload } from "naive-ui";
+  // 启用中文
+  const vars = useThemeVars();
+  const props = defineProps({
+    type: {
+      type: String,
+      default: "image", // image 或  video  或  audio
+    },
+  });
 
-	const fileRef = ref(null);
+  const accept = computed(() => {
+    switch (props.type) {
+      case "image":
+        return "image/*";
+      case "video":
+        return "video/*";
+      case "audio":
+        return "audio/*";
+    }
+  });
 
-	function selectFile() {
-		setTimeout(() => {
-			fileRef.value.dispatchEvent(new MouseEvent("click"));
-		}, 400);
-	}
+  const fileValue = ref(null);
+  const fileBlob = ref(null);
+  const emit = defineEmits(["change"]);
 
-	const accept = computed(() => {
-		switch (props.type) {
-			case "image":
-				return "image/*";
-			case "video":
-				return "video/*";
-			case "audio":
-				return "audio/*";
-		}
-	});
+  function handleSelect(event) {
+    fileValue.value = URL.createObjectURL(event.file.file);
+    fileBlob.value = event.file.file;
+    nextTick(() => {
+      emit("change", fileBlob.value);
+    });
+  }
 
-	const fileValue = ref(null);
-	const fileBlob = ref(null);
-	const emit = defineEmits(["change"]);
-	function handleSelect(event) {
-		fileValue.value = URL.createObjectURL(event.target.files[0]);
-		fileBlob.value = event.target.files[0];
-		if (props.type === "video") {
-			nextTick(() => {
-				initPlayer();
-			});
-		}
-		nextTick(() => {
-			emit("change", fileBlob.value);
-		});
-	}
+  function handleDel() {
+    fileValue.value = null;
+    fileBlob.value = null;
+    nextTick(() => {
+      emit("change", fileBlob.value);
+    });
+  }
 
-	function handleDel() {
-		fileValue.value = null;
-		fileBlob.value = null;
-		nextTick(() => {
-			emit("change", fileBlob.value);
-		});
-	}
+  function getFile() {
+    return fileBlob.value;
+  }
 
-	const playerBox = ref(null);
-	let player = null;
-	function initPlayer() {
-		player = new Player({
-			lang: "zh",
-			el: playerBox.value,
-			url: fileValue.value,
-			fluid: true,
-			plugins: [play, fullscreen, progress, volume, pip],
-			playbackRate: [0.5, 0.75, 1, 1.5, 2],
-			defaultPlaybackRate: 1.5,
-			videoInit: true,
-			pip: true, // 打开画中画功能
-		});
-	}
-	onBeforeUnmount(() => {
-		player && player.destroy(true);
-	});
-
-	function getFile() {
-		return fileBlob.value;
-	}
-	defineExpose({ getFile });
+  defineExpose({ getFile });
 </script>
 
 <template>
-	<div class="hb-su-wrap">
-		<div v-if="fileValue === null" class="hb-su-upload" @click="selectFile">
-			<i class="ri-add-line add-icon" />
-			<input ref="fileRef" type="file" hidden :accept="accept" @change="handleSelect" />
-		</div>
-		<div v-if="fileValue" class="hb-su-preview">
-			<div class="hb-su-close" @click="handleDel">
-				<i class="ri-close-line" />
-			</div>
-			<vivid-image
-				v-if="props.type === 'image'"
-				:src="fileValue"
-				:width="370"
-				:height="200"
-				is-preview
-			/>
-			<div v-if="props.type === 'video'" ref="playerBox" style="width: 370px; height: 200px" />
-		</div>
-	</div>
+  <div class="hb-su-wrap">
+    <n-upload v-if="fileValue === null" :show-file-list="false" :accept="accept" @change="handleSelect">
+      <n-upload-dragger>
+        <div class="upload-drag-placeholder" v-if="props.type === 'image'">
+          <i class="ri-image-add-line ri-2x"></i>
+          <div>拖拽图片到此框内，或点击上传</div>
+        </div>
+        <div class="upload-drag-placeholder" v-if="props.type === 'video'">
+          <i class="ri-video-upload-line ri-2x"></i>
+          <div>拖拽视频到此框内，或点击上传</div>
+        </div>
+      </n-upload-dragger>
+    </n-upload>
+    <div v-if="fileValue" class="hb-su-preview">
+      <div class="hb-su-close" @click="handleDel">
+        <i class="ri-close-line" />
+      </div>
+      <img v-if="props.type === 'image'" style="width: 100%" :src="fileValue" />
+      <video v-if="props.type === 'video'" style="width: 100%" :src="fileValue" />
+    </div>
+  </div>
 </template>
 
 <style scoped>
-	.hb-su-wrap {
-		height: 100%;
-		width: 100%;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-	.hb-su-upload {
-		height: 200px;
-		width: 370px;
-		box-shadow: v-bind(vars.boxShadow1);
-		border-radius: 3px;
-		padding: 15px;
-		box-sizing: border-box;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		cursor: pointer;
-		transition: all 0.2s;
-	}
-	.hb-su-upload:hover {
-		transform: scale(1.01);
-	}
-	.add-icon {
-		font-size: 28px;
-	}
-	.hb-su-preview {
-		width: 100%;
-		height: 100%;
-		position: relative;
-	}
-	.hb-su-close {
-		font-size: 12px;
-		color: #fff;
-		padding: 0 4px;
-		border-radius: 50%;
-		background-color: rgba(0, 0, 0, 0.7);
-		position: absolute;
-		top: -6px;
-		right: -6px;
-		z-index: 2;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		cursor: pointer;
-	}
-	.hb-su-close:hover {
-		background-color: rgba(0, 0, 0, 0.8);
-	}
+  .hb-su-wrap {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hb-su-preview {
+    width: 400px;
+    height: 100%;
+    position: relative;
+    box-sizing: border-box;
+  }
+
+  .hb-su-close {
+    font-size: 12px;
+    color: #fff;
+    padding: 0 4px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .hb-su-close:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  .upload-drag-placeholder{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+
+  }
 </style>
